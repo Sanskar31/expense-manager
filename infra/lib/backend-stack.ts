@@ -12,6 +12,7 @@ import * as s3deploy from 'aws-cdk-lib/aws-s3-deployment';
 import * as cloudwatch from 'aws-cdk-lib/aws-cloudwatch';
 import * as sns from 'aws-cdk-lib/aws-sns';
 import * as subscriptions from 'aws-cdk-lib/aws-sns-subscriptions';
+import * as budgets from 'aws-cdk-lib/aws-budgets';
 import * as iam from 'aws-cdk-lib/aws-iam';
 import * as cw_actions from 'aws-cdk-lib/aws-cloudwatch-actions';
 import * as path from 'path';
@@ -258,8 +259,45 @@ export class BackendStack extends cdk.Stack {
       topicName: 'PocketLog-Alerts',
     });
     alertTopic.addSubscription(new subscriptions.EmailSubscription('sanskaragarwal05+aws@gmail.com'));
-    alertTopic.addSubscription(new subscriptions.LambdaSubscription(killSwitchLambda));
     
+    // Budget & Kill-Switch
+    const killSwitchTopic = new sns.Topic(this, 'PocketLogBudgetKillSwitchTopic', {
+      topicName: 'PocketLog-BudgetKillSwitch',
+    });
+    killSwitchTopic.addSubscription(new subscriptions.LambdaSubscription(killSwitchLambda));
+    
+    killSwitchTopic.addToResourcePolicy(new iam.PolicyStatement({
+      actions: ['sns:Publish'],
+      principals: [new iam.ServicePrincipal('budgets.amazonaws.com')],
+      resources: [killSwitchTopic.topicArn],
+    }));
+
+    new budgets.CfnBudget(this, 'ZeroCostBudget', {
+      budget: {
+        budgetType: 'COST',
+        timeUnit: 'MONTHLY',
+        budgetLimit: {
+          amount: 1,
+          unit: 'USD',
+        },
+      },
+      notificationsWithSubscribers: [
+        {
+          notification: {
+            notificationType: 'ACTUAL',
+            comparisonOperator: 'GREATER_THAN',
+            threshold: 100, // 100% of $1 = $1
+          },
+          subscribers: [
+            {
+              subscriptionType: 'SNS',
+              address: killSwitchTopic.topicArn,
+            },
+          ],
+        },
+      ],
+    });
+
     const alarmAction = new cw_actions.SnsAction(alertTopic);
 
     // 2. API Gateway Alarms

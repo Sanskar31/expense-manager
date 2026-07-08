@@ -2164,7 +2164,7 @@
     "aws:cdk:path": "BackendStack/KillSwitchLambda/LogGroup/Resource"
    }
   },
-  "KillSwitchLambdaAllowInvokeBackendStackPocketLogAlertsTopic060EDC04BAD44473": {
+  "KillSwitchLambdaAllowInvokeBackendStackPocketLogBudgetKillSwitchTopicA0A11696A2F377F8": {
    "Type": "AWS::Lambda::Permission",
    "Properties": {
     "Action": "lambda:InvokeFunction",
@@ -2176,14 +2176,14 @@
     },
     "Principal": "sns.amazonaws.com",
     "SourceArn": {
-     "Ref": "PocketLogAlertsTopic027A664F"
+     "Ref": "PocketLogBudgetKillSwitchTopic32123A17"
     }
    },
    "Metadata": {
-    "aws:cdk:path": "BackendStack/KillSwitchLambda/AllowInvoke:BackendStackPocketLogAlertsTopic060EDC04"
+    "aws:cdk:path": "BackendStack/KillSwitchLambda/AllowInvoke:BackendStackPocketLogBudgetKillSwitchTopicA0A11696"
    }
   },
-  "KillSwitchLambdaPocketLogAlertsTopicD5DD0E79": {
+  "KillSwitchLambdaPocketLogBudgetKillSwitchTopicCCA3DB94": {
    "Type": "AWS::SNS::Subscription",
    "Properties": {
     "Endpoint": {
@@ -2194,11 +2194,11 @@
     },
     "Protocol": "lambda",
     "TopicArn": {
-     "Ref": "PocketLogAlertsTopic027A664F"
+     "Ref": "PocketLogBudgetKillSwitchTopic32123A17"
     }
    },
    "Metadata": {
-    "aws:cdk:path": "BackendStack/KillSwitchLambda/PocketLogAlertsTopic/Resource"
+    "aws:cdk:path": "BackendStack/KillSwitchLambda/PocketLogBudgetKillSwitchTopic/Resource"
    }
   },
   "PocketLogWebsiteBucket305BB495": {
@@ -2801,6 +2801,77 @@
     "aws:cdk:path": "BackendStack/PocketLogAlertsTopic/sanskaragarwal05+aws@gmail.com/Resource"
    }
   },
+  "PocketLogBudgetKillSwitchTopic32123A17": {
+   "Type": "AWS::SNS::Topic",
+   "Properties": {
+    "TopicName": "PocketLog-BudgetKillSwitch"
+   },
+   "Metadata": {
+    "aws:cdk:path": "BackendStack/PocketLogBudgetKillSwitchTopic/Resource"
+   }
+  },
+  "PocketLogBudgetKillSwitchTopicPolicy4EFEAA23": {
+   "Type": "AWS::SNS::TopicPolicy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sns:Publish",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "budgets.amazonaws.com"
+       },
+       "Resource": {
+        "Ref": "PocketLogBudgetKillSwitchTopic32123A17"
+       },
+       "Sid": "0"
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "Topics": [
+     {
+      "Ref": "PocketLogBudgetKillSwitchTopic32123A17"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "BackendStack/PocketLogBudgetKillSwitchTopic/Policy/Resource"
+   }
+  },
+  "ZeroCostBudget": {
+   "Type": "AWS::Budgets::Budget",
+   "Properties": {
+    "Budget": {
+     "BudgetLimit": {
+      "Amount": 1,
+      "Unit": "USD"
+     },
+     "BudgetType": "COST",
+     "TimeUnit": "MONTHLY"
+    },
+    "NotificationsWithSubscribers": [
+     {
+      "Notification": {
+       "ComparisonOperator": "GREATER_THAN",
+       "NotificationType": "ACTUAL",
+       "Threshold": 100
+      },
+      "Subscribers": [
+       {
+        "Address": {
+         "Ref": "PocketLogBudgetKillSwitchTopic32123A17"
+        },
+        "SubscriptionType": "SNS"
+       }
+      ]
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "BackendStack/ZeroCostBudget"
+   }
+  },
   "Api5xxAlarm31F257DC": {
    "Type": "AWS::CloudWatch::Alarm",
    "Properties": {
@@ -3040,7 +3111,7 @@
   "CDKMetadata": {
    "Type": "AWS::CDK::Metadata",
    "Properties": {
-    "Analytics": "v2:deflate64:H4sIAAAAAAAA/+1aX2/cNgz/LPVj4XhdCuwhb5c/XYsl7fUu6zAEh0CWGFuJLHoSdTfPuO8+SLZ8TpNm2YoBSWvgAtskJfJHURIpZT/b/+nH7NULtrF7XNzsKZln7ZIYv0nZxl62otGsQpFn7TnLFVy0Sc0MSZKof4EmOWgTzSpIDpKXSZpQU/vXZbJNE4uGHpbIpVJSF2coPGk++/1yfrK4XJx8/PVkeZ6kiYEK10zNUUneJAeJAEsGm2S7So+udDBnmypW5YJdahRwbbP34fHGae4NvGgT0GSaXrdxmuRgSW3wGjgtEKmnCKjtKfKbN1LBnFHZk0GvpUFdgY6CudPCW+6xVVLLqyY5IOMgTbwZZyicAhtkt2niVaKLTSuo0DRL+Vc0g3fo/WvJtFBg+oZt93vqCJ6BiZOTJydPTn4aCJ6BiZOTJydPTn4aCJ6BiZOTJyd/L05+BiC2q1SyKmsXGIpVZq2rQByGOrQ2UnNZMzXjHN2gvJPxDWahbIx6KqZZASLUn9Krv2hv0ZqZ6WVX3jFMiHOcRxWxar1oey4R4+U7raSGgZe8TB7BfLjfCeAEcAI4AZwATgCfBsBvwJffAISH+/0yNxyue1hpR/Y9DsrO0XPu2HCXLMSSGIFP8ewttXfJU/9T/99F//+3ofeTw3zupvI2ta8vW2YtkM1m/pEKqBU2Xj47dPwG6HggeOms7aiHzEJYCP7l3yrt2l+0Sa6Q38xdriSfcQ7WxhryC7d8acIc4TEoIPiQ+8LSdjVhh2jot5J/Sr+gji8w/c2lfZ0Flu2Bze70to3W9Qtdm+ThM9aRg5aB/1hdXYPRUPjh6W4qs/boSscLyjA0YCppbf91yhown8CE76XUhQJCPbrQdE6K3nPKy9o+WO6rqjuNc2dqtMMF7K3i2YRou/8wAOoSKjBMLQkNK2DEWtd897Z0uQaKw2mBOyOp+dmgqyPxSiqwjSWoomVYBIGHzx1uHzD0AX4GxAQj1uFOfUSs7meFObRKR877R489e++cjCHtvNAxT8fwQ0hiYbP2tFfnHdS/vmejbr8xYpjYEfM2ZbUsGMGGNev9rH1LVM9q+di1LvQ1q2Xq2y2JFXARqeEr0Bfo6FGr5yqIv9MEhWEhZB9rwqhNl745gm1qtc3apcstN7LupwBhLWN4ghY1yiH4a4OEHFVy0K8cXWwSmGFxfvkZ6TdJ5RlYywo4RDEcC0IRE2J/BsjEKRCB+ejA7QbmcYZAxaT6r3bcq7obnJFT0nNvSXTNZ3ESeNuUK3TiyqCmrD2WlozMXe9QAVfMKTqEkq0lGl8xoJGFjPjXEjZg5j2kAYEBIQ1w2iPcK4lq62uHvi9/gtptUtE/xqBZgK1R276kKLuAI7fbRzv22y8x5qzYHcL6EfjaLuKysoPe1QqBrBRuwK/IJQr7sCsC/D3Uym/6nPESbo1z580F/OHA0ogTcpvl6w+B3aUUR6jJoBrm4D08Tx6PYD+2G0a8zNqZYqbyGz2Q8dHZJhtmtNRFhBA/P+0Pp9GlAVuiirsyrJlyYSbOwcgdeI5VzYy0qD/UYBhhXMWZ13kMQzyOl/NgT6wvY5Y3GTcZNxk3Gfe1xnXJiydvt+kCLDrD+/wlFIc+g5G6CAupo9pReuQsYTUWHTKQSPxMZm5wLQUYX0DG/9UMWfgl21iuZDbb2CMlQ2baecxf+GXX9of1/qvM/15cWyn3+lQ3W3TPvwFQxb6StioAAA=="
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/+1aX2/bNhD/LNVjoWhdCuwhb86frsWS1rWzDkNgBBR5kZlQPI082tMEf/eBpCg7TZplKwYkrQAblu6OvLsfj+Qd6f1i/6cfi1cv2NrucXGzp2RZdHNi/CZna3vZiVazGkVZdOesVHDRZQ0zJEmi/gXa7KDLNKshO8heZnlGbeMf59kmzywaeliilEpJXZ2h8KTp5PfL6cnscnby8deT+XmWZwZqXDE1RSV5mx1kAiwZbLPNIj+60sGcTa5YXQp2qVHAtS3eh583TnNv4EWXgSbT9rqN0yQHSxqD18Bphkg9RUBjT5HfvJEKpoyWPRn0ShrUNegkWDotvOXet1pqedVmB2Qc5Jk34wyFU2CD7CbPvEp0qWkNNZp2Lv9KZvDovX9cMi0UmL5hFz9P3YNnYOII8gjyCPLT8OAZmDiCPII8gvw0PHgGJo4gjyB/LyA/Ayc2i1yyuuhmGIpVZq2rQRyGOrQxUnPZMDXhHN2gPMr4BpNQNiY9NdOsAhHqT+nVX3S3aO3E9LILDwwT4hynSUWqWi+6nkvE+PKdVlLDwMteZo9gPtzv6ODo4Ojg6ODo4Ojg03DwG8DyG3Dh4X6/zA2H696tPJJ9j4Oyc/ScOzbcJQsxJ0bgUzx7S+1d8tj/2P930f//bej95DCf41Te5Pb1ZcesBbLFxP/kAhqFrZcvDh2/AToeCF666CL1kFkIC8G//C7y2P6iy0qF/GbqSiX5hHOwNtWQX7jlyzPmCI9BAcGH0heWNtaE0aOh31r+Kf2CunuB6W8u7esisGzv2OROb5tkXb/QdVkZXlMdOWgZ+I/VFRvsDIUfnnhTWXRHVzpdUIahAVNLa/u3U9aC+QQmvM+lrhQQ6p0LTeek6JFTXtb2wXJfVR01Tp1p0A4XsLeKZxOi7f7DAGiWUINhak5oWAU7rFXDt09zV2qgNJwWuDOS2p8NuiYRr6QC21qCOlmGVRB4+Nzh9gFDH+BnQEwwYtHv3EfE4n5WmEOLfAe8f0Ts2aNzsuvSFoXIPN11P4QkVrboTnt1HqD+8T3b6fYbI4aJnXze5KyRFSNYs3a1X3RviZpJIx+71oW+Jo3Mfbs5sQouEjW8BfoMHT1q9VwE8XeaoDIshOxjTdhpE9M3R7DJrbZFN3el5UY2/RQgbGQKT9CiQTkEf2OQkKPKDvqVI8YmgRkW55efkX6TtDwDa1kFhyiGY0GoUkLszwCZOAUiMB8duO3APM4QqJlU/9WOe1XHwdkBJT/3liRobgXPZ5T4vxNPi22GfSHIbSfWIJa2Xa7QiSuDmoruWFoysnT9eAi4Yk7RISzZSqLxBQcaWckE30rCGsy0R2QAwICQBjjtEe4tiRrrS4++L38AG/e4BK8xaGZgG9S2r0iWMV7JbbfhyH77JcaUVdszXA/O13aRVqWt67HUCGSlcA1+QV+isA9DEdzfQ618zsAZX8KtMIlozuAPB5Z2OCE1mr/+ENgxIzlCTQbVMIXv4Xny7ghu8tKJyudTIVvwj3G014z4sugmipnaZw5Axod7l62Z0VJXyan0+ml/ON5eGrBLVGmbhxVTLkztKRi5hYNj3TAjLeoPDRhGmLYF5nUewxDgu/tDsCcVrCltHI0bjRuNG437WuNiNuTJm00+A4vO8D4hCtWmT4mkrsLS6qhxlB85S1jvig4pTSJ+JjM1uJICjK9I058/Q1p/ydaWK1lM1vZIyZDqRsT8DWJxbX9Y7b8q/OfFtZVyr8+di1n8/RtrbiRpBysAAA=="
    },
    "Metadata": {
     "aws:cdk:path": "BackendStack/CDKMetadata/Default"

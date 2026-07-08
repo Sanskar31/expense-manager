@@ -22,7 +22,8 @@ export const handler: APIGatewayProxyHandlerV2 = async (event) => {
       ExpressionAttributeValues: {
         ":pk": `USER#${mobileNumber}`,
         ":skPrefix": skPrefix
-      }
+      },
+      ScanIndexForward: false
     }));
 
     console.log(`Found ${result.Items?.length || 0} transactions`);

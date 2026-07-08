@@ -55,8 +55,7 @@ export default function Dashboard() {
     setLoading(true);
     try {
       const txData = await request(`/transactions?month=${month}`);
-      const sortedTx = (txData || []).sort((a: any, b: any) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
-      setTransactions(sortedTx);
+      setTransactions(txData || []);
     } catch (err) {
       console.error(err);
       toast.error("Failed to load transactions.");

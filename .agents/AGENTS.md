@@ -1,0 +1,1 @@
+- After completing any meaningful set of changes or finishing a user request, always `git add .`, `git commit` with a descriptive message, and `git push` the changes to the remote repository.

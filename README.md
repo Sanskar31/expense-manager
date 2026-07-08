@@ -108,3 +108,15 @@ To ensure high availability and performance within the AWS Free Tier, the applic
 - **Lambda Alarms (Transactions)**: Monitors for `Errors` and execution `Duration` spikes.
 - **DynamoDB Alarms**: Monitors `SystemErrors` and `ThrottledRequests` to detect capacity issues.
 - **CloudFront Alarms**: Tracks global `5xxErrorRate` and `TotalErrorRate` to catch edge delivery failures.
+
+## 🛡️ 6. Security & DDoS Protection
+
+To ensure the application strictly adheres to the AWS Free Tier and is protected from runaway usage or malicious DDoS attacks, we have implemented a two-layered defense mechanism:
+
+### Layer 1: API Gateway Rate Limiting (The Shield)
+The HTTP API Gateway is configured with a strict **Global Rate Limit** of 10 requests per second and a burst capacity of 15 requests. Any requests exceeding this limit are immediately rejected by AWS with a `429 Too Many Requests` status code at the edge, preventing Lambda invocations and database reads.
+
+### Layer 2: Automated Kill-Switch (The Hammer)
+If traffic bypasses the rate limits or database limits are breached (triggering the CloudWatch Alarms), the alarm triggers an SNS alert. This alert automatically invokes a dedicated **Kill-Switch Lambda function**. 
+- The Kill-Switch uses the AWS SDK to instantly set the `ReservedConcurrentExecutions` of all API Lambdas to `0`.
+- This hard-stops the backend immediately, mathematically capping maximum possible AWS costs.

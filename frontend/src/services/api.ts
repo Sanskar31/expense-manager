@@ -13,6 +13,10 @@ export const request = async (endpoint: string, options: RequestInit = {}) => {
   });
   
   if (!response.ok) {
+    if (response.status === 429) {
+      toast.error("Too many requests. Please try again later.", { duration: 5000 });
+      throw new Error("Rate limit exceeded");
+    }
     const err = await response.json().catch(() => ({}));
     const errorMsg = err.message || "Request failed";
     toast.error(errorMsg);

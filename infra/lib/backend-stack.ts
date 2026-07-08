@@ -12,6 +12,7 @@ import * as s3deploy from 'aws-cdk-lib/aws-s3-deployment';
 import * as cloudwatch from 'aws-cdk-lib/aws-cloudwatch';
 import * as sns from 'aws-cdk-lib/aws-sns';
 import * as subscriptions from 'aws-cdk-lib/aws-sns-subscriptions';
+import * as iam from 'aws-cdk-lib/aws-iam';
 import * as cw_actions from 'aws-cdk-lib/aws-cloudwatch-actions';
 import * as path from 'path';
 
@@ -109,8 +110,8 @@ export class BackendStack extends cdk.Stack {
     const defaultStage = httpApi.defaultStage?.node.defaultChild as apigwv2.CfnStage;
     if (defaultStage) {
       defaultStage.defaultRouteSettings = {
-        throttlingBurstLimit: 100,
-        throttlingRateLimit: 50,
+        throttlingBurstLimit: 15,
+        throttlingRateLimit: 10,
       };
     }
 
@@ -118,6 +119,26 @@ export class BackendStack extends cdk.Stack {
       entry: path.join(__dirname, '../../backend/src/auth/logout.ts'),
       ...lambdaProps,
     });
+
+    const allApiFunctions = [
+      registerLambda, loginLambda, logoutLambda,
+      getCategoriesLambda, updateCategoryLambda, deleteCategoryLambda,
+      createTransactionLambda, listTransactionsLambda, deleteTransactionLambda,
+    ];
+
+    const killSwitchLambda = new nodejs.NodejsFunction(this, 'KillSwitchLambda', {
+      entry: path.join(__dirname, '../../backend/src/shared/kill-switch.ts'),
+      ...lambdaProps,
+      environment: {
+        ...lambdaProps.environment,
+        FUNCTION_NAMES: allApiFunctions.map(f => f.functionName).join(','),
+      },
+    });
+
+    killSwitchLambda.addToRolePolicy(new iam.PolicyStatement({
+      actions: ['lambda:PutFunctionConcurrency'],
+      resources: ['*'],
+    }));
 
     httpApi.addRoutes({
       path: '/api/auth/register',
@@ -237,6 +258,7 @@ export class BackendStack extends cdk.Stack {
       topicName: 'PocketLog-Alerts',
     });
     alertTopic.addSubscription(new subscriptions.EmailSubscription('sanskaragarwal05+aws@gmail.com'));
+    alertTopic.addSubscription(new subscriptions.LambdaSubscription(killSwitchLambda));
     
     const alarmAction = new cw_actions.SnsAction(alertTopic);
 

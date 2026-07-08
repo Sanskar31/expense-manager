@@ -21,9 +21,19 @@ type Transaction = {
   timestamp: string;
 };
 
+const getLocalMonthString = () => {
+  const d = new Date();
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
+};
+
+const getLocalDateString = () => {
+  const d = new Date();
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+};
+
 export default function Dashboard() {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
-  const [month, setMonth] = useState(new Date().toISOString().slice(0, 7)); // YYYY-MM
+  const [month, setMonth] = useState(getLocalMonthString()); // YYYY-MM
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
   const ITEMS_PER_PAGE = 5;
@@ -37,7 +47,7 @@ export default function Dashboard() {
   const [subcategoryId, setSubcategoryId] = useState("");
   const [description, setDescription] = useState("");
   const [paymentMode, setPaymentMode] = useState("");
-  const [txDate, setTxDate] = useState(new Date().toISOString().slice(0, 10)); // YYYY-MM-DD
+  const [txDate, setTxDate] = useState(getLocalDateString()); // YYYY-MM-DD
   const [editingSK, setEditingSK] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   
@@ -106,7 +116,7 @@ export default function Dashboard() {
       setSubcategoryId("");
       setCategoryId("");
       setEditingSK(null);
-      setTxDate(new Date().toISOString().slice(0, 10));
+      setTxDate(getLocalDateString());
       
       await fetchData();
     } catch (err) {
@@ -255,7 +265,7 @@ export default function Dashboard() {
                     setAmount("");
                     setDescription("");
                     setPaymentMode("");
-                    setTxDate(new Date().toISOString().slice(0, 10));
+                    setTxDate(getLocalDateString());
                   }}
                   className="text-sm text-slate-500 hover:text-slate-700 dark:hover:text-slate-300"
                 >

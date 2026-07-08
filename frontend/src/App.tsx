@@ -6,7 +6,8 @@ import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import Admin from "./pages/Admin";
 import Analysis from "./pages/Analysis";
-import { Toaster } from "react-hot-toast";
+import { Toaster, ToastBar, toast } from "react-hot-toast";
+import { X } from "lucide-react";
 
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   const { user } = useAuth();
@@ -23,7 +24,26 @@ function App() {
           <BrowserRouter>
             <PullToRefresh onRefresh={() => window.location.reload()}>
               <div className="min-h-screen bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-50 font-sans transition-colors duration-200">
-                <Toaster position="top-right" />
+                <Toaster position="top-right">
+                  {(t) => (
+                    <ToastBar toast={t}>
+                      {({ icon, message }) => (
+                        <>
+                          {icon}
+                          {message}
+                          {t.type !== 'loading' && (
+                            <button
+                              onClick={() => toast.dismiss(t.id)}
+                              className="ml-2 flex-shrink-0 rounded-full p-1 text-slate-400 hover:bg-slate-100 hover:text-slate-900 dark:hover:bg-slate-800 dark:hover:text-slate-50 transition-colors"
+                            >
+                              <X size={16} />
+                            </button>
+                          )}
+                        </>
+                      )}
+                    </ToastBar>
+                  )}
+                </Toaster>
                 <Routes>
                   <Route path="/login" element={<Login />} />
                   <Route path="/" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />

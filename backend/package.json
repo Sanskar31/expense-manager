@@ -1,0 +1,32 @@
+{
+  "name": "backend",
+  "version": "0.1.0",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -w",
+    "test": "jest",
+    "cdk": "cdk"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
+    "@types/jest": "^30",
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/node": "^24.10.1",
+    "aws-cdk": "2.1129.0",
+    "esbuild": "^0.28.1",
+    "jest": "^30",
+    "ts-jest": "^29",
+    "ts-node": "^10.9.2",
+    "typescript": "~5.9.3"
+  },
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.1081.0",
+    "@aws-sdk/lib-dynamodb": "^3.1081.0",
+    "@types/aws-lambda": "^8.10.162",
+    "aws-cdk-lib": "^2.260.0",
+    "aws-lambda": "^1.0.7",
+    "bcryptjs": "^3.0.3",
+    "constructs": "^10.5.0",
+    "jsonwebtoken": "^9.0.3"
+  }
+}

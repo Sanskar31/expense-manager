@@ -2863,6 +2863,10 @@
          "Ref": "PocketLogBudgetKillSwitchTopic32123A17"
         },
         "SubscriptionType": "SNS"
+       },
+       {
+        "Address": "sanskaragarwal05@gmail.com",
+        "SubscriptionType": "EMAIL"
        }
       ]
      }
@@ -2870,6 +2874,154 @@
    },
    "Metadata": {
     "aws:cdk:path": "BackendStack/ZeroCostBudget"
+   }
+  },
+  "BudgetActionRoleA473BB3A": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "budgets.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/AWSBudgetsActions_RolePolicyForResourceAdministrationWithSSM"
+       ]
+      ]
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "BackendStack/BudgetActionRole/Resource"
+   }
+  },
+  "BudgetActionRoleDefaultPolicy79529117": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "iam:AttachGroupPolicy",
+        "iam:AttachRolePolicy",
+        "iam:AttachUserPolicy"
+       ],
+       "Effect": "Allow",
+       "Resource": "*"
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "BudgetActionRoleDefaultPolicy79529117",
+    "Roles": [
+     {
+      "Ref": "BudgetActionRoleA473BB3A"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "BackendStack/BudgetActionRole/DefaultPolicy/Resource"
+   }
+  },
+  "DenyAllPolicyE3845EF0": {
+   "Type": "AWS::IAM::ManagedPolicy",
+   "Properties": {
+    "Description": "",
+    "Path": "/",
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": "*",
+       "Effect": "Deny",
+       "Resource": "*"
+      }
+     ],
+     "Version": "2012-10-17"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "BackendStack/DenyAllPolicy/Resource"
+   }
+  },
+  "BudgetNativeAction": {
+   "Type": "AWS::Budgets::BudgetsAction",
+   "Properties": {
+    "ActionThreshold": {
+     "Type": "PERCENTAGE",
+     "Value": 100
+    },
+    "ActionType": "APPLY_IAM_POLICY",
+    "ApprovalModel": "AUTOMATIC",
+    "BudgetName": {
+     "Ref": "ZeroCostBudget"
+    },
+    "Definition": {
+     "IamActionDefinition": {
+      "PolicyArn": {
+       "Ref": "DenyAllPolicyE3845EF0"
+      },
+      "Roles": [
+       {
+        "Ref": "RegisterLambdaServiceRole8E677BA9"
+       },
+       {
+        "Ref": "LoginLambdaServiceRoleD7CD1D70"
+       },
+       {
+        "Ref": "LogoutLambdaServiceRole8D5EB9E1"
+       },
+       {
+        "Ref": "GetCategoriesLambdaServiceRole4F6A0B1B"
+       },
+       {
+        "Ref": "UpdateCategoryLambdaServiceRole9CAFEDA1"
+       },
+       {
+        "Ref": "DeleteCategoryLambdaServiceRole8F138111"
+       },
+       {
+        "Ref": "CreateTransactionLambdaServiceRole23154D27"
+       },
+       {
+        "Ref": "ListTransactionsLambdaServiceRoleBB7689EB"
+       },
+       {
+        "Ref": "DeleteTransactionLambdaServiceRoleADB401C9"
+       }
+      ]
+     }
+    },
+    "ExecutionRoleArn": {
+     "Fn::GetAtt": [
+      "BudgetActionRoleA473BB3A",
+      "Arn"
+     ]
+    },
+    "NotificationType": "ACTUAL",
+    "Subscribers": [
+     {
+      "Address": "sanskaragarwal05@gmail.com",
+      "Type": "EMAIL"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "BackendStack/BudgetNativeAction"
    }
   },
   "Api5xxAlarm31F257DC": {
@@ -3111,7 +3263,7 @@
   "CDKMetadata": {
    "Type": "AWS::CDK::Metadata",
    "Properties": {
-    "Analytics": "v2:deflate64:H4sIAAAAAAAA/+1aX2/bNhD/LNVjoWhdCuwhb86frsWS1rWzDkNgBBR5kZlQPI082tMEf/eBpCg7TZplKwYkrQAblu6OvLsfj+Qd6f1i/6cfi1cv2NrucXGzp2RZdHNi/CZna3vZiVazGkVZdOesVHDRZQ0zJEmi/gXa7KDLNKshO8heZnlGbeMf59kmzywaeliilEpJXZ2h8KTp5PfL6cnscnby8deT+XmWZwZqXDE1RSV5mx1kAiwZbLPNIj+60sGcTa5YXQp2qVHAtS3eh583TnNv4EWXgSbT9rqN0yQHSxqD18Bphkg9RUBjT5HfvJEKpoyWPRn0ShrUNegkWDotvOXet1pqedVmB2Qc5Jk34wyFU2CD7CbPvEp0qWkNNZp2Lv9KZvDovX9cMi0UmL5hFz9P3YNnYOII8gjyCPLT8OAZmDiCPII8gvw0PHgGJo4gjyB/LyA/Ayc2i1yyuuhmGIpVZq2rQRyGOrQxUnPZMDXhHN2gPMr4BpNQNiY9NdOsAhHqT+nVX3S3aO3E9LILDwwT4hynSUWqWi+6nkvE+PKdVlLDwMteZo9gPtzv6ODo4Ojg6ODo4Ojg03DwG8DyG3Dh4X6/zA2H696tPJJ9j4Oyc/ScOzbcJQsxJ0bgUzx7S+1d8tj/2P930f//bej95DCf41Te5Pb1ZcesBbLFxP/kAhqFrZcvDh2/AToeCF666CL1kFkIC8G//C7y2P6iy0qF/GbqSiX5hHOwNtWQX7jlyzPmCI9BAcGH0heWNtaE0aOh31r+Kf2CunuB6W8u7esisGzv2OROb5tkXb/QdVkZXlMdOWgZ+I/VFRvsDIUfnnhTWXRHVzpdUIahAVNLa/u3U9aC+QQmvM+lrhQQ6p0LTeek6JFTXtb2wXJfVR01Tp1p0A4XsLeKZxOi7f7DAGiWUINhak5oWAU7rFXDt09zV2qgNJwWuDOS2p8NuiYRr6QC21qCOlmGVRB4+Nzh9gFDH+BnQEwwYtHv3EfE4n5WmEOLfAe8f0Ts2aNzsuvSFoXIPN11P4QkVrboTnt1HqD+8T3b6fYbI4aJnXze5KyRFSNYs3a1X3RviZpJIx+71oW+Jo3Mfbs5sQouEjW8BfoMHT1q9VwE8XeaoDIshOxjTdhpE9M3R7DJrbZFN3el5UY2/RQgbGQKT9CiQTkEf2OQkKPKDvqVI8YmgRkW55efkX6TtDwDa1kFhyiGY0GoUkLszwCZOAUiMB8duO3APM4QqJlU/9WOe1XHwdkBJT/3liRobgXPZ5T4vxNPi22GfSHIbSfWIJa2Xa7QiSuDmoruWFoysnT9eAi4Yk7RISzZSqLxBQcaWckE30rCGsy0R2QAwICQBjjtEe4tiRrrS4++L38AG/e4BK8xaGZgG9S2r0iWMV7JbbfhyH77JcaUVdszXA/O13aRVqWt67HUCGSlcA1+QV+isA9DEdzfQ618zsAZX8KtMIlozuAPB5Z2OCE1mr/+ENgxIzlCTQbVMIXv4Xny7ghu8tKJyudTIVvwj3G014z4sugmipnaZw5Axod7l62Z0VJXyan0+ml/ON5eGrBLVGmbhxVTLkztKRi5hYNj3TAjLeoPDRhGmLYF5nUewxDgu/tDsCcVrCltHI0bjRuNG437WuNiNuTJm00+A4vO8D4hCtWmT4mkrsLS6qhxlB85S1jvig4pTSJ+JjM1uJICjK9I058/Q1p/ydaWK1lM1vZIyZDqRsT8DWJxbX9Y7b8q/OfFtZVyr8+di1n8/RtrbiRpBysAAA=="
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/+1aX2/bNhD/LNVjoWhdCuwhb86frsWS1rWzDoMRBJR4kZlQPI082lMFf/eBpCjLTZqlLQokrQAbpu6OvLsfT+Qd6f1s/7dfsxfP2NrsFfxmT4o8a+fEipuUrc1lyxvFKuR51p6zXMKiTWqmSZBA9Qc0yUGbKFZBcpA8T9KEmto158kmTQxqul8iF1IKVZ4hd6Tp5O/L6cnscnby/s+T+XmSJhoqXDE5RSmKJjlIOBjS2CSbi/ToSnlzNqlkVc7ZpUIO1yZ7639eWVU4AxdtAop00+nWVpHoLak1XkNBM0TqKBxqc4rFzSshYcpo2ZFBrYRGVYGKgrlV3FnufKuEEldNckDaQpo4M86QWwnGy27SxKlEG7tWUKFu5uJjNKMI3rvmkikuQXcd2/B57B48ARNHkEeQR5AfhwdPwMQR5BHkEeTH4cETMHEEeQT5ZwH5CTixuUgFq7J2hr5YZcbYCvihr0NrLVQhaiYnRYG2Vx5kXIeJLxujnoopVgL39adw6hftDq2Z6E72wgHDOD/HaVQRq9ZF23GJWLF8o6RQ0POS58kDmPePOzo4Ojg6ODo4Ojg6+Dgc/AGw/AFcuH/cRxMs3pAvs+7rMPGXBs7eNNAdte9wjo5za5zbZM7nxAhc6mp2DL5NHscfx/8pxv/ehn5ntX5hCGtCejZcqRZtYgbCXRH/2SF2+m5S8/KyZcYAmWziflIOtcTGdcsObXEDdNwTnHTWBuohM+DXpi/8XqSh/6JNconFzdTmUhSTogBjYrn+mQvVNGGW8BgkELzLXQ1vQvkdHOvHrcS/wi3ew7tid0lsXmaeZTrHJrdG20TremRz/xhL9l5Lz3+ortBhMCMuNMKlcNYeXal4F+wnGXQljOmeTlkD+gNo/zwXqpRAqAZ3x9YK3iEnnazpAumuA4ygcWp1jaa/6945p9A+Eu8+d4F6CRVoJueEmpUwYK3qYtua21wBxek0UFgtqPldo60j8UpIMI0hqKJlWHqB+494ds9yujg/A2KcEQt+py4iLu5mdTvsALz/RezJo3MydGmLQmCeDt33IYmlydrTTp0DqGu+ZYNhfzCif7Gjz5uU1aJkBGvWrPaz9jVRPanFQ9c6P9akFqnrNydWwiJS/ZOnz9DSg1bPCy/+RhGUmvmQfagJgz4ho7QEm9Qok7Vzm5tCi7p7BQhrEcMTFK9R9MFfayQsUCYH3coRYpNA94vz809IfwlanoExrIRD5P0JLJQx+XbHrYyfAhHo9xbsdmIeZghUTMivteNO1WFyBqCk586SCM1O8HxCCX/xcbTQp98XvJzZSeoHApu0kGj5lUZFWXssDGmR224+OFwxK+kQlmwlULviBrUoRYRvJWANetoh0gOggQsNBe0R7i2JauPKnG4sd9Yd9rgIr9aoZ2BqVKarfpYhXslut+HAfv05xpSV2+NyB863DhFXpa3rofrxZClxDW5BXyI390Ph3d9DJV3OULBiCTthEtCcwT8WDA04PkOav3zn2SEjOUJFGmX/Ct/Bc+ThDG7S3PLS5VOtTxdcO+1bJpShXQCsGRXLrJ1IpiuXTABp9wa0yZppJVQZ/YyPH/b7y4WlBrNEGXd+WDFp/ds+BS22CBVY1UwLg+pdDZoRxp2COZ3H0Mf8cMvw9sR6OSa3o3GjcaNxo3HfalxIkBx5s0lnYNDqosuRfAHqsiShSr/aWqotpUfWEFZD0T7LicRPZKYaV4KDdkVq/Outz/Qv2doUUmSTtTmSwme/ATF3f5tdm19W+y8y93l2bYTY69LpbBZ+/wNIAgFGhSwAAA=="
    },
    "Metadata": {
     "aws:cdk:path": "BackendStack/CDKMetadata/Default"

@@ -17,6 +17,33 @@ import * as iam from 'aws-cdk-lib/aws-iam';
 import * as cw_actions from 'aws-cdk-lib/aws-cloudwatch-actions';
 import * as path from 'path';
 
+const CONFIG = {
+  jwtSecret: process.env.JWT_SECRET || 'development_secret',
+  rateLimits: {
+    burst: 15,
+    rate: 10,
+  },
+  budget: {
+    amount: 1,
+    limitUnit: 'USD',
+    threshold: 100, // percentage
+  },
+  emails: {
+    alert: 'sanskaragarwal05+aws@gmail.com',
+    budgetAlert: 'sanskaragarwal05@gmail.com',
+  },
+  alarms: {
+    api5xxThreshold: 0,
+    apiLatencyThreshold: 2000,
+    lambdaErrorThreshold: 0,
+    lambdaThrottleThreshold: 0,
+    lambdaDurationThreshold: 3000,
+    ddbReadThrottleThreshold: 5,
+    ddbWriteThrottleThreshold: 5,
+    cf5xxThreshold: 1,
+  }
+};
+
 export class BackendStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
@@ -28,15 +55,13 @@ export class BackendStack extends cdk.Stack {
       removalPolicy: cdk.RemovalPolicy.DESTROY,
     });
 
-    const jwtSecret = process.env.JWT_SECRET || 'development_secret';
-
     const lambdaProps = {
       runtime: lambda.Runtime.NODEJS_20_X,
       projectRoot: path.join(__dirname, '../../backend'),
       depsLockFilePath: path.join(__dirname, '../../backend/package-lock.json'),
       environment: {
         TABLE_NAME: table.tableName,
-        JWT_SECRET: jwtSecret,
+        JWT_SECRET: CONFIG.jwtSecret,
       },
       bundling: {
         minify: true,
@@ -111,8 +136,8 @@ export class BackendStack extends cdk.Stack {
     const defaultStage = httpApi.defaultStage?.node.defaultChild as apigwv2.CfnStage;
     if (defaultStage) {
       defaultStage.defaultRouteSettings = {
-        throttlingBurstLimit: 15,
-        throttlingRateLimit: 10,
+        throttlingBurstLimit: CONFIG.rateLimits.burst,
+        throttlingRateLimit: CONFIG.rateLimits.rate,
       };
     }
 
@@ -258,7 +283,7 @@ export class BackendStack extends cdk.Stack {
     const alertTopic = new sns.Topic(this, 'PocketLogAlertsTopic', {
       topicName: 'PocketLog-Alerts',
     });
-    alertTopic.addSubscription(new subscriptions.EmailSubscription('sanskaragarwal05+aws@gmail.com'));
+    alertTopic.addSubscription(new subscriptions.EmailSubscription(CONFIG.emails.alert));
     
     // Budget & Kill-Switch
     const killSwitchTopic = new sns.Topic(this, 'PocketLogBudgetKillSwitchTopic', {
@@ -272,13 +297,13 @@ export class BackendStack extends cdk.Stack {
       resources: [killSwitchTopic.topicArn],
     }));
 
-    new budgets.CfnBudget(this, 'ZeroCostBudget', {
+    const budget = new budgets.CfnBudget(this, 'ZeroCostBudget', {
       budget: {
         budgetType: 'COST',
         timeUnit: 'MONTHLY',
         budgetLimit: {
-          amount: 1,
-          unit: 'USD',
+          amount: CONFIG.budget.amount,
+          unit: CONFIG.budget.limitUnit,
         },
       },
       notificationsWithSubscribers: [
@@ -286,16 +311,67 @@ export class BackendStack extends cdk.Stack {
           notification: {
             notificationType: 'ACTUAL',
             comparisonOperator: 'GREATER_THAN',
-            threshold: 100, // 100% of $1 = $1
+            threshold: CONFIG.budget.threshold,
           },
           subscribers: [
             {
               subscriptionType: 'SNS',
               address: killSwitchTopic.topicArn,
             },
+            {
+              subscriptionType: 'EMAIL',
+              address: CONFIG.emails.budgetAlert,
+            }
           ],
         },
       ],
+    });
+
+    // Budget Action IAM Role
+    const budgetActionRole = new iam.Role(this, 'BudgetActionRole', {
+      assumedBy: new iam.ServicePrincipal('budgets.amazonaws.com'),
+      managedPolicies: [
+        iam.ManagedPolicy.fromAwsManagedPolicyName('AWSBudgetsActions_RolePolicyForResourceAdministrationWithSSM'),
+      ],
+    });
+
+    const denyPolicy = new iam.ManagedPolicy(this, 'DenyAllPolicy', {
+      statements: [
+        new iam.PolicyStatement({
+          effect: iam.Effect.DENY,
+          actions: ['*'],
+          resources: ['*'],
+        }),
+      ],
+    });
+
+    budgetActionRole.addToPolicy(new iam.PolicyStatement({
+      actions: ['iam:AttachRolePolicy', 'iam:AttachUserPolicy', 'iam:AttachGroupPolicy'],
+      resources: ['*'],
+    }));
+
+    new budgets.CfnBudgetsAction(this, 'BudgetNativeAction', {
+      budgetName: budget.ref,
+      actionType: 'APPLY_IAM_POLICY',
+      actionThreshold: {
+        type: 'PERCENTAGE',
+        value: CONFIG.budget.threshold,
+      },
+      definition: {
+        iamActionDefinition: {
+          policyArn: denyPolicy.managedPolicyArn,
+          roles: allApiFunctions.map(f => f.role!.roleName),
+        },
+      },
+      executionRoleArn: budgetActionRole.roleArn,
+      notificationType: 'ACTUAL',
+      subscribers: [
+        {
+          address: CONFIG.emails.budgetAlert,
+          type: 'EMAIL',
+        },
+      ],
+      approvalModel: 'AUTOMATIC',
     });
 
     const alarmAction = new cw_actions.SnsAction(alertTopic);
@@ -309,7 +385,7 @@ export class BackendStack extends cdk.Stack {
         statistic: 'sum',
         period: cdk.Duration.minutes(5),
       }),
-      threshold: 0,
+      threshold: CONFIG.alarms.api5xxThreshold,
       evaluationPeriods: 1,
       comparisonOperator: cloudwatch.ComparisonOperator.GREATER_THAN_THRESHOLD,
       alarmDescription: 'API Gateway 5XX Error Rate > 0',
@@ -324,7 +400,7 @@ export class BackendStack extends cdk.Stack {
         statistic: 'p95',
         period: cdk.Duration.minutes(5),
       }),
-      threshold: 2000,
+      threshold: CONFIG.alarms.apiLatencyThreshold,
       evaluationPeriods: 1,
       comparisonOperator: cloudwatch.ComparisonOperator.GREATER_THAN_THRESHOLD,
       alarmDescription: 'API Gateway P95 Latency > 2000ms',
@@ -337,7 +413,7 @@ export class BackendStack extends cdk.Stack {
         statistic: 'sum',
         period: cdk.Duration.minutes(1),
       }),
-      threshold: 0,
+      threshold: CONFIG.alarms.lambdaErrorThreshold,
       evaluationPeriods: 1,
       comparisonOperator: cloudwatch.ComparisonOperator.GREATER_THAN_THRESHOLD,
       alarmDescription: 'Lambda Invocation Errors > 0',
@@ -349,7 +425,7 @@ export class BackendStack extends cdk.Stack {
         statistic: 'sum',
         period: cdk.Duration.minutes(1),
       }),
-      threshold: 0,
+      threshold: CONFIG.alarms.lambdaThrottleThreshold,
       evaluationPeriods: 1,
       comparisonOperator: cloudwatch.ComparisonOperator.GREATER_THAN_THRESHOLD,
       alarmDescription: 'Lambda Function Throttling > 0',
@@ -361,7 +437,7 @@ export class BackendStack extends cdk.Stack {
         statistic: 'p90',
         period: cdk.Duration.minutes(5),
       }),
-      threshold: 3000,
+      threshold: CONFIG.alarms.lambdaDurationThreshold,
       evaluationPeriods: 1,
       comparisonOperator: cloudwatch.ComparisonOperator.GREATER_THAN_THRESHOLD,
       alarmDescription: 'Lambda Duration P90 > 3000ms',
@@ -374,7 +450,7 @@ export class BackendStack extends cdk.Stack {
         statistic: 'sum',
         period: cdk.Duration.minutes(5),
       }),
-      threshold: 5,
+      threshold: CONFIG.alarms.ddbReadThrottleThreshold,
       evaluationPeriods: 1,
       comparisonOperator: cloudwatch.ComparisonOperator.GREATER_THAN_THRESHOLD,
       alarmDescription: 'DynamoDB Read Throttle Events > 5',
@@ -386,7 +462,7 @@ export class BackendStack extends cdk.Stack {
         statistic: 'sum',
         period: cdk.Duration.minutes(5),
       }),
-      threshold: 5,
+      threshold: CONFIG.alarms.ddbWriteThrottleThreshold,
       evaluationPeriods: 1,
       comparisonOperator: cloudwatch.ComparisonOperator.GREATER_THAN_THRESHOLD,
       alarmDescription: 'DynamoDB Write Throttle Events > 5',
@@ -405,7 +481,7 @@ export class BackendStack extends cdk.Stack {
         statistic: 'Average',
         period: cdk.Duration.minutes(5),
       }),
-      threshold: 1,
+      threshold: CONFIG.alarms.cf5xxThreshold,
       evaluationPeriods: 1,
       comparisonOperator: cloudwatch.ComparisonOperator.GREATER_THAN_THRESHOLD,
       alarmDescription: 'CloudFront 5XX Error Rate > 1%',

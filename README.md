@@ -109,14 +109,18 @@ To ensure high availability and performance within the AWS Free Tier, the applic
 - **DynamoDB Alarms**: Monitors `SystemErrors` and `ThrottledRequests` to detect capacity issues.
 - **CloudFront Alarms**: Tracks global `5xxErrorRate` and `TotalErrorRate` to catch edge delivery failures.
 
-## 🛡️ 6. Security & DDoS Protection
+## 🛡️ 6. Security, Cost Control & DDoS Protection
 
-To ensure the application strictly adheres to the AWS Free Tier and is protected from runaway usage or malicious DDoS attacks, we have implemented a two-layered defense mechanism:
+To ensure the application strictly adheres to the AWS Free Tier and is protected from runaway usage or malicious DDoS attacks, we have implemented a multi-layered defense mechanism:
 
 ### Layer 1: API Gateway Rate Limiting (The Shield)
 The HTTP API Gateway is configured with a strict **Global Rate Limit** of 10 requests per second and a burst capacity of 15 requests. Any requests exceeding this limit are immediately rejected by AWS with a `429 Too Many Requests` status code at the edge, preventing Lambda invocations and database reads.
 
-### Layer 2: Automated Kill-Switch (The Hammer)
-If traffic bypasses the rate limits or database limits are breached (triggering the CloudWatch Alarms), the alarm triggers an SNS alert. This alert automatically invokes a dedicated **Kill-Switch Lambda function**. 
-- The Kill-Switch uses the AWS SDK to instantly set the `ReservedConcurrentExecutions` of all API Lambdas to `0`.
-- This hard-stops the backend immediately, mathematically capping maximum possible AWS costs.
+### Layer 2: AWS Budget Kill-Switch (The Graceful Hammer)
+A rigid **$1.00 Monthly Budget** is enforced. If the forecasted or actual spend hits 100% of this limit, it triggers a notification to a dedicated SNS Topic (`PocketLog-BudgetKillSwitch`). This topic:
+- Sends an email alert to the admin.
+- Invokes a dedicated **Kill-Switch Lambda function**. 
+The Kill-Switch uses the AWS SDK to instantly set the `ReservedConcurrentExecutions` of all API Lambdas to `0`. This hard-stops the backend immediately, preventing further compute costs.
+
+### Layer 3: Native Budget Actions (The Failsafe)
+In parallel with the Lambda Kill-Switch, the AWS Budget is configured with a **Native Budget Action**. If the $1.00 threshold is reached, AWS Budgets will automatically apply an IAM `DenyAll` policy directly to the Execution Roles of all our backend Lambdas. This serves as a foolproof failsafe in case the SNS or Kill-Switch Lambda itself fails to trigger, ensuring a hard stop on any AWS spending.

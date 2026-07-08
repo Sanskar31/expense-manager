@@ -1739,7 +1739,7 @@
       ]
     }
   ],
-  "/BackendStack/PocketLogAlertsTopic/sanskaragarwal05@gmail.com": [
+  "/BackendStack/PocketLogAlertsTopic/sanskaragarwal05+aws@gmail.com": [
     {
       "type": "aws:cdk:analytics:construct",
       "data": {
@@ -3037,10 +3037,10 @@
       ]
     }
   ],
-  "/BackendStack/PocketLogAlertsTopic/sanskaragarwal05@gmail.com/Resource": [
+  "/BackendStack/PocketLogAlertsTopic/sanskaragarwal05+aws@gmail.com/Resource": [
     {
       "type": "aws:cdk:logicalId",
-      "data": "PocketLogAlertsTopicsanskaragarwal05gmailcom28E67BB3"
+      "data": "PocketLogAlertsTopicsanskaragarwal05awsgmailcom5C7FA4D0"
     },
     {
       "type": "aws:cdk:creationStack",

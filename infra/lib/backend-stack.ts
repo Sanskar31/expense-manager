@@ -236,7 +236,7 @@ export class BackendStack extends cdk.Stack {
     const alertTopic = new sns.Topic(this, 'PocketLogAlertsTopic', {
       topicName: 'PocketLog-Alerts',
     });
-    alertTopic.addSubscription(new subscriptions.EmailSubscription('sanskaragarwal05@gmail.com'));
+    alertTopic.addSubscription(new subscriptions.EmailSubscription('sanskaragarwal05+aws@gmail.com'));
     
     const alarmAction = new cw_actions.SnsAction(alertTopic);
 

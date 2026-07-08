@@ -2590,17 +2590,17 @@
     "aws:cdk:path": "BackendStack/PocketLogAlertsTopic/Resource"
    }
   },
-  "PocketLogAlertsTopicsanskaragarwal05gmailcom28E67BB3": {
+  "PocketLogAlertsTopicsanskaragarwal05awsgmailcom5C7FA4D0": {
    "Type": "AWS::SNS::Subscription",
    "Properties": {
-    "Endpoint": "sanskaragarwal05@gmail.com",
+    "Endpoint": "sanskaragarwal05+aws@gmail.com",
     "Protocol": "email",
     "TopicArn": {
      "Ref": "PocketLogAlertsTopic027A664F"
     }
    },
    "Metadata": {
-    "aws:cdk:path": "BackendStack/PocketLogAlertsTopic/sanskaragarwal05@gmail.com/Resource"
+    "aws:cdk:path": "BackendStack/PocketLogAlertsTopic/sanskaragarwal05+aws@gmail.com/Resource"
    }
   },
   "Api5xxAlarm31F257DC": {

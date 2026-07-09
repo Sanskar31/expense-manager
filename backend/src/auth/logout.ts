@@ -5,7 +5,7 @@ export const handler: APIGatewayProxyHandlerV2 = async () => {
   return {
     statusCode: 200,
     headers: {
-      "Set-Cookie": "token=; HttpOnly; Secure; SameSite=Strict; Path=/; Max-Age=0",
+      "Set-Cookie": "token=; HttpOnly; SameSite=Lax; Path=/; Max-Age=0",
     },
     body: JSON.stringify({ message: "Logged out successfully" })
   };

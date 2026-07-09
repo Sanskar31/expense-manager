@@ -25,6 +25,48 @@
       }
     }
   ],
+  "/BackendStack/ExpenseApi": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": "*"
+    },
+    {
+      "type": "aws:cdk:analytics:method",
+      "data": "*"
+    },
+    {
+      "type": "aws:cdk:analytics:method",
+      "data": "*"
+    },
+    {
+      "type": "aws:cdk:analytics:method",
+      "data": "*"
+    },
+    {
+      "type": "aws:cdk:analytics:method",
+      "data": "*"
+    },
+    {
+      "type": "aws:cdk:analytics:method",
+      "data": "*"
+    },
+    {
+      "type": "aws:cdk:analytics:method",
+      "data": "*"
+    },
+    {
+      "type": "aws:cdk:analytics:method",
+      "data": "*"
+    },
+    {
+      "type": "aws:cdk:analytics:method",
+      "data": "*"
+    },
+    {
+      "type": "aws:cdk:analytics:method",
+      "data": "*"
+    }
+  ],
   "/BackendStack/RegisterLambda": [
     {
       "type": "aws:cdk:analytics:construct",
@@ -70,6 +112,50 @@
     }
   ],
   "/BackendStack/LoginLambda": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": {
+        "entry": "*",
+        "runtime": "*",
+        "projectRoot": "*",
+        "depsLockFilePath": "*",
+        "environment": "*",
+        "bundling": {
+          "minify": true,
+          "nodeModules": "*"
+        },
+        "timeout": "*",
+        "memorySize": "*",
+        "code": "*",
+        "handler": "*"
+      }
+    },
+    {
+      "type": "aws:cdk:analytics:method",
+      "data": {}
+    },
+    {
+      "type": "aws:cdk:analytics:method",
+      "data": {}
+    },
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": {
+        "entry": "*",
+        "runtime": "*",
+        "projectRoot": "*",
+        "depsLockFilePath": "*",
+        "environment": "*",
+        "bundling": {
+          "minify": true,
+          "nodeModules": "*"
+        },
+        "timeout": "*",
+        "memorySize": "*"
+      }
+    }
+  ],
+  "/BackendStack/LogoutLambda": [
     {
       "type": "aws:cdk:analytics:construct",
       "data": {
@@ -377,92 +463,6 @@
       }
     }
   ],
-  "/BackendStack/ExpenseApi": [
-    {
-      "type": "aws:cdk:analytics:construct",
-      "data": "*"
-    },
-    {
-      "type": "aws:cdk:analytics:method",
-      "data": "*"
-    },
-    {
-      "type": "aws:cdk:analytics:method",
-      "data": "*"
-    },
-    {
-      "type": "aws:cdk:analytics:method",
-      "data": "*"
-    },
-    {
-      "type": "aws:cdk:analytics:method",
-      "data": "*"
-    },
-    {
-      "type": "aws:cdk:analytics:method",
-      "data": "*"
-    },
-    {
-      "type": "aws:cdk:analytics:method",
-      "data": "*"
-    },
-    {
-      "type": "aws:cdk:analytics:method",
-      "data": "*"
-    },
-    {
-      "type": "aws:cdk:analytics:method",
-      "data": "*"
-    },
-    {
-      "type": "aws:cdk:analytics:method",
-      "data": "*"
-    }
-  ],
-  "/BackendStack/LogoutLambda": [
-    {
-      "type": "aws:cdk:analytics:construct",
-      "data": {
-        "entry": "*",
-        "runtime": "*",
-        "projectRoot": "*",
-        "depsLockFilePath": "*",
-        "environment": "*",
-        "bundling": {
-          "minify": true,
-          "nodeModules": "*"
-        },
-        "timeout": "*",
-        "memorySize": "*",
-        "code": "*",
-        "handler": "*"
-      }
-    },
-    {
-      "type": "aws:cdk:analytics:method",
-      "data": {}
-    },
-    {
-      "type": "aws:cdk:analytics:method",
-      "data": {}
-    },
-    {
-      "type": "aws:cdk:analytics:construct",
-      "data": {
-        "entry": "*",
-        "runtime": "*",
-        "projectRoot": "*",
-        "depsLockFilePath": "*",
-        "environment": "*",
-        "bundling": {
-          "minify": true,
-          "nodeModules": "*"
-        },
-        "timeout": "*",
-        "memorySize": "*"
-      }
-    }
-  ],
   "/BackendStack/KillSwitchLambda": [
     {
       "type": "aws:cdk:analytics:construct",
@@ -519,7 +519,7 @@
     {
       "type": "aws:cdk:creationStack",
       "data": [
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:223:5)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:149:5)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals, ts-node, ts-node, ts-node..."
       ]
@@ -636,7 +636,7 @@
     {
       "type": "aws:cdk:creationStack",
       "data": [
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:276:5)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:202:5)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals, ts-node, ts-node, ts-node..."
       ]
@@ -666,7 +666,7 @@
     {
       "type": "aws:cdk:creationStack",
       "data": [
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:300:20)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:226:20)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals, ts-node, ts-node, ts-node..."
       ]
@@ -744,7 +744,7 @@
     {
       "type": "aws:cdk:creationStack",
       "data": [
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:353:5)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:279:5)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals, ts-node, ts-node, ts-node..."
       ]
@@ -981,6 +981,81 @@
       "data": "*"
     }
   ],
+  "/BackendStack/ExpenseApi/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ExpenseApi5959A4F7"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new HttpApi2 in aws-cdk-lib...",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:74:21)",
+        "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/BackendStack/ExpenseApi/DefaultStage": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": "*"
+    }
+  ],
+  "/BackendStack/ExpenseApi/POST--api--auth--register": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": "*"
+    }
+  ],
+  "/BackendStack/ExpenseApi/POST--api--auth--login": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": "*"
+    }
+  ],
+  "/BackendStack/ExpenseApi/POST--api--auth--logout": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": "*"
+    }
+  ],
+  "/BackendStack/ExpenseApi/GET--api--categories": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": "*"
+    }
+  ],
+  "/BackendStack/ExpenseApi/POST--api--categories": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": "*"
+    }
+  ],
+  "/BackendStack/ExpenseApi/DELETE--api--categories": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": "*"
+    }
+  ],
+  "/BackendStack/ExpenseApi/POST--api--transactions": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": "*"
+    }
+  ],
+  "/BackendStack/ExpenseApi/GET--api--transactions": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": "*"
+    }
+  ],
+  "/BackendStack/ExpenseApi/DELETE--api--transactions": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": "*"
+    }
+  ],
   "/BackendStack/RegisterLambda/ServiceRole": [
     {
       "type": "aws:cdk:analytics:construct",
@@ -1038,7 +1113,8 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new NodejsFunction in aws-cdk-lib...",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:74:28)",
+        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:105:18)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:123:5)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals, ts-node, ts-node..."
       ]
@@ -1109,13 +1185,54 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new NodejsFunction in aws-cdk-lib...",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:80:25)",
+        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:105:18)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:124:5)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals, ts-node, ts-node..."
       ]
     }
   ],
   "/BackendStack/LoginLambda/LogGroup": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": {
+        "logGroupName": "*"
+      }
+    }
+  ],
+  "/BackendStack/LogoutLambda/ServiceRole": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": {
+        "assumedBy": {
+          "principalAccount": "*",
+          "assumeRoleAction": "*"
+        },
+        "managedPolicies": [
+          {
+            "managedPolicyArn": "*"
+          }
+        ]
+      }
+    }
+  ],
+  "/BackendStack/LogoutLambda/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "LogoutLambda05D39112"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new NodejsFunction in aws-cdk-lib...",
+        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:105:18)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:125:5)",
+        "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/BackendStack/LogoutLambda/LogGroup": [
     {
       "type": "aws:cdk:analytics:construct",
       "data": {
@@ -1180,7 +1297,8 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new NodejsFunction in aws-cdk-lib...",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:86:33)",
+        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:105:18)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:127:5)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals, ts-node, ts-node..."
       ]
@@ -1251,7 +1369,8 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new NodejsFunction in aws-cdk-lib...",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:92:34)",
+        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:105:18)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:128:5)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals, ts-node, ts-node..."
       ]
@@ -1322,7 +1441,8 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new NodejsFunction in aws-cdk-lib...",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:98:34)",
+        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:105:18)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:129:5)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals, ts-node, ts-node..."
       ]
@@ -1393,7 +1513,8 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new NodejsFunction in aws-cdk-lib...",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:104:37)",
+        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:105:18)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:131:5)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals, ts-node, ts-node..."
       ]
@@ -1464,7 +1585,8 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new NodejsFunction in aws-cdk-lib...",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:110:36)",
+        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:105:18)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:132:36)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals, ts-node, ts-node..."
       ]
@@ -1535,127 +1657,14 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new NodejsFunction in aws-cdk-lib...",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:116:37)",
+        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:105:18)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:133:5)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals, ts-node, ts-node..."
       ]
     }
   ],
   "/BackendStack/DeleteTransactionLambda/LogGroup": [
-    {
-      "type": "aws:cdk:analytics:construct",
-      "data": {
-        "logGroupName": "*"
-      }
-    }
-  ],
-  "/BackendStack/ExpenseApi/Resource": [
-    {
-      "type": "aws:cdk:logicalId",
-      "data": "ExpenseApi5959A4F7"
-    },
-    {
-      "type": "aws:cdk:creationStack",
-      "data": [
-        "...new HttpApi2 in aws-cdk-lib...",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:122:21)",
-        "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
-        "...node internals, ts-node, ts-node..."
-      ]
-    }
-  ],
-  "/BackendStack/ExpenseApi/DefaultStage": [
-    {
-      "type": "aws:cdk:analytics:construct",
-      "data": "*"
-    }
-  ],
-  "/BackendStack/ExpenseApi/POST--api--auth--register": [
-    {
-      "type": "aws:cdk:analytics:construct",
-      "data": "*"
-    }
-  ],
-  "/BackendStack/ExpenseApi/POST--api--auth--login": [
-    {
-      "type": "aws:cdk:analytics:construct",
-      "data": "*"
-    }
-  ],
-  "/BackendStack/ExpenseApi/POST--api--auth--logout": [
-    {
-      "type": "aws:cdk:analytics:construct",
-      "data": "*"
-    }
-  ],
-  "/BackendStack/ExpenseApi/GET--api--categories": [
-    {
-      "type": "aws:cdk:analytics:construct",
-      "data": "*"
-    }
-  ],
-  "/BackendStack/ExpenseApi/POST--api--categories": [
-    {
-      "type": "aws:cdk:analytics:construct",
-      "data": "*"
-    }
-  ],
-  "/BackendStack/ExpenseApi/DELETE--api--categories": [
-    {
-      "type": "aws:cdk:analytics:construct",
-      "data": "*"
-    }
-  ],
-  "/BackendStack/ExpenseApi/POST--api--transactions": [
-    {
-      "type": "aws:cdk:analytics:construct",
-      "data": "*"
-    }
-  ],
-  "/BackendStack/ExpenseApi/GET--api--transactions": [
-    {
-      "type": "aws:cdk:analytics:construct",
-      "data": "*"
-    }
-  ],
-  "/BackendStack/ExpenseApi/DELETE--api--transactions": [
-    {
-      "type": "aws:cdk:analytics:construct",
-      "data": "*"
-    }
-  ],
-  "/BackendStack/LogoutLambda/ServiceRole": [
-    {
-      "type": "aws:cdk:analytics:construct",
-      "data": {
-        "assumedBy": {
-          "principalAccount": "*",
-          "assumeRoleAction": "*"
-        },
-        "managedPolicies": [
-          {
-            "managedPolicyArn": "*"
-          }
-        ]
-      }
-    }
-  ],
-  "/BackendStack/LogoutLambda/Resource": [
-    {
-      "type": "aws:cdk:logicalId",
-      "data": "LogoutLambda05D39112"
-    },
-    {
-      "type": "aws:cdk:creationStack",
-      "data": [
-        "...new NodejsFunction in aws-cdk-lib...",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:144:26)",
-        "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
-        "...node internals, ts-node, ts-node..."
-      ]
-    }
-  ],
-  "/BackendStack/LogoutLambda/LogGroup": [
     {
       "type": "aws:cdk:analytics:construct",
       "data": {
@@ -1712,7 +1721,7 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new NodejsFunction in aws-cdk-lib...",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:155:30)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:135:30)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals, ts-node, ts-node..."
       ]
@@ -1735,7 +1744,7 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...WrappedClass.addSubscription in aws-cdk-lib...",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:292:21)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:218:21)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals, ts-node, ts-node..."
       ]
@@ -1764,7 +1773,7 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new Bucket2 in aws-cdk-lib...",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:228:27)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:154:27)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals, ts-node, ts-node..."
       ]
@@ -1825,7 +1834,7 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new Distribution2 in aws-cdk-lib...",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:239:26)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:165:26)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals, ts-node, ts-node..."
       ]
@@ -1951,7 +1960,7 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new BucketDeployment2 in aws-cdk-lib...",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:269:5)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:195:5)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)"
       ]
     }
@@ -1973,7 +1982,7 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new Topic2 in aws-cdk-lib...",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:283:24)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:209:24)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals, ts-node, ts-node..."
       ]
@@ -2001,7 +2010,7 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new Topic2 in aws-cdk-lib...",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:289:29)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:215:29)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals, ts-node, ts-node..."
       ]
@@ -2026,7 +2035,7 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new Role2 in aws-cdk-lib...",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:331:30)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:257:30)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals, ts-node, ts-node..."
       ]
@@ -2071,7 +2080,7 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new ManagedPolicy2 in aws-cdk-lib...",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:338:24)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:264:24)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals, ts-node, ts-node..."
       ]
@@ -2086,7 +2095,7 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new Alarm2 in aws-cdk-lib...",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:380:25)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:306:25)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals, ts-node, ts-node..."
       ]
@@ -2101,7 +2110,7 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new Alarm2 in aws-cdk-lib...",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:395:29)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:321:29)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals, ts-node, ts-node..."
       ]
@@ -2116,7 +2125,7 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new Alarm2 in aws-cdk-lib...",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:411:31)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:337:31)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals, ts-node, ts-node..."
       ]
@@ -2131,7 +2140,7 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new Alarm2 in aws-cdk-lib...",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:423:34)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:349:34)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals, ts-node, ts-node..."
       ]
@@ -2146,7 +2155,7 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new Alarm2 in aws-cdk-lib...",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:435:33)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:361:33)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals, ts-node, ts-node..."
       ]
@@ -2161,7 +2170,7 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new Alarm2 in aws-cdk-lib...",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:448:34)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:374:34)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals, ts-node, ts-node..."
       ]
@@ -2176,7 +2185,7 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new Alarm2 in aws-cdk-lib...",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:460:35)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:386:35)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals, ts-node, ts-node..."
       ]
@@ -2191,7 +2200,7 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new Alarm2 in aws-cdk-lib...",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:473:24)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:399:24)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals, ts-node, ts-node..."
       ]
@@ -2223,6 +2232,372 @@
       ]
     }
   ],
+  "/BackendStack/ExpenseApi/DefaultStage/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ExpenseApiDefaultStageC6138CEB"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new HttpApi2 in aws-cdk-lib...",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:74:21)",
+        "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/BackendStack/ExpenseApi/POST--api--auth--register/RegisterLambdaIntegration": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": "*"
+    }
+  ],
+  "/BackendStack/ExpenseApi/POST--api--auth--register/RegisterLambdaIntegration-Permission": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ExpenseApiPOSTapiauthregisterRegisterLambdaIntegrationPermissionBAF47908"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        ".../Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/node_modules/aws-cdk-lib/aws-apigatewayv2/lib/http/api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...WrappedClass.<anonymous> in aws-cdk-lib...",
+        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:114:15)"
+      ]
+    }
+  ],
+  "/BackendStack/ExpenseApi/POST--api--auth--register/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ExpenseApiPOSTapiauthregisterA4364625"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        ".../Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/node_modules/aws-cdk-lib/aws-apigatewayv2/lib/http/api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...WrappedClass.<anonymous> in aws-cdk-lib...",
+        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:114:15)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:123:5)",
+        "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
+        "...node internals..."
+      ]
+    }
+  ],
+  "/BackendStack/ExpenseApi/POST--api--auth--login/LoginLambdaIntegration": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": "*"
+    }
+  ],
+  "/BackendStack/ExpenseApi/POST--api--auth--login/LoginLambdaIntegration-Permission": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ExpenseApiPOSTapiauthloginLoginLambdaIntegrationPermissionF789101E"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        ".../Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/node_modules/aws-cdk-lib/aws-apigatewayv2/lib/http/api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...WrappedClass.<anonymous> in aws-cdk-lib...",
+        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:114:15)"
+      ]
+    }
+  ],
+  "/BackendStack/ExpenseApi/POST--api--auth--login/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ExpenseApiPOSTapiauthloginEB198EAC"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        ".../Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/node_modules/aws-cdk-lib/aws-apigatewayv2/lib/http/api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...WrappedClass.<anonymous> in aws-cdk-lib...",
+        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:114:15)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:124:5)",
+        "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
+        "...node internals..."
+      ]
+    }
+  ],
+  "/BackendStack/ExpenseApi/POST--api--auth--logout/LogoutLambdaIntegration": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": "*"
+    }
+  ],
+  "/BackendStack/ExpenseApi/POST--api--auth--logout/LogoutLambdaIntegration-Permission": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ExpenseApiPOSTapiauthlogoutLogoutLambdaIntegrationPermission5616E097"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        ".../Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/node_modules/aws-cdk-lib/aws-apigatewayv2/lib/http/api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...WrappedClass.<anonymous> in aws-cdk-lib...",
+        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:114:15)"
+      ]
+    }
+  ],
+  "/BackendStack/ExpenseApi/POST--api--auth--logout/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ExpenseApiPOSTapiauthlogout521B43B1"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        ".../Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/node_modules/aws-cdk-lib/aws-apigatewayv2/lib/http/api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...WrappedClass.<anonymous> in aws-cdk-lib...",
+        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:114:15)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:125:5)",
+        "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
+        "...node internals..."
+      ]
+    }
+  ],
+  "/BackendStack/ExpenseApi/GET--api--categories/GetCategoriesLambdaIntegration": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": "*"
+    }
+  ],
+  "/BackendStack/ExpenseApi/GET--api--categories/GetCategoriesLambdaIntegration-Permission": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ExpenseApiGETapicategoriesGetCategoriesLambdaIntegrationPermission87E3FC6E"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        ".../Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/node_modules/aws-cdk-lib/aws-apigatewayv2/lib/http/api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...WrappedClass.<anonymous> in aws-cdk-lib...",
+        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:114:15)"
+      ]
+    }
+  ],
+  "/BackendStack/ExpenseApi/GET--api--categories/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ExpenseApiGETapicategories4ADA97B6"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        ".../Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/node_modules/aws-cdk-lib/aws-apigatewayv2/lib/http/api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...WrappedClass.<anonymous> in aws-cdk-lib...",
+        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:114:15)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:127:5)",
+        "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
+        "...node internals..."
+      ]
+    }
+  ],
+  "/BackendStack/ExpenseApi/POST--api--categories/UpdateCategoryLambdaIntegration": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": "*"
+    }
+  ],
+  "/BackendStack/ExpenseApi/POST--api--categories/UpdateCategoryLambdaIntegration-Permission": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ExpenseApiPOSTapicategoriesUpdateCategoryLambdaIntegrationPermissionDB4409B4"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        ".../Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/node_modules/aws-cdk-lib/aws-apigatewayv2/lib/http/api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...WrappedClass.<anonymous> in aws-cdk-lib...",
+        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:114:15)"
+      ]
+    }
+  ],
+  "/BackendStack/ExpenseApi/POST--api--categories/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ExpenseApiPOSTapicategoriesBACBC190"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        ".../Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/node_modules/aws-cdk-lib/aws-apigatewayv2/lib/http/api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...WrappedClass.<anonymous> in aws-cdk-lib...",
+        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:114:15)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:128:5)",
+        "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
+        "...node internals..."
+      ]
+    }
+  ],
+  "/BackendStack/ExpenseApi/DELETE--api--categories/DeleteCategoryLambdaIntegration": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": "*"
+    }
+  ],
+  "/BackendStack/ExpenseApi/DELETE--api--categories/DeleteCategoryLambdaIntegration-Permission": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ExpenseApiDELETEapicategoriesDeleteCategoryLambdaIntegrationPermission5B77FA68"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        ".../Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/node_modules/aws-cdk-lib/aws-apigatewayv2/lib/http/api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...WrappedClass.<anonymous> in aws-cdk-lib...",
+        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:114:15)"
+      ]
+    }
+  ],
+  "/BackendStack/ExpenseApi/DELETE--api--categories/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ExpenseApiDELETEapicategories1CABD405"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        ".../Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/node_modules/aws-cdk-lib/aws-apigatewayv2/lib/http/api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...WrappedClass.<anonymous> in aws-cdk-lib...",
+        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:114:15)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:129:5)",
+        "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
+        "...node internals..."
+      ]
+    }
+  ],
+  "/BackendStack/ExpenseApi/POST--api--transactions/CreateTransactionLambdaIntegration": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": "*"
+    }
+  ],
+  "/BackendStack/ExpenseApi/POST--api--transactions/CreateTransactionLambdaIntegration-Permission": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ExpenseApiPOSTapitransactionsCreateTransactionLambdaIntegrationPermissionFC05C3FA"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        ".../Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/node_modules/aws-cdk-lib/aws-apigatewayv2/lib/http/api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...WrappedClass.<anonymous> in aws-cdk-lib...",
+        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:114:15)"
+      ]
+    }
+  ],
+  "/BackendStack/ExpenseApi/POST--api--transactions/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ExpenseApiPOSTapitransactionsC9C73C0E"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        ".../Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/node_modules/aws-cdk-lib/aws-apigatewayv2/lib/http/api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...WrappedClass.<anonymous> in aws-cdk-lib...",
+        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:114:15)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:131:5)",
+        "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
+        "...node internals..."
+      ]
+    }
+  ],
+  "/BackendStack/ExpenseApi/GET--api--transactions/ListTransactionsLambdaIntegration": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": "*"
+    }
+  ],
+  "/BackendStack/ExpenseApi/GET--api--transactions/ListTransactionsLambdaIntegration-Permission": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ExpenseApiGETapitransactionsListTransactionsLambdaIntegrationPermissionB7D0B134"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        ".../Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/node_modules/aws-cdk-lib/aws-apigatewayv2/lib/http/api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...WrappedClass.<anonymous> in aws-cdk-lib...",
+        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:114:15)"
+      ]
+    }
+  ],
+  "/BackendStack/ExpenseApi/GET--api--transactions/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ExpenseApiGETapitransactionsED80C914"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        ".../Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/node_modules/aws-cdk-lib/aws-apigatewayv2/lib/http/api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...WrappedClass.<anonymous> in aws-cdk-lib...",
+        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:114:15)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:132:36)",
+        "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
+        "...node internals..."
+      ]
+    }
+  ],
+  "/BackendStack/ExpenseApi/DELETE--api--transactions/DeleteTransactionLambdaIntegration": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": "*"
+    }
+  ],
+  "/BackendStack/ExpenseApi/DELETE--api--transactions/DeleteTransactionLambdaIntegration-Permission": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ExpenseApiDELETEapitransactionsDeleteTransactionLambdaIntegrationPermission23047A71"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        ".../Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/node_modules/aws-cdk-lib/aws-apigatewayv2/lib/http/api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...WrappedClass.<anonymous> in aws-cdk-lib...",
+        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:114:15)"
+      ]
+    }
+  ],
+  "/BackendStack/ExpenseApi/DELETE--api--transactions/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ExpenseApiDELETEapitransactionsC3C9B917"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        ".../Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/node_modules/aws-cdk-lib/aws-apigatewayv2/lib/http/api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...WrappedClass.<anonymous> in aws-cdk-lib...",
+        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:114:15)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:133:5)",
+        "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
+        "...node internals..."
+      ]
+    }
+  ],
   "/BackendStack/RegisterLambda/ServiceRole/Resource": [
     {
       "type": "aws:cdk:logicalId",
@@ -2232,7 +2607,8 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new NodejsFunction in aws-cdk-lib...",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:74:28)",
+        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:105:18)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:123:5)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals, ts-node..."
       ]
@@ -2291,7 +2667,8 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new NodejsFunction in aws-cdk-lib...",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:74:28)",
+        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:105:18)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:123:5)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals, ts-node..."
       ]
@@ -2306,7 +2683,8 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new NodejsFunction in aws-cdk-lib...",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:80:25)",
+        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:105:18)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:124:5)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals, ts-node..."
       ]
@@ -2365,7 +2743,46 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new NodejsFunction in aws-cdk-lib...",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:80:25)",
+        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:105:18)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:124:5)",
+        "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
+        "...node internals, ts-node..."
+      ]
+    }
+  ],
+  "/BackendStack/LogoutLambda/ServiceRole/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "LogoutLambdaServiceRole8D5EB9E1"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new NodejsFunction in aws-cdk-lib...",
+        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:105:18)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:125:5)",
+        "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
+        "...node internals, ts-node..."
+      ]
+    }
+  ],
+  "/BackendStack/LogoutLambda/Code/AssetBucket": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": "*"
+    }
+  ],
+  "/BackendStack/LogoutLambda/LogGroup/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "LogoutLambdaLogGroup8F98CC93"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new NodejsFunction in aws-cdk-lib...",
+        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:105:18)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:125:5)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals, ts-node..."
       ]
@@ -2380,7 +2797,8 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new NodejsFunction in aws-cdk-lib...",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:86:33)",
+        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:105:18)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:127:5)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals, ts-node..."
       ]
@@ -2439,7 +2857,8 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new NodejsFunction in aws-cdk-lib...",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:86:33)",
+        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:105:18)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:127:5)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals, ts-node..."
       ]
@@ -2454,7 +2873,8 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new NodejsFunction in aws-cdk-lib...",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:92:34)",
+        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:105:18)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:128:5)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals, ts-node..."
       ]
@@ -2513,7 +2933,8 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new NodejsFunction in aws-cdk-lib...",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:92:34)",
+        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:105:18)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:128:5)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals, ts-node..."
       ]
@@ -2528,7 +2949,8 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new NodejsFunction in aws-cdk-lib...",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:98:34)",
+        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:105:18)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:129:5)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals, ts-node..."
       ]
@@ -2587,7 +3009,8 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new NodejsFunction in aws-cdk-lib...",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:98:34)",
+        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:105:18)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:129:5)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals, ts-node..."
       ]
@@ -2602,7 +3025,8 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new NodejsFunction in aws-cdk-lib...",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:104:37)",
+        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:105:18)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:131:5)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals, ts-node..."
       ]
@@ -2661,7 +3085,8 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new NodejsFunction in aws-cdk-lib...",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:104:37)",
+        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:105:18)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:131:5)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals, ts-node..."
       ]
@@ -2676,7 +3101,8 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new NodejsFunction in aws-cdk-lib...",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:110:36)",
+        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:105:18)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:132:36)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals, ts-node..."
       ]
@@ -2735,7 +3161,8 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new NodejsFunction in aws-cdk-lib...",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:110:36)",
+        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:105:18)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:132:36)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals, ts-node..."
       ]
@@ -2750,7 +3177,8 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new NodejsFunction in aws-cdk-lib...",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:116:37)",
+        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:105:18)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:133:5)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals, ts-node..."
       ]
@@ -2809,400 +3237,8 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new NodejsFunction in aws-cdk-lib...",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:116:37)",
-        "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
-        "...node internals, ts-node..."
-      ]
-    }
-  ],
-  "/BackendStack/ExpenseApi/DefaultStage/Resource": [
-    {
-      "type": "aws:cdk:logicalId",
-      "data": "ExpenseApiDefaultStageC6138CEB"
-    },
-    {
-      "type": "aws:cdk:creationStack",
-      "data": [
-        "...new HttpApi2 in aws-cdk-lib...",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:122:21)",
-        "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
-        "...node internals, ts-node, ts-node..."
-      ]
-    }
-  ],
-  "/BackendStack/ExpenseApi/POST--api--auth--register/RegisterIntegration": [
-    {
-      "type": "aws:cdk:analytics:construct",
-      "data": "*"
-    }
-  ],
-  "/BackendStack/ExpenseApi/POST--api--auth--register/RegisterIntegration-Permission": [
-    {
-      "type": "aws:cdk:logicalId",
-      "data": "ExpenseApiPOSTapiauthregisterRegisterIntegrationPermissionDF07047C"
-    },
-    {
-      "type": "aws:cdk:creationStack",
-      "data": [
-        ".../Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/node_modules/aws-cdk-lib/aws-apigatewayv2/lib/http/api.js:1:96 in aws-cdk-lib...",
-        "Array.map (:)",
-        "...WrappedClass.<anonymous> in aws-cdk-lib...",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:169:13)"
-      ]
-    }
-  ],
-  "/BackendStack/ExpenseApi/POST--api--auth--register/Resource": [
-    {
-      "type": "aws:cdk:logicalId",
-      "data": "ExpenseApiPOSTapiauthregisterA4364625"
-    },
-    {
-      "type": "aws:cdk:creationStack",
-      "data": [
-        ".../Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/node_modules/aws-cdk-lib/aws-apigatewayv2/lib/http/api.js:1:96 in aws-cdk-lib...",
-        "Array.map (:)",
-        "...WrappedClass.<anonymous> in aws-cdk-lib...",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:169:13)",
-        "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
-        "...node internals, ts-node..."
-      ]
-    }
-  ],
-  "/BackendStack/ExpenseApi/POST--api--auth--login/LoginIntegration": [
-    {
-      "type": "aws:cdk:analytics:construct",
-      "data": "*"
-    }
-  ],
-  "/BackendStack/ExpenseApi/POST--api--auth--login/LoginIntegration-Permission": [
-    {
-      "type": "aws:cdk:logicalId",
-      "data": "ExpenseApiPOSTapiauthloginLoginIntegrationPermission05EEC2FB"
-    },
-    {
-      "type": "aws:cdk:creationStack",
-      "data": [
-        ".../Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/node_modules/aws-cdk-lib/aws-apigatewayv2/lib/http/api.js:1:96 in aws-cdk-lib...",
-        "Array.map (:)",
-        "...WrappedClass.<anonymous> in aws-cdk-lib...",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:175:13)"
-      ]
-    }
-  ],
-  "/BackendStack/ExpenseApi/POST--api--auth--login/Resource": [
-    {
-      "type": "aws:cdk:logicalId",
-      "data": "ExpenseApiPOSTapiauthloginEB198EAC"
-    },
-    {
-      "type": "aws:cdk:creationStack",
-      "data": [
-        ".../Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/node_modules/aws-cdk-lib/aws-apigatewayv2/lib/http/api.js:1:96 in aws-cdk-lib...",
-        "Array.map (:)",
-        "...WrappedClass.<anonymous> in aws-cdk-lib...",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:175:13)",
-        "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
-        "...node internals, ts-node..."
-      ]
-    }
-  ],
-  "/BackendStack/ExpenseApi/POST--api--auth--logout/LogoutIntegration": [
-    {
-      "type": "aws:cdk:analytics:construct",
-      "data": "*"
-    }
-  ],
-  "/BackendStack/ExpenseApi/POST--api--auth--logout/LogoutIntegration-Permission": [
-    {
-      "type": "aws:cdk:logicalId",
-      "data": "ExpenseApiPOSTapiauthlogoutLogoutIntegrationPermissionE6567D89"
-    },
-    {
-      "type": "aws:cdk:creationStack",
-      "data": [
-        ".../Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/node_modules/aws-cdk-lib/aws-apigatewayv2/lib/http/api.js:1:96 in aws-cdk-lib...",
-        "Array.map (:)",
-        "...WrappedClass.<anonymous> in aws-cdk-lib...",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:181:13)"
-      ]
-    }
-  ],
-  "/BackendStack/ExpenseApi/POST--api--auth--logout/Resource": [
-    {
-      "type": "aws:cdk:logicalId",
-      "data": "ExpenseApiPOSTapiauthlogout521B43B1"
-    },
-    {
-      "type": "aws:cdk:creationStack",
-      "data": [
-        ".../Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/node_modules/aws-cdk-lib/aws-apigatewayv2/lib/http/api.js:1:96 in aws-cdk-lib...",
-        "Array.map (:)",
-        "...WrappedClass.<anonymous> in aws-cdk-lib...",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:181:13)",
-        "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
-        "...node internals, ts-node..."
-      ]
-    }
-  ],
-  "/BackendStack/ExpenseApi/GET--api--categories/GetCatIntegration": [
-    {
-      "type": "aws:cdk:analytics:construct",
-      "data": "*"
-    }
-  ],
-  "/BackendStack/ExpenseApi/GET--api--categories/GetCatIntegration-Permission": [
-    {
-      "type": "aws:cdk:logicalId",
-      "data": "ExpenseApiGETapicategoriesGetCatIntegrationPermissionA2A89F52"
-    },
-    {
-      "type": "aws:cdk:creationStack",
-      "data": [
-        ".../Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/node_modules/aws-cdk-lib/aws-apigatewayv2/lib/http/api.js:1:96 in aws-cdk-lib...",
-        "Array.map (:)",
-        "...WrappedClass.<anonymous> in aws-cdk-lib...",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:187:13)"
-      ]
-    }
-  ],
-  "/BackendStack/ExpenseApi/GET--api--categories/Resource": [
-    {
-      "type": "aws:cdk:logicalId",
-      "data": "ExpenseApiGETapicategories4ADA97B6"
-    },
-    {
-      "type": "aws:cdk:creationStack",
-      "data": [
-        ".../Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/node_modules/aws-cdk-lib/aws-apigatewayv2/lib/http/api.js:1:96 in aws-cdk-lib...",
-        "Array.map (:)",
-        "...WrappedClass.<anonymous> in aws-cdk-lib...",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:187:13)",
-        "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
-        "...node internals, ts-node..."
-      ]
-    }
-  ],
-  "/BackendStack/ExpenseApi/POST--api--categories/UpdateCatIntegration": [
-    {
-      "type": "aws:cdk:analytics:construct",
-      "data": "*"
-    }
-  ],
-  "/BackendStack/ExpenseApi/POST--api--categories/UpdateCatIntegration-Permission": [
-    {
-      "type": "aws:cdk:logicalId",
-      "data": "ExpenseApiPOSTapicategoriesUpdateCatIntegrationPermission7A90802D"
-    },
-    {
-      "type": "aws:cdk:creationStack",
-      "data": [
-        ".../Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/node_modules/aws-cdk-lib/aws-apigatewayv2/lib/http/api.js:1:96 in aws-cdk-lib...",
-        "Array.map (:)",
-        "...WrappedClass.<anonymous> in aws-cdk-lib...",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:193:13)"
-      ]
-    }
-  ],
-  "/BackendStack/ExpenseApi/POST--api--categories/Resource": [
-    {
-      "type": "aws:cdk:logicalId",
-      "data": "ExpenseApiPOSTapicategoriesBACBC190"
-    },
-    {
-      "type": "aws:cdk:creationStack",
-      "data": [
-        ".../Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/node_modules/aws-cdk-lib/aws-apigatewayv2/lib/http/api.js:1:96 in aws-cdk-lib...",
-        "Array.map (:)",
-        "...WrappedClass.<anonymous> in aws-cdk-lib...",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:193:13)",
-        "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
-        "...node internals, ts-node..."
-      ]
-    }
-  ],
-  "/BackendStack/ExpenseApi/DELETE--api--categories/DeleteCatIntegration": [
-    {
-      "type": "aws:cdk:analytics:construct",
-      "data": "*"
-    }
-  ],
-  "/BackendStack/ExpenseApi/DELETE--api--categories/DeleteCatIntegration-Permission": [
-    {
-      "type": "aws:cdk:logicalId",
-      "data": "ExpenseApiDELETEapicategoriesDeleteCatIntegrationPermission1AB460D4"
-    },
-    {
-      "type": "aws:cdk:creationStack",
-      "data": [
-        ".../Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/node_modules/aws-cdk-lib/aws-apigatewayv2/lib/http/api.js:1:96 in aws-cdk-lib...",
-        "Array.map (:)",
-        "...WrappedClass.<anonymous> in aws-cdk-lib...",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:199:13)"
-      ]
-    }
-  ],
-  "/BackendStack/ExpenseApi/DELETE--api--categories/Resource": [
-    {
-      "type": "aws:cdk:logicalId",
-      "data": "ExpenseApiDELETEapicategories1CABD405"
-    },
-    {
-      "type": "aws:cdk:creationStack",
-      "data": [
-        ".../Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/node_modules/aws-cdk-lib/aws-apigatewayv2/lib/http/api.js:1:96 in aws-cdk-lib...",
-        "Array.map (:)",
-        "...WrappedClass.<anonymous> in aws-cdk-lib...",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:199:13)",
-        "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
-        "...node internals, ts-node..."
-      ]
-    }
-  ],
-  "/BackendStack/ExpenseApi/POST--api--transactions/CreateTxIntegration": [
-    {
-      "type": "aws:cdk:analytics:construct",
-      "data": "*"
-    }
-  ],
-  "/BackendStack/ExpenseApi/POST--api--transactions/CreateTxIntegration-Permission": [
-    {
-      "type": "aws:cdk:logicalId",
-      "data": "ExpenseApiPOSTapitransactionsCreateTxIntegrationPermissionA52AA207"
-    },
-    {
-      "type": "aws:cdk:creationStack",
-      "data": [
-        ".../Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/node_modules/aws-cdk-lib/aws-apigatewayv2/lib/http/api.js:1:96 in aws-cdk-lib...",
-        "Array.map (:)",
-        "...WrappedClass.<anonymous> in aws-cdk-lib...",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:205:13)"
-      ]
-    }
-  ],
-  "/BackendStack/ExpenseApi/POST--api--transactions/Resource": [
-    {
-      "type": "aws:cdk:logicalId",
-      "data": "ExpenseApiPOSTapitransactionsC9C73C0E"
-    },
-    {
-      "type": "aws:cdk:creationStack",
-      "data": [
-        ".../Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/node_modules/aws-cdk-lib/aws-apigatewayv2/lib/http/api.js:1:96 in aws-cdk-lib...",
-        "Array.map (:)",
-        "...WrappedClass.<anonymous> in aws-cdk-lib...",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:205:13)",
-        "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
-        "...node internals, ts-node..."
-      ]
-    }
-  ],
-  "/BackendStack/ExpenseApi/GET--api--transactions/ListTxIntegration": [
-    {
-      "type": "aws:cdk:analytics:construct",
-      "data": "*"
-    }
-  ],
-  "/BackendStack/ExpenseApi/GET--api--transactions/ListTxIntegration-Permission": [
-    {
-      "type": "aws:cdk:logicalId",
-      "data": "ExpenseApiGETapitransactionsListTxIntegrationPermission13AD359D"
-    },
-    {
-      "type": "aws:cdk:creationStack",
-      "data": [
-        ".../Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/node_modules/aws-cdk-lib/aws-apigatewayv2/lib/http/api.js:1:96 in aws-cdk-lib...",
-        "Array.map (:)",
-        "...WrappedClass.<anonymous> in aws-cdk-lib...",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:211:13)"
-      ]
-    }
-  ],
-  "/BackendStack/ExpenseApi/GET--api--transactions/Resource": [
-    {
-      "type": "aws:cdk:logicalId",
-      "data": "ExpenseApiGETapitransactionsED80C914"
-    },
-    {
-      "type": "aws:cdk:creationStack",
-      "data": [
-        ".../Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/node_modules/aws-cdk-lib/aws-apigatewayv2/lib/http/api.js:1:96 in aws-cdk-lib...",
-        "Array.map (:)",
-        "...WrappedClass.<anonymous> in aws-cdk-lib...",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:211:13)",
-        "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
-        "...node internals, ts-node..."
-      ]
-    }
-  ],
-  "/BackendStack/ExpenseApi/DELETE--api--transactions/DeleteTxIntegration": [
-    {
-      "type": "aws:cdk:analytics:construct",
-      "data": "*"
-    }
-  ],
-  "/BackendStack/ExpenseApi/DELETE--api--transactions/DeleteTxIntegration-Permission": [
-    {
-      "type": "aws:cdk:logicalId",
-      "data": "ExpenseApiDELETEapitransactionsDeleteTxIntegrationPermissionE3C5462A"
-    },
-    {
-      "type": "aws:cdk:creationStack",
-      "data": [
-        ".../Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/node_modules/aws-cdk-lib/aws-apigatewayv2/lib/http/api.js:1:96 in aws-cdk-lib...",
-        "Array.map (:)",
-        "...WrappedClass.<anonymous> in aws-cdk-lib...",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:217:13)"
-      ]
-    }
-  ],
-  "/BackendStack/ExpenseApi/DELETE--api--transactions/Resource": [
-    {
-      "type": "aws:cdk:logicalId",
-      "data": "ExpenseApiDELETEapitransactionsC3C9B917"
-    },
-    {
-      "type": "aws:cdk:creationStack",
-      "data": [
-        ".../Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/node_modules/aws-cdk-lib/aws-apigatewayv2/lib/http/api.js:1:96 in aws-cdk-lib...",
-        "Array.map (:)",
-        "...WrappedClass.<anonymous> in aws-cdk-lib...",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:217:13)",
-        "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
-        "...node internals, ts-node..."
-      ]
-    }
-  ],
-  "/BackendStack/LogoutLambda/ServiceRole/Resource": [
-    {
-      "type": "aws:cdk:logicalId",
-      "data": "LogoutLambdaServiceRole8D5EB9E1"
-    },
-    {
-      "type": "aws:cdk:creationStack",
-      "data": [
-        "...new NodejsFunction in aws-cdk-lib...",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:144:26)",
-        "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
-        "...node internals, ts-node..."
-      ]
-    }
-  ],
-  "/BackendStack/LogoutLambda/Code/AssetBucket": [
-    {
-      "type": "aws:cdk:analytics:construct",
-      "data": "*"
-    }
-  ],
-  "/BackendStack/LogoutLambda/LogGroup/Resource": [
-    {
-      "type": "aws:cdk:logicalId",
-      "data": "LogoutLambdaLogGroup8F98CC93"
-    },
-    {
-      "type": "aws:cdk:creationStack",
-      "data": [
-        "...new NodejsFunction in aws-cdk-lib...",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:144:26)",
+        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:105:18)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:133:5)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals, ts-node..."
       ]
@@ -3217,7 +3253,7 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new NodejsFunction in aws-cdk-lib...",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:155:30)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:135:30)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals, ts-node..."
       ]
@@ -3268,7 +3304,7 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new NodejsFunction in aws-cdk-lib...",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:155:30)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:135:30)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals, ts-node..."
       ]
@@ -3283,7 +3319,7 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...WrappedClass.addSubscription in aws-cdk-lib...",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:292:21)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:218:21)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals, ts-node, ts-node..."
       ]
@@ -3298,7 +3334,7 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new Bucket2 in aws-cdk-lib...",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:228:27)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:154:27)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals..."
       ]
@@ -3338,7 +3374,7 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new BucketDeployment2 in aws-cdk-lib...",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:269:5)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:195:5)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals, ts-node..."
       ]
@@ -3359,7 +3395,7 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new BucketDeployment2 in aws-cdk-lib...",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:269:5)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:195:5)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals, ts-node..."
       ]
@@ -3452,7 +3488,7 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...WrappedClass.addSubscription in aws-cdk-lib...",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:286:16)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:212:16)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals, ts-node, ts-node..."
       ]
@@ -3467,7 +3503,7 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...WrappedClass.addToResourcePolicy in aws-cdk-lib...",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:294:21)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:220:21)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals, ts-node, ts-node..."
       ]
@@ -3482,9 +3518,144 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...WrappedClass.<anonymous> in aws-cdk-lib...",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:348:22)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:274:22)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals..."
+      ]
+    }
+  ],
+  "/BackendStack/ExpenseApi/POST--api--auth--register/RegisterLambdaIntegration/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ExpenseApiPOSTapiauthregisterRegisterLambdaIntegrationF2938433"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        ".../Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/node_modules/aws-cdk-lib/aws-apigatewayv2/lib/http/api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...WrappedClass.<anonymous> in aws-cdk-lib...",
+        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:114:15)"
+      ]
+    }
+  ],
+  "/BackendStack/ExpenseApi/POST--api--auth--login/LoginLambdaIntegration/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ExpenseApiPOSTapiauthloginLoginLambdaIntegration2BBF5D4F"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        ".../Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/node_modules/aws-cdk-lib/aws-apigatewayv2/lib/http/api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...WrappedClass.<anonymous> in aws-cdk-lib...",
+        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:114:15)"
+      ]
+    }
+  ],
+  "/BackendStack/ExpenseApi/POST--api--auth--logout/LogoutLambdaIntegration/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ExpenseApiPOSTapiauthlogoutLogoutLambdaIntegration52C42922"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        ".../Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/node_modules/aws-cdk-lib/aws-apigatewayv2/lib/http/api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...WrappedClass.<anonymous> in aws-cdk-lib...",
+        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:114:15)"
+      ]
+    }
+  ],
+  "/BackendStack/ExpenseApi/GET--api--categories/GetCategoriesLambdaIntegration/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ExpenseApiGETapicategoriesGetCategoriesLambdaIntegration29316B80"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        ".../Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/node_modules/aws-cdk-lib/aws-apigatewayv2/lib/http/api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...WrappedClass.<anonymous> in aws-cdk-lib...",
+        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:114:15)"
+      ]
+    }
+  ],
+  "/BackendStack/ExpenseApi/POST--api--categories/UpdateCategoryLambdaIntegration/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ExpenseApiPOSTapicategoriesUpdateCategoryLambdaIntegrationC5ED9F77"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        ".../Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/node_modules/aws-cdk-lib/aws-apigatewayv2/lib/http/api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...WrappedClass.<anonymous> in aws-cdk-lib...",
+        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:114:15)"
+      ]
+    }
+  ],
+  "/BackendStack/ExpenseApi/DELETE--api--categories/DeleteCategoryLambdaIntegration/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ExpenseApiDELETEapicategoriesDeleteCategoryLambdaIntegration7D295C12"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        ".../Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/node_modules/aws-cdk-lib/aws-apigatewayv2/lib/http/api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...WrappedClass.<anonymous> in aws-cdk-lib...",
+        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:114:15)"
+      ]
+    }
+  ],
+  "/BackendStack/ExpenseApi/POST--api--transactions/CreateTransactionLambdaIntegration/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ExpenseApiPOSTapitransactionsCreateTransactionLambdaIntegrationDA6FFD1B"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        ".../Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/node_modules/aws-cdk-lib/aws-apigatewayv2/lib/http/api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...WrappedClass.<anonymous> in aws-cdk-lib...",
+        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:114:15)"
+      ]
+    }
+  ],
+  "/BackendStack/ExpenseApi/GET--api--transactions/ListTransactionsLambdaIntegration/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ExpenseApiGETapitransactionsListTransactionsLambdaIntegrationD849CC52"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        ".../Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/node_modules/aws-cdk-lib/aws-apigatewayv2/lib/http/api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...WrappedClass.<anonymous> in aws-cdk-lib...",
+        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:114:15)"
+      ]
+    }
+  ],
+  "/BackendStack/ExpenseApi/DELETE--api--transactions/DeleteTransactionLambdaIntegration/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ExpenseApiDELETEapitransactionsDeleteTransactionLambdaIntegrationC8E1D13E"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        ".../Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/node_modules/aws-cdk-lib/aws-apigatewayv2/lib/http/api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...WrappedClass.<anonymous> in aws-cdk-lib...",
+        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:114:15)"
       ]
     }
   ],
@@ -3592,141 +3763,6 @@
       ]
     }
   ],
-  "/BackendStack/ExpenseApi/POST--api--auth--register/RegisterIntegration/Resource": [
-    {
-      "type": "aws:cdk:logicalId",
-      "data": "ExpenseApiPOSTapiauthregisterRegisterIntegration3F40C3D3"
-    },
-    {
-      "type": "aws:cdk:creationStack",
-      "data": [
-        ".../Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/node_modules/aws-cdk-lib/aws-apigatewayv2/lib/http/api.js:1:96 in aws-cdk-lib...",
-        "Array.map (:)",
-        "...WrappedClass.<anonymous> in aws-cdk-lib...",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:169:13)"
-      ]
-    }
-  ],
-  "/BackendStack/ExpenseApi/POST--api--auth--login/LoginIntegration/Resource": [
-    {
-      "type": "aws:cdk:logicalId",
-      "data": "ExpenseApiPOSTapiauthloginLoginIntegration989F96B2"
-    },
-    {
-      "type": "aws:cdk:creationStack",
-      "data": [
-        ".../Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/node_modules/aws-cdk-lib/aws-apigatewayv2/lib/http/api.js:1:96 in aws-cdk-lib...",
-        "Array.map (:)",
-        "...WrappedClass.<anonymous> in aws-cdk-lib...",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:175:13)"
-      ]
-    }
-  ],
-  "/BackendStack/ExpenseApi/POST--api--auth--logout/LogoutIntegration/Resource": [
-    {
-      "type": "aws:cdk:logicalId",
-      "data": "ExpenseApiPOSTapiauthlogoutLogoutIntegrationF33D8E93"
-    },
-    {
-      "type": "aws:cdk:creationStack",
-      "data": [
-        ".../Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/node_modules/aws-cdk-lib/aws-apigatewayv2/lib/http/api.js:1:96 in aws-cdk-lib...",
-        "Array.map (:)",
-        "...WrappedClass.<anonymous> in aws-cdk-lib...",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:181:13)"
-      ]
-    }
-  ],
-  "/BackendStack/ExpenseApi/GET--api--categories/GetCatIntegration/Resource": [
-    {
-      "type": "aws:cdk:logicalId",
-      "data": "ExpenseApiGETapicategoriesGetCatIntegrationC3B2BBF5"
-    },
-    {
-      "type": "aws:cdk:creationStack",
-      "data": [
-        ".../Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/node_modules/aws-cdk-lib/aws-apigatewayv2/lib/http/api.js:1:96 in aws-cdk-lib...",
-        "Array.map (:)",
-        "...WrappedClass.<anonymous> in aws-cdk-lib...",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:187:13)"
-      ]
-    }
-  ],
-  "/BackendStack/ExpenseApi/POST--api--categories/UpdateCatIntegration/Resource": [
-    {
-      "type": "aws:cdk:logicalId",
-      "data": "ExpenseApiPOSTapicategoriesUpdateCatIntegration20A0DC60"
-    },
-    {
-      "type": "aws:cdk:creationStack",
-      "data": [
-        ".../Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/node_modules/aws-cdk-lib/aws-apigatewayv2/lib/http/api.js:1:96 in aws-cdk-lib...",
-        "Array.map (:)",
-        "...WrappedClass.<anonymous> in aws-cdk-lib...",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:193:13)"
-      ]
-    }
-  ],
-  "/BackendStack/ExpenseApi/DELETE--api--categories/DeleteCatIntegration/Resource": [
-    {
-      "type": "aws:cdk:logicalId",
-      "data": "ExpenseApiDELETEapicategoriesDeleteCatIntegration6B407FD4"
-    },
-    {
-      "type": "aws:cdk:creationStack",
-      "data": [
-        ".../Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/node_modules/aws-cdk-lib/aws-apigatewayv2/lib/http/api.js:1:96 in aws-cdk-lib...",
-        "Array.map (:)",
-        "...WrappedClass.<anonymous> in aws-cdk-lib...",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:199:13)"
-      ]
-    }
-  ],
-  "/BackendStack/ExpenseApi/POST--api--transactions/CreateTxIntegration/Resource": [
-    {
-      "type": "aws:cdk:logicalId",
-      "data": "ExpenseApiPOSTapitransactionsCreateTxIntegration98712A84"
-    },
-    {
-      "type": "aws:cdk:creationStack",
-      "data": [
-        ".../Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/node_modules/aws-cdk-lib/aws-apigatewayv2/lib/http/api.js:1:96 in aws-cdk-lib...",
-        "Array.map (:)",
-        "...WrappedClass.<anonymous> in aws-cdk-lib...",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:205:13)"
-      ]
-    }
-  ],
-  "/BackendStack/ExpenseApi/GET--api--transactions/ListTxIntegration/Resource": [
-    {
-      "type": "aws:cdk:logicalId",
-      "data": "ExpenseApiGETapitransactionsListTxIntegration873B715E"
-    },
-    {
-      "type": "aws:cdk:creationStack",
-      "data": [
-        ".../Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/node_modules/aws-cdk-lib/aws-apigatewayv2/lib/http/api.js:1:96 in aws-cdk-lib...",
-        "Array.map (:)",
-        "...WrappedClass.<anonymous> in aws-cdk-lib...",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:211:13)"
-      ]
-    }
-  ],
-  "/BackendStack/ExpenseApi/DELETE--api--transactions/DeleteTxIntegration/Resource": [
-    {
-      "type": "aws:cdk:logicalId",
-      "data": "ExpenseApiDELETEapitransactionsDeleteTxIntegrationD9CD36C4"
-    },
-    {
-      "type": "aws:cdk:creationStack",
-      "data": [
-        ".../Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/node_modules/aws-cdk-lib/aws-apigatewayv2/lib/http/api.js:1:96 in aws-cdk-lib...",
-        "Array.map (:)",
-        "...WrappedClass.<anonymous> in aws-cdk-lib...",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:217:13)"
-      ]
-    }
-  ],
   "/BackendStack/KillSwitchLambda/ServiceRole/DefaultPolicy/Resource": [
     {
       "type": "aws:cdk:logicalId",
@@ -3736,7 +3772,7 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...NodejsFunction.addToRolePolicy in aws-cdk-lib...",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:164:22)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:144:22)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals, ts-node..."
       ]
@@ -3751,7 +3787,7 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new Distribution2 in aws-cdk-lib...",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:239:26)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:165:26)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals..."
       ]

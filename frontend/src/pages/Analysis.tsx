@@ -22,8 +22,10 @@ export default function Analysis() {
   const { categories } = useCategories();
   const [allTransactions, setAllTransactions] = useState<Transaction[]>([]);
   const [loading, setLoading] = useState(true);
+  const defaultEndDate = new Date().toLocaleDateString('en-CA');
+
   const [startDate, setStartDate] = useState<string>("");
-  const [endDate, setEndDate] = useState<string>("");
+  const [endDate, setEndDate] = useState<string>(defaultEndDate);
 
   useEffect(() => {
     fetchData();
@@ -32,13 +34,38 @@ export default function Analysis() {
   const fetchData = async () => {
     setLoading(true);
     try {
-      const txData = await request('/transactions');
+      const txData = await request('/transactions') as Transaction[];
       setAllTransactions(txData || []);
+      
+      if (txData && txData.length > 0) {
+        const earliestTx = txData.reduce((earliest, tx) => {
+          return tx.timestamp < earliest.timestamp ? tx : earliest;
+        });
+        const earliestDate = new Date(earliestTx.timestamp);
+        const firstDayOfMonth = new Date(earliestDate.getFullYear(), earliestDate.getMonth(), 1).toLocaleDateString('en-CA');
+        
+        // Only set if not already set by the user
+        setStartDate(prev => prev || firstDayOfMonth);
+      }
     } catch (err) {
       console.error(err);
       toast.error("Failed to fetch analytics data.");
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleReset = () => {
+    setEndDate(defaultEndDate);
+    if (allTransactions.length > 0) {
+      const earliestTx = allTransactions.reduce((earliest, tx) => {
+        return tx.timestamp < earliest.timestamp ? tx : earliest;
+      });
+      const earliestDate = new Date(earliestTx.timestamp);
+      const firstDayOfMonth = new Date(earliestDate.getFullYear(), earliestDate.getMonth(), 1).toLocaleDateString('en-CA');
+      setStartDate(firstDayOfMonth);
+    } else {
+      setStartDate("");
     }
   };
 
@@ -217,7 +244,7 @@ export default function Analysis() {
             </div>
             {(startDate || endDate) && (
               <button 
-                onClick={() => { setStartDate(""); setEndDate(""); }}
+                onClick={handleReset}
                 className="flex items-center gap-2 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 px-4 py-2 rounded-lg text-sm font-medium transition-colors"
               >
                 <RotateCcw size={16} /> Reset

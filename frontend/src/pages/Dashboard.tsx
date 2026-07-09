@@ -2,62 +2,35 @@ import { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import { request } from "../services/api";
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend } from "recharts";
-import { ArrowDownCircle, ArrowUpCircle, Plus, Loader2, Edit2, Calendar, ChevronDown, X, Grid, List, CreditCard, Wallet, Trash2, Heart } from "lucide-react";
+import { ArrowDownCircle, ArrowUpCircle, Edit2, Trash2, Heart, Activity } from "lucide-react";
 import { useTheme } from "../contexts/ThemeContext";
 import { useCategories } from "../contexts/CategoryContext";
 import MonthPicker from "../components/MonthPicker";
 import Loader from "../components/Loader";
-import CalendarView from "../components/CalendarView";
 import toast from "react-hot-toast";
-
-type Transaction = {
-  SK: string;
-  type: "DEBIT" | "CREDIT";
-  amount: number;
-  categoryId: string;
-  subcategoryId?: string;
-  description?: string;
-  paymentMode?: string;
-  timestamp: string;
-};
+import TransactionForm, { type Transaction } from "../components/TransactionForm";
+import TransactionList from "../components/TransactionList";
+import Modal from "../components/Modal";
+import { Info } from "lucide-react";
 
 const getLocalMonthString = () => {
   const d = new Date();
   return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
 };
 
-const getLocalDateString = () => {
-  const d = new Date();
-  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
-};
-
 export default function Dashboard() {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [month, setMonth] = useState(getLocalMonthString()); // YYYY-MM
   const [loading, setLoading] = useState(false);
-  const [page, setPage] = useState(1);
-  const ITEMS_PER_PAGE = 5;
   const { theme } = useTheme();
   const { categories } = useCategories();
   
-  // Form State
-  const [type, setType] = useState<"DEBIT" | "CREDIT">("DEBIT");
-  const [amount, setAmount] = useState("");
-  const [categoryId, setCategoryId] = useState("");
-  const [subcategoryId, setSubcategoryId] = useState("");
-  const [description, setDescription] = useState("");
-  const [paymentMode, setPaymentMode] = useState("");
-  const [txDate, setTxDate] = useState(getLocalDateString()); // YYYY-MM-DD
-  const [editingSK, setEditingSK] = useState<string | null>(null);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  
   // UI State
   const [viewTx, setViewTx] = useState<Transaction | null>(null);
-  const [viewMode, setViewMode] = useState<'list' | 'calendar'>('list');
+  const [editingTx, setEditingTx] = useState<Transaction | null>(null);
   const [viewDateTxs, setViewDateTxs] = useState<{date: Date, txs: Transaction[]} | null>(null);
 
   useEffect(() => {
-    setPage(1);
     fetchData();
   }, [month]);
 
@@ -74,68 +47,8 @@ export default function Dashboard() {
     }
   };
 
-  const handleAddTx = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!description) {
-      toast.error("Description is mandatory.");
-      return;
-    }
-    if (!amount || !categoryId || !txDate) {
-      toast.error("Please fill all required fields.");
-      return;
-    }
-
-    setIsSubmitting(true);
-    try {
-      const selectedDate = new Date(txDate);
-      const currentTime = new Date();
-      selectedDate.setHours(currentTime.getHours(), currentTime.getMinutes(), currentTime.getSeconds());
-
-      const newTx = {
-        originalSK: editingSK,
-        type,
-        amount: Number(amount),
-        categoryId,
-        subcategoryId,
-        description,
-        paymentMode,
-        timestamp: selectedDate.toISOString(),
-      };
-      
-      await request("/transactions", {
-        method: "POST",
-        body: JSON.stringify(newTx),
-      });
-      
-      toast.success(editingSK ? "Transaction updated!" : "Transaction added!");
-      
-      // Clear form
-      setAmount("");
-      setDescription("");
-      setPaymentMode("");
-      setSubcategoryId("");
-      setCategoryId("");
-      setEditingSK(null);
-      setTxDate(getLocalDateString());
-      
-      await fetchData();
-    } catch (err) {
-      console.error(err);
-      toast.error("Failed to save transaction.");
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
   const handleEditClick = (tx: Transaction) => {
-    setEditingSK(tx.SK);
-    setType(tx.type);
-    setAmount(tx.amount.toString());
-    setCategoryId(tx.categoryId);
-    setSubcategoryId(tx.subcategoryId || "");
-    setDescription(tx.description || "");
-    setPaymentMode(tx.paymentMode || "");
-    setTxDate(tx.timestamp.slice(0, 10));
+    setEditingTx(tx);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -162,9 +75,6 @@ export default function Dashboard() {
     }
   };
 
-  const activeCategories = categories.filter(c => !c.isArchived);
-  const selectedCat = categories.find(c => c.SK === `CAT#${categoryId}` || c.name === categoryId); // Fallback to name during migration transition
-  
   const debits = transactions.filter(t => t.type === "DEBIT");
   const credits = transactions.filter(t => t.type === "CREDIT");
   const totalDebit = debits.reduce((acc, t) => acc + t.amount, 0);
@@ -174,6 +84,13 @@ export default function Dashboard() {
   const hasTransactions = debits.length > 0 || credits.length > 0;
   const healthScore = totalCredit > 0 ? Math.max(0, Math.min(10, Math.round(((totalCredit - totalDebit) / totalCredit) * 10))) : 0;
   const scoreDisplay = hasTransactions ? `${healthScore}/10` : `-`;
+  
+  const [yearStr, monthStr] = month.split('-');
+  const today = new Date();
+  const isCurrentMonth = today.getFullYear() === parseInt(yearStr) && (today.getMonth() + 1) === parseInt(monthStr);
+  const daysInMonth = new Date(parseInt(yearStr), parseInt(monthStr), 0).getDate();
+  const daysToDivideBy = isCurrentMonth ? today.getDate() : daysInMonth;
+  const dailyAverage = totalDebit / daysToDivideBy;
   
   let scoreColor = "text-slate-400 bg-slate-100 dark:bg-slate-800";
   if (hasTransactions) {
@@ -238,10 +155,20 @@ export default function Dashboard() {
               <h3 className="text-3xl font-bold text-white">₹{balance.toFixed(2)}</h3>
             </div>
           </div>
-          <div className="bg-white dark:bg-slate-900 rounded-2xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm dark:shadow-lg flex items-center justify-between transition-colors">
+          <div className="bg-white dark:bg-slate-900 rounded-2xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm dark:shadow-lg flex items-center justify-between transition-colors col-span-1 md:col-span-2 lg:col-span-1 relative group">
             <div>
-              <p className="text-sm font-medium text-slate-500 dark:text-slate-400 mb-1">Health Score</p>
+              <div className="flex items-center gap-2 mb-1">
+                <p className="text-sm font-medium text-slate-500 dark:text-slate-400">Health Score</p>
+                <div className="relative">
+                  <Info size={16} className="text-slate-400 cursor-help" />
+                  <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-64 p-3 bg-slate-900 dark:bg-slate-700 text-white dark:text-slate-100 text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-50 shadow-lg">
+                    Formula: ((Total Income - Total Expenses) / Total Income) * 10. Indicates how much of your income you are saving. A score of 10 means you saved all your income, 0 means you spent all or more.
+                    <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-slate-900 dark:border-t-slate-700"></div>
+                  </div>
+                </div>
+              </div>
               <h3 className={`text-3xl font-bold ${scoreColor.split(' ')[0]}`}>{scoreDisplay}</h3>
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 font-medium">Avg Daily Spend: ₹{dailyAverage.toFixed(2)}</p>
             </div>
             <div className={`p-4 rounded-full ${scoreColor.split(' ').slice(1).join(' ')}`}>
               <Heart className={scoreColor.split(' ')[0]} size={32} />
@@ -251,143 +178,15 @@ export default function Dashboard() {
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           
-          {/* Add Transaction Form */}
-          <div className="lg:col-span-1 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm dark:shadow-lg p-6 transition-colors">
-            <div className="flex items-center justify-between mb-6">
-              <h2 className="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
-                {editingSK ? <Edit2 size={20} className="text-blue-500 dark:text-blue-400" /> : <Plus size={20} className="text-blue-500 dark:text-blue-400" />}
-                {editingSK ? "Edit Transaction" : "New Transaction"}
-              </h2>
-              {editingSK && (
-                <button 
-                  onClick={() => {
-                    setEditingSK(null);
-                    setAmount("");
-                    setDescription("");
-                    setPaymentMode("");
-                    setTxDate(getLocalDateString());
-                  }}
-                  className="text-sm text-slate-500 hover:text-slate-700 dark:hover:text-slate-300"
-                >
-                  Cancel Edit
-                </button>
-              )}
-            </div>
-            
-            <div className="flex p-1 bg-slate-100 dark:bg-slate-800 rounded-xl mb-6 border border-slate-200 dark:border-slate-700">
-              <button 
-                onClick={() => setType("DEBIT")} 
-                className={`flex-1 py-2 text-sm font-medium rounded-lg transition-all ${type === "DEBIT" ? "bg-white dark:bg-rose-500/20 text-rose-600 dark:text-rose-400 shadow-sm" : "text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"}`}
-              >
-                Expense
-              </button>
-              <button 
-                onClick={() => setType("CREDIT")} 
-                className={`flex-1 py-2 text-sm font-medium rounded-lg transition-all ${type === "CREDIT" ? "bg-white dark:bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 shadow-sm" : "text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"}`}
-              >
-                Income
-              </button>
-            </div>
-
-            <form onSubmit={handleAddTx} className="space-y-4">
-              <div>
-                <label className="block text-sm font-medium text-slate-700 dark:text-slate-400 mb-1">
-                  Description <span className="text-rose-500">*</span>
-                </label>
-                <input 
-                  type="text" value={description} onChange={e => setDescription(e.target.value)} required
-                  className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none transition-all"
-                  placeholder={type === "DEBIT" ? "What did you pay for?" : "How did you get this money?"}
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-slate-700 dark:text-slate-400 mb-1">
-                  Amount (₹) <span className="text-rose-500">*</span>
-                </label>
-                <input 
-                  type="number" step="0.01" value={amount} onChange={e => setAmount(e.target.value)} required 
-                  className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none transition-all"
-                  placeholder="0.00"
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-slate-700 dark:text-slate-400 mb-1">
-                  Date <span className="text-rose-500">*</span>
-                </label>
-                <div className="relative">
-                  <input 
-                    type="date" value={txDate} onChange={e => setTxDate(e.target.value)} required 
-                    className="w-full min-w-0 max-w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-xl pl-4 pr-10 py-3 text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none transition-all appearance-none [&::-webkit-calendar-picker-indicator]:opacity-0 [&::-webkit-calendar-picker-indicator]:absolute [&::-webkit-calendar-picker-indicator]:w-full [&::-webkit-calendar-picker-indicator]:h-full [&::-webkit-calendar-picker-indicator]:cursor-pointer"
-                  />
-                  <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400">
-                    <Calendar size={20} />
-                  </div>
-                </div>
-              </div>
-              
-              <div>
-                <label className="block text-sm font-medium text-slate-700 dark:text-slate-400 mb-1">
-                  Category <span className="text-rose-500">*</span>
-                </label>
-                <div className="relative">
-                  <select 
-                    value={categoryId} onChange={e => setCategoryId(e.target.value)} required
-                    className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-xl pl-4 pr-10 py-3 text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none transition-all appearance-none cursor-pointer"
-                  >
-                    <option value="" disabled>Select Category</option>
-                    {activeCategories.map(c => <option key={c.SK} value={c.SK.replace('CAT#', '')}>{c.icon} {c.name}</option>)}
-                  </select>
-                  <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400">
-                    <ChevronDown size={20} />
-                  </div>
-                </div>
-              </div>
-
-              {selectedCat && Object.keys(selectedCat.subcategories || {}).length > 0 && (
-                <div>
-                  <label className="block text-sm font-medium text-slate-700 dark:text-slate-400 mb-1">Subcategory</label>
-                  <div className="relative">
-                    <select 
-                      value={subcategoryId} onChange={e => setSubcategoryId(e.target.value)}
-                      className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-xl pl-4 pr-10 py-3 text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none transition-all appearance-none cursor-pointer"
-                    >
-                      <option value="">None</option>
-                      {Object.entries(selectedCat.subcategories).map(([id, name]) => <option key={id} value={id}>{name}</option>)}
-                    </select>
-                    <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400">
-                      <ChevronDown size={20} />
-                    </div>
-                  </div>
-                </div>
-              )}
-
-              <div>
-                <label className="block text-sm font-medium text-slate-700 dark:text-slate-400 mb-1">Payment Mode (Optional)</label>
-                <div className="relative">
-                  <select 
-                    value={paymentMode} onChange={e => setPaymentMode(e.target.value)}
-                    className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-xl pl-4 pr-10 py-3 text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none transition-all appearance-none cursor-pointer"
-                  >
-                    <option value="">None</option>
-                    <option value="UPI">UPI</option>
-                    <option value="Credit Card">Credit Card</option>
-                    <option value="Debit Card">Debit Card</option>
-                    <option value="Net Banking">Net Banking</option>
-                    <option value="Cash">Cash</option>
-                  </select>
-                  <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400">
-                    <CreditCard size={20} />
-                  </div>
-                </div>
-              </div>
-
-              <button type="submit" disabled={isSubmitting} className="w-full mt-4 bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 rounded-xl transition-colors shadow-md shadow-blue-500/20 disabled:opacity-70 flex items-center justify-center gap-2">
-                {isSubmitting && <Loader2 className="animate-spin w-5 h-5" />}
-                {editingSK ? "Update" : "Add"} {type === "DEBIT" ? "Expense" : "Income"}
-              </button>
-            </form>
+          <div className="lg:col-span-1">
+            <TransactionForm 
+              editingTx={editingTx} 
+              onSuccess={() => {
+                setEditingTx(null);
+                fetchData();
+              }} 
+              onCancel={() => setEditingTx(null)}
+            />
           </div>
 
           <div className="lg:col-span-2 space-y-8">
@@ -457,266 +256,149 @@ export default function Dashboard() {
               </div>
             </div>
 
-            {/* Transactions List */}
-            <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm dark:shadow-lg p-6 transition-colors">
-              <div className="flex justify-between items-center mb-6">
-                <h2 className="text-lg font-bold text-slate-900 dark:text-white">Recent Transactions</h2>
-                <div className="flex bg-slate-100 dark:bg-slate-800 p-1 rounded-lg border border-slate-200 dark:border-slate-700">
-                  <button 
-                    onClick={() => setViewMode('list')}
-                    className={`p-1.5 rounded-md transition-colors ${viewMode === 'list' ? 'bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-sm' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-300'}`}
-                    title="List View"
-                  >
-                    <List size={18} />
-                  </button>
-                  <button 
-                    onClick={() => setViewMode('calendar')}
-                    className={`p-1.5 rounded-md transition-colors ${viewMode === 'calendar' ? 'bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-sm' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-300'}`}
-                    title="Calendar View"
-                  >
-                    <Grid size={18} />
-                  </button>
-                </div>
-              </div>
-              
-              {loading ? (
-                <div className="py-8"><Loader text="Loading transactions..." /></div>
-              ) : transactions.length === 0 ? (
-                <div className="text-center py-12 flex flex-col items-center justify-center border-2 border-dashed border-slate-200 dark:border-slate-800 rounded-xl">
-                  <div className="bg-slate-100 dark:bg-slate-800 p-4 rounded-full mb-4">
-                    <Wallet size={32} className="text-slate-400 dark:text-slate-500" />
-                  </div>
-                  <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-2">No Transactions Yet</h3>
-                  <p className="text-slate-500 dark:text-slate-400 max-w-sm mb-6 text-sm">
-                    You haven't logged any income or expenses for {new Date(month + '-01').toLocaleDateString(undefined, { month: 'long', year: 'numeric' })}.
-                  </p>
-                  <button 
-                    onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-                    className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-lg transition-colors flex items-center gap-2"
-                  >
-                    <Plus size={18} /> Start Adding Expenses
-                  </button>
-                </div>
-              ) : viewMode === 'calendar' ? (
-                <div className="pt-2">
-                  <CalendarView 
-                    month={month} 
-                    transactions={transactions} 
-                    onDayClick={(date, txs) => setViewDateTxs({date, txs})} 
-                  />
-                </div>
-              ) : (
-                <div className="space-y-4">
-                  {transactions.slice((page - 1) * ITEMS_PER_PAGE, page * ITEMS_PER_PAGE).map(tx => {
-                    const txCat = categories.find(c => c.SK === `CAT#${tx.categoryId}`) || { name: tx.categoryId, icon: "🏷️", subcategories: {} as Record<string, string> };
-                    const subcats = txCat.subcategories as Record<string, string>;
-                    const txSubCatName = tx.subcategoryId && subcats ? subcats[tx.subcategoryId] : tx.subcategoryId;
-
-                    return (
-                      <div 
-                        key={tx.SK} 
-                        onClick={() => setViewTx(tx)}
-                        className="flex items-center justify-between p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors border border-slate-100 dark:border-slate-700/50 cursor-pointer"
-                      >
-                        <div className="flex items-center gap-3 min-w-0 flex-1">
-                          <div className={`w-12 h-12 rounded-full flex-shrink-0 flex items-center justify-center border-2 ${tx.type === 'DEBIT' ? 'bg-rose-50 dark:bg-rose-500/5 border-rose-200 dark:border-rose-500/30 text-rose-600 dark:text-rose-400' : 'bg-emerald-50 dark:bg-emerald-500/5 border-emerald-200 dark:border-emerald-500/30 text-emerald-600 dark:text-emerald-400'}`}>
-                            <span className="text-xl leading-none">{txCat.icon}</span>
-                          </div>
-                          <div className="min-w-0 flex-1 pr-4">
-                            <p className="font-semibold text-slate-900 dark:text-white truncate">
-                              {tx.description || "No Description"}
-                            </p>
-                            <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 truncate">
-                              {new Date(tx.timestamp).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}
-                              {` • ${txCat.name}${txSubCatName ? ` (${txSubCatName})` : ''}`}
-                            </p>
-                          </div>
-                        </div>
-                        <div className="flex flex-col items-end flex-shrink-0">
-                          <div className={`font-bold text-base sm:text-lg ${tx.type === 'DEBIT' ? 'text-slate-900 dark:text-white' : 'text-emerald-600 dark:text-emerald-400'}`}>
-                            {tx.type === 'DEBIT' ? '-' : '+'}₹{tx.amount.toFixed(2)}
-                          </div>
-                          {tx.paymentMode && (
-                            <div className="text-xs text-slate-500 dark:text-slate-400 mt-0.5 px-2 py-0.5 rounded bg-slate-200 dark:bg-slate-700">
-                              {tx.paymentMode}
-                            </div>
-                          )}
-                        </div>
-                      </div>
-                    )
-                  })}
-                  
-                  {transactions.length > ITEMS_PER_PAGE && (
-                    <div className="flex items-center justify-between pt-4 mt-4 border-t border-slate-100 dark:border-slate-800">
-                      <button 
-                        onClick={() => setPage(p => Math.max(1, p - 1))}
-                        disabled={page === 1}
-                        className="px-4 py-2 text-sm font-medium text-slate-600 dark:text-slate-300 bg-slate-100 dark:bg-slate-800 rounded-lg disabled:opacity-50 transition-colors hover:bg-slate-200 dark:hover:bg-slate-700"
-                      >
-                        Previous
-                      </button>
-                      <span className="text-sm text-slate-500 dark:text-slate-400">
-                        Page {page} of {Math.ceil(transactions.length / ITEMS_PER_PAGE)}
-                      </span>
-                      <button 
-                        onClick={() => setPage(p => Math.min(Math.ceil(transactions.length / ITEMS_PER_PAGE), p + 1))}
-                        disabled={page === Math.ceil(transactions.length / ITEMS_PER_PAGE)}
-                        className="px-4 py-2 text-sm font-medium text-slate-600 dark:text-slate-300 bg-slate-100 dark:bg-slate-800 rounded-lg disabled:opacity-50 transition-colors hover:bg-slate-200 dark:hover:bg-slate-700"
-                      >
-                        Next
-                      </button>
-                    </div>
-                  )}
-                </div>
-              )}
-            </div>
+            <TransactionList 
+              transactions={transactions} 
+              loading={loading} 
+              month={month} 
+              onAddClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} 
+              onTxClick={(tx) => setViewTx(tx)}
+              setViewDateTxs={setViewDateTxs}
+            />
           </div>
         </div>
       </main>
 
-      {/* View Transaction Modal */}
-      {viewTx && (
-        <div className="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-white dark:bg-slate-900 rounded-2xl w-full max-w-md shadow-2xl overflow-hidden border border-slate-200 dark:border-slate-800">
-            <div className="p-6">
-              <div className="flex justify-between items-start mb-6">
-                <h2 className="text-xl font-bold text-slate-900 dark:text-white">Transaction Details</h2>
-                <button onClick={() => setViewTx(null)} className="text-slate-400 hover:text-slate-500 dark:hover:text-slate-300 transition-colors">
-                  <X size={24} />
-                </button>
+      <Modal 
+        isOpen={viewTx !== null} 
+        onClose={() => setViewTx(null)} 
+        title="Transaction Details"
+      >
+        {viewTx && (
+          <div>
+            <div className="flex flex-col items-center mb-8">
+              <div className={`w-20 h-20 rounded-full mb-4 flex items-center justify-center border-4 ${viewTx.type === 'DEBIT' ? 'bg-rose-50 dark:bg-rose-500/5 border-rose-200 dark:border-rose-500/30 text-rose-600 dark:text-rose-400' : 'bg-emerald-50 dark:bg-emerald-500/5 border-emerald-200 dark:border-emerald-500/30 text-emerald-600 dark:text-emerald-400'}`}>
+                <span className="text-4xl leading-none">{categories.find(c => c.SK === `CAT#${viewTx.categoryId}`)?.icon || "🏷️"}</span>
               </div>
-              <div className="flex flex-col items-center mb-8">
-                <div className={`w-20 h-20 rounded-full mb-4 flex items-center justify-center border-4 ${viewTx.type === 'DEBIT' ? 'bg-rose-50 dark:bg-rose-500/5 border-rose-200 dark:border-rose-500/30 text-rose-600 dark:text-rose-400' : 'bg-emerald-50 dark:bg-emerald-500/5 border-emerald-200 dark:border-emerald-500/30 text-emerald-600 dark:text-emerald-400'}`}>
-                  <span className="text-4xl leading-none">{categories.find(c => c.SK === `CAT#${viewTx.categoryId}`)?.icon || "🏷️"}</span>
-                </div>
-                <div className={`text-4xl font-bold ${viewTx.type === 'DEBIT' ? 'text-slate-900 dark:text-white' : 'text-emerald-600 dark:text-emerald-400'}`}>
-                  {viewTx.type === 'DEBIT' ? '-' : '+'}₹{viewTx.amount.toFixed(2)}
-                </div>
-                <div className="text-slate-500 dark:text-slate-400 mt-2 text-lg text-center font-medium">{viewTx.description}</div>
+              <div className={`text-4xl font-bold ${viewTx.type === 'DEBIT' ? 'text-slate-900 dark:text-white' : 'text-emerald-600 dark:text-emerald-400'}`}>
+                {viewTx.type === 'DEBIT' ? '-' : '+'}₹{viewTx.amount.toFixed(2)}
               </div>
-              
-              <div className="space-y-4 bg-slate-50 dark:bg-slate-800/50 p-4 rounded-xl border border-slate-100 dark:border-slate-700/50">
-                <div className="flex justify-between">
-                  <span className="text-slate-500 dark:text-slate-400">Date & Time</span>
-                  <span className="font-medium text-slate-900 dark:text-white text-right">
-                    {new Date(viewTx.timestamp).toLocaleString(undefined, { dateStyle: 'medium', timeStyle: 'short' })}
-                  </span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-slate-500 dark:text-slate-400">Category</span>
-                  <span className="font-medium text-slate-900 dark:text-white text-right">
-                    {categories.find(c => c.SK === `CAT#${viewTx.categoryId}`)?.name || viewTx.categoryId}
-                  </span>
-                </div>
-                {viewTx.subcategoryId && (
-                  <div className="flex justify-between">
-                    <span className="text-slate-500 dark:text-slate-400">Subcategory</span>
-                    <span className="font-medium text-slate-900 dark:text-white text-right">
-                      {categories.find(c => c.SK === `CAT#${viewTx.categoryId}`)?.subcategories?.[viewTx.subcategoryId] || viewTx.subcategoryId}
-                    </span>
-                  </div>
-                )}
-                {viewTx.paymentMode && (
-                  <div className="flex justify-between">
-                    <span className="text-slate-500 dark:text-slate-400">Payment Mode</span>
-                    <span className="font-medium text-slate-900 dark:text-white text-right">{viewTx.paymentMode}</span>
-                  </div>
-                )}
-                <div className="flex justify-between">
-                  <span className="text-slate-500 dark:text-slate-400">Type</span>
-                  <span className="font-medium text-slate-900 dark:text-white text-right">{viewTx.type === 'DEBIT' ? 'Expense' : 'Income'}</span>
-                </div>
-              </div>
-
-              <div className="mt-6 flex gap-3">
-                <button 
-                  onClick={() => {
-                    const tx = viewTx;
-                    setViewTx(null);
-                    handleEditClick(tx);
-                  }}
-                  className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-xl font-medium transition-colors flex items-center justify-center gap-2 shadow-sm"
-                >
-                  <Edit2 size={18} /> Edit
-                </button>
-                <button 
-                  onClick={() => {
-                    const tx = viewTx;
-                    setViewTx(null);
-                    handleDeleteTransaction(tx);
-                  }}
-                  className="flex-1 bg-rose-600 hover:bg-rose-700 text-white py-3 rounded-xl font-medium transition-colors flex items-center justify-center gap-2 shadow-sm"
-                >
-                  <Trash2 size={18} /> Delete
-                </button>
-              </div>
+              <div className="text-slate-500 dark:text-slate-400 mt-2 text-lg text-center font-medium">{viewTx.description}</div>
             </div>
-          </div>
-        </div>
-      )}
-      
-      {/* Daily Transactions Modal */}
-      {viewDateTxs && (
-        <div className="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-white dark:bg-slate-900 rounded-2xl w-full max-w-lg shadow-2xl overflow-hidden border border-slate-200 dark:border-slate-800 flex flex-col max-h-[80vh]">
-            <div className="p-6 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center sticky top-0 bg-white dark:bg-slate-900 z-10">
-              <div>
-                <h2 className="text-xl font-bold text-slate-900 dark:text-white">Daily Transactions</h2>
-                <p className="text-slate-500 dark:text-slate-400 text-sm">
-                  {viewDateTxs.date.toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
-                </p>
+            
+            <div className="space-y-4 bg-slate-50 dark:bg-slate-800/50 p-4 rounded-xl border border-slate-100 dark:border-slate-700/50">
+              <div className="flex justify-between">
+                <span className="text-slate-500 dark:text-slate-400">Date & Time</span>
+                <span className="font-medium text-slate-900 dark:text-white text-right">
+                  {new Date(viewTx.timestamp).toLocaleString(undefined, { dateStyle: 'medium', timeStyle: 'short' })}
+                </span>
               </div>
-              <button onClick={() => setViewDateTxs(null)} className="text-slate-400 hover:text-slate-500 dark:hover:text-slate-300 transition-colors">
-                <X size={24} />
-              </button>
-            </div>
-            <div className="p-6 overflow-y-auto">
-              {viewDateTxs.txs.length === 0 ? (
-                <div className="text-center py-8 text-slate-400 dark:text-slate-500">No transactions on this day.</div>
-              ) : (
-                <div className="space-y-3">
-                  {viewDateTxs.txs.map(tx => {
-                    const txCat = categories.find(c => c.SK === `CAT#${tx.categoryId}`) || { name: tx.categoryId, icon: "🏷️", subcategories: {} as Record<string, string> };
-                    const subcats = txCat.subcategories as Record<string, string>;
-                    const txSubCatName = tx.subcategoryId && subcats ? subcats[tx.subcategoryId] : tx.subcategoryId;
-
-                    return (
-                      <div 
-                        key={tx.SK} 
-                        onClick={() => {
-                          setViewDateTxs(null);
-                          setViewTx(tx);
-                        }}
-                        className="flex items-center justify-between p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors border border-slate-100 dark:border-slate-700/50 cursor-pointer"
-                      >
-                        <div className="flex items-center gap-3 min-w-0 flex-1">
-                          <div className={`w-12 h-12 rounded-full flex-shrink-0 flex items-center justify-center border-2 ${tx.type === 'DEBIT' ? 'bg-rose-50 dark:bg-rose-500/5 border-rose-200 dark:border-rose-500/30 text-rose-600 dark:text-rose-400' : 'bg-emerald-50 dark:bg-emerald-500/5 border-emerald-200 dark:border-emerald-500/30 text-emerald-600 dark:text-emerald-400'}`}>
-                            <span className="text-xl leading-none">{txCat.icon}</span>
-                          </div>
-                          <div className="min-w-0 flex-1 pr-4">
-                            <p className="font-semibold text-slate-900 dark:text-white truncate">
-                              {tx.description || "No Description"}
-                            </p>
-                            <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 truncate">
-                              {new Date(tx.timestamp).toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit' })}
-                              {` • ${txCat.name}${txSubCatName ? ` (${txSubCatName})` : ''}`}
-                            </p>
-                          </div>
-                        </div>
-                        <div className="flex flex-col items-end flex-shrink-0">
-                          <div className={`font-bold text-base ${tx.type === 'DEBIT' ? 'text-slate-900 dark:text-white' : 'text-emerald-600 dark:text-emerald-400'}`}>
-                            {tx.type === 'DEBIT' ? '-' : '+'}₹{tx.amount.toFixed(2)}
-                          </div>
-                        </div>
-                      </div>
-                    )
-                  })}
+              <div className="flex justify-between">
+                <span className="text-slate-500 dark:text-slate-400">Category</span>
+                <span className="font-medium text-slate-900 dark:text-white text-right">
+                  {categories.find(c => c.SK === `CAT#${viewTx.categoryId}`)?.name || viewTx.categoryId}
+                </span>
+              </div>
+              {viewTx.subcategoryId && (
+                <div className="flex justify-between">
+                  <span className="text-slate-500 dark:text-slate-400">Subcategory</span>
+                  <span className="font-medium text-slate-900 dark:text-white text-right">
+                    {categories.find(c => c.SK === `CAT#${viewTx.categoryId}`)?.subcategories?.[viewTx.subcategoryId] || viewTx.subcategoryId}
+                  </span>
                 </div>
               )}
+              {viewTx.paymentMode && (
+                <div className="flex justify-between">
+                  <span className="text-slate-500 dark:text-slate-400">Payment Mode</span>
+                  <span className="font-medium text-slate-900 dark:text-white text-right">{viewTx.paymentMode}</span>
+                </div>
+              )}
+              <div className="flex justify-between">
+                <span className="text-slate-500 dark:text-slate-400">Type</span>
+                <span className="font-medium text-slate-900 dark:text-white text-right">{viewTx.type === 'DEBIT' ? 'Expense' : 'Income'}</span>
+              </div>
+            </div>
+
+            <div className="mt-6 flex gap-3">
+              <button 
+                onClick={() => {
+                  const tx = viewTx;
+                  setViewTx(null);
+                  handleEditClick(tx);
+                }}
+                className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-xl font-medium transition-colors flex items-center justify-center gap-2 shadow-sm"
+              >
+                <Edit2 size={18} /> Edit
+              </button>
+              <button 
+                onClick={() => {
+                  const tx = viewTx;
+                  setViewTx(null);
+                  handleDeleteTransaction(tx);
+                }}
+                className="flex-1 bg-rose-600 hover:bg-rose-700 text-white py-3 rounded-xl font-medium transition-colors flex items-center justify-center gap-2 shadow-sm"
+              >
+                <Trash2 size={18} /> Delete
+              </button>
             </div>
           </div>
-        </div>
-      )}
+        )}
+      </Modal>
+      
+      {/* Daily Transactions Modal */}
+      <Modal
+        isOpen={viewDateTxs !== null}
+        onClose={() => setViewDateTxs(null)}
+        title="Daily Transactions"
+        subtitle={viewDateTxs ? viewDateTxs.date.toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) : undefined}
+        maxWidth="max-w-lg"
+      >
+        {viewDateTxs && (
+          <div>
+            {viewDateTxs.txs.length === 0 ? (
+              <div className="text-center py-8 text-slate-400 dark:text-slate-500">No transactions on this day.</div>
+            ) : (
+              <div className="space-y-3">
+                {viewDateTxs.txs.map(tx => {
+                  const txCat = categories.find(c => c.SK === `CAT#${tx.categoryId}`) || { name: tx.categoryId, icon: "🏷️", subcategories: {} as Record<string, string> };
+                  const subcats = txCat.subcategories as Record<string, string>;
+                  const txSubCatName = tx.subcategoryId && subcats ? subcats[tx.subcategoryId] : tx.subcategoryId;
+
+                  return (
+                    <div 
+                      key={tx.SK} 
+                      onClick={() => {
+                        setViewDateTxs(null);
+                        setViewTx(tx);
+                      }}
+                      className="flex items-center justify-between p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors border border-slate-100 dark:border-slate-700/50 cursor-pointer"
+                    >
+                      <div className="flex items-center gap-3 min-w-0 flex-1">
+                        <div className={`w-12 h-12 rounded-full flex-shrink-0 flex items-center justify-center border-2 ${tx.type === 'DEBIT' ? 'bg-rose-50 dark:bg-rose-500/5 border-rose-200 dark:border-rose-500/30 text-rose-600 dark:text-rose-400' : 'bg-emerald-50 dark:bg-emerald-500/5 border-emerald-200 dark:border-emerald-500/30 text-emerald-600 dark:text-emerald-400'}`}>
+                          <span className="text-xl leading-none">{txCat.icon}</span>
+                        </div>
+                        <div className="min-w-0 flex-1 pr-4">
+                          <p className="font-semibold text-slate-900 dark:text-white truncate">
+                            {tx.description || "No Description"}
+                          </p>
+                          <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 truncate">
+                            {new Date(tx.timestamp).toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit' })}
+                            {` • ${txCat.name}${txSubCatName ? ` (${txSubCatName})` : ''}`}
+                          </p>
+                        </div>
+                      </div>
+                      <div className="flex flex-col items-end flex-shrink-0">
+                        <div className={`font-bold text-base ${tx.type === 'DEBIT' ? 'text-slate-900 dark:text-white' : 'text-emerald-600 dark:text-emerald-400'}`}>
+                          {tx.type === 'DEBIT' ? '-' : '+'}₹{tx.amount.toFixed(2)}
+                        </div>
+                      </div>
+                    </div>
+                  )
+                })}
+              </div>
+            )}
+          </div>
+        )}
+      </Modal>
     </div>
   );
 }

@@ -41,7 +41,7 @@ export const handler: APIGatewayProxyHandlerV2 = async (event) => {
     return {
       statusCode: 200,
       headers: {
-        "Set-Cookie": `token=${token}; HttpOnly; Secure; SameSite=Strict; Path=/; Max-Age=604800`,
+        "Set-Cookie": `token=${token}; HttpOnly; SameSite=Lax; Path=/; Max-Age=604800`,
       },
       body: JSON.stringify({ message: "Login successful", user: { mobileNumber, name: user.name } })
     };

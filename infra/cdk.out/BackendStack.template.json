@@ -31,6 +31,796 @@
     "aws:cdk:path": "BackendStack/ExpenseTable/Resource"
    }
   },
+  "ExpenseApi5959A4F7": {
+   "Type": "AWS::ApiGatewayV2::Api",
+   "Properties": {
+    "CorsConfiguration": {
+     "AllowHeaders": [
+      "Content-Type",
+      "Authorization"
+     ],
+     "AllowMethods": [
+      "GET",
+      "POST",
+      "PUT",
+      "DELETE",
+      "OPTIONS"
+     ],
+     "AllowOrigins": [
+      "*"
+     ]
+    },
+    "Name": "ExpenseApi",
+    "ProtocolType": "HTTP"
+   },
+   "Metadata": {
+    "aws:cdk:path": "BackendStack/ExpenseApi/Resource"
+   }
+  },
+  "ExpenseApiDefaultStageC6138CEB": {
+   "Type": "AWS::ApiGatewayV2::Stage",
+   "Properties": {
+    "ApiId": {
+     "Ref": "ExpenseApi5959A4F7"
+    },
+    "AutoDeploy": true,
+    "DefaultRouteSettings": {
+     "ThrottlingBurstLimit": 15,
+     "ThrottlingRateLimit": 10
+    },
+    "StageName": "$default"
+   },
+   "Metadata": {
+    "aws:cdk:path": "BackendStack/ExpenseApi/DefaultStage/Resource"
+   }
+  },
+  "ExpenseApiPOSTapiauthregisterRegisterLambdaIntegrationF2938433": {
+   "Type": "AWS::ApiGatewayV2::Integration",
+   "Properties": {
+    "ApiId": {
+     "Ref": "ExpenseApi5959A4F7"
+    },
+    "IntegrationType": "AWS_PROXY",
+    "IntegrationUri": {
+     "Fn::GetAtt": [
+      "RegisterLambda5E35AF61",
+      "Arn"
+     ]
+    },
+    "PayloadFormatVersion": "2.0"
+   },
+   "Metadata": {
+    "aws:cdk:path": "BackendStack/ExpenseApi/POST--api--auth--register/RegisterLambdaIntegration/Resource"
+   }
+  },
+  "ExpenseApiPOSTapiauthregisterRegisterLambdaIntegrationPermissionBAF47908": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "RegisterLambda5E35AF61",
+      "Arn"
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":execute-api:",
+       {
+        "Ref": "AWS::Region"
+       },
+       ":",
+       {
+        "Ref": "AWS::AccountId"
+       },
+       ":",
+       {
+        "Ref": "ExpenseApi5959A4F7"
+       },
+       "/*/*/api/auth/register"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "BackendStack/ExpenseApi/POST--api--auth--register/RegisterLambdaIntegration-Permission"
+   }
+  },
+  "ExpenseApiPOSTapiauthregisterA4364625": {
+   "Type": "AWS::ApiGatewayV2::Route",
+   "Properties": {
+    "ApiId": {
+     "Ref": "ExpenseApi5959A4F7"
+    },
+    "AuthorizationType": "NONE",
+    "RouteKey": "POST /api/auth/register",
+    "Target": {
+     "Fn::Join": [
+      "",
+      [
+       "integrations/",
+       {
+        "Ref": "ExpenseApiPOSTapiauthregisterRegisterLambdaIntegrationF2938433"
+       }
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "BackendStack/ExpenseApi/POST--api--auth--register/Resource"
+   }
+  },
+  "ExpenseApiPOSTapiauthloginLoginLambdaIntegration2BBF5D4F": {
+   "Type": "AWS::ApiGatewayV2::Integration",
+   "Properties": {
+    "ApiId": {
+     "Ref": "ExpenseApi5959A4F7"
+    },
+    "IntegrationType": "AWS_PROXY",
+    "IntegrationUri": {
+     "Fn::GetAtt": [
+      "LoginLambda25499490",
+      "Arn"
+     ]
+    },
+    "PayloadFormatVersion": "2.0"
+   },
+   "Metadata": {
+    "aws:cdk:path": "BackendStack/ExpenseApi/POST--api--auth--login/LoginLambdaIntegration/Resource"
+   }
+  },
+  "ExpenseApiPOSTapiauthloginLoginLambdaIntegrationPermissionF789101E": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "LoginLambda25499490",
+      "Arn"
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":execute-api:",
+       {
+        "Ref": "AWS::Region"
+       },
+       ":",
+       {
+        "Ref": "AWS::AccountId"
+       },
+       ":",
+       {
+        "Ref": "ExpenseApi5959A4F7"
+       },
+       "/*/*/api/auth/login"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "BackendStack/ExpenseApi/POST--api--auth--login/LoginLambdaIntegration-Permission"
+   }
+  },
+  "ExpenseApiPOSTapiauthloginEB198EAC": {
+   "Type": "AWS::ApiGatewayV2::Route",
+   "Properties": {
+    "ApiId": {
+     "Ref": "ExpenseApi5959A4F7"
+    },
+    "AuthorizationType": "NONE",
+    "RouteKey": "POST /api/auth/login",
+    "Target": {
+     "Fn::Join": [
+      "",
+      [
+       "integrations/",
+       {
+        "Ref": "ExpenseApiPOSTapiauthloginLoginLambdaIntegration2BBF5D4F"
+       }
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "BackendStack/ExpenseApi/POST--api--auth--login/Resource"
+   }
+  },
+  "ExpenseApiPOSTapiauthlogoutLogoutLambdaIntegration52C42922": {
+   "Type": "AWS::ApiGatewayV2::Integration",
+   "Properties": {
+    "ApiId": {
+     "Ref": "ExpenseApi5959A4F7"
+    },
+    "IntegrationType": "AWS_PROXY",
+    "IntegrationUri": {
+     "Fn::GetAtt": [
+      "LogoutLambda05D39112",
+      "Arn"
+     ]
+    },
+    "PayloadFormatVersion": "2.0"
+   },
+   "Metadata": {
+    "aws:cdk:path": "BackendStack/ExpenseApi/POST--api--auth--logout/LogoutLambdaIntegration/Resource"
+   }
+  },
+  "ExpenseApiPOSTapiauthlogoutLogoutLambdaIntegrationPermission5616E097": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "LogoutLambda05D39112",
+      "Arn"
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":execute-api:",
+       {
+        "Ref": "AWS::Region"
+       },
+       ":",
+       {
+        "Ref": "AWS::AccountId"
+       },
+       ":",
+       {
+        "Ref": "ExpenseApi5959A4F7"
+       },
+       "/*/*/api/auth/logout"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "BackendStack/ExpenseApi/POST--api--auth--logout/LogoutLambdaIntegration-Permission"
+   }
+  },
+  "ExpenseApiPOSTapiauthlogout521B43B1": {
+   "Type": "AWS::ApiGatewayV2::Route",
+   "Properties": {
+    "ApiId": {
+     "Ref": "ExpenseApi5959A4F7"
+    },
+    "AuthorizationType": "NONE",
+    "RouteKey": "POST /api/auth/logout",
+    "Target": {
+     "Fn::Join": [
+      "",
+      [
+       "integrations/",
+       {
+        "Ref": "ExpenseApiPOSTapiauthlogoutLogoutLambdaIntegration52C42922"
+       }
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "BackendStack/ExpenseApi/POST--api--auth--logout/Resource"
+   }
+  },
+  "ExpenseApiGETapicategoriesGetCategoriesLambdaIntegration29316B80": {
+   "Type": "AWS::ApiGatewayV2::Integration",
+   "Properties": {
+    "ApiId": {
+     "Ref": "ExpenseApi5959A4F7"
+    },
+    "IntegrationType": "AWS_PROXY",
+    "IntegrationUri": {
+     "Fn::GetAtt": [
+      "GetCategoriesLambdaB06BA665",
+      "Arn"
+     ]
+    },
+    "PayloadFormatVersion": "2.0"
+   },
+   "Metadata": {
+    "aws:cdk:path": "BackendStack/ExpenseApi/GET--api--categories/GetCategoriesLambdaIntegration/Resource"
+   }
+  },
+  "ExpenseApiGETapicategoriesGetCategoriesLambdaIntegrationPermission87E3FC6E": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "GetCategoriesLambdaB06BA665",
+      "Arn"
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":execute-api:",
+       {
+        "Ref": "AWS::Region"
+       },
+       ":",
+       {
+        "Ref": "AWS::AccountId"
+       },
+       ":",
+       {
+        "Ref": "ExpenseApi5959A4F7"
+       },
+       "/*/*/api/categories"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "BackendStack/ExpenseApi/GET--api--categories/GetCategoriesLambdaIntegration-Permission"
+   }
+  },
+  "ExpenseApiGETapicategories4ADA97B6": {
+   "Type": "AWS::ApiGatewayV2::Route",
+   "Properties": {
+    "ApiId": {
+     "Ref": "ExpenseApi5959A4F7"
+    },
+    "AuthorizationType": "NONE",
+    "RouteKey": "GET /api/categories",
+    "Target": {
+     "Fn::Join": [
+      "",
+      [
+       "integrations/",
+       {
+        "Ref": "ExpenseApiGETapicategoriesGetCategoriesLambdaIntegration29316B80"
+       }
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "BackendStack/ExpenseApi/GET--api--categories/Resource"
+   }
+  },
+  "ExpenseApiPOSTapicategoriesUpdateCategoryLambdaIntegrationC5ED9F77": {
+   "Type": "AWS::ApiGatewayV2::Integration",
+   "Properties": {
+    "ApiId": {
+     "Ref": "ExpenseApi5959A4F7"
+    },
+    "IntegrationType": "AWS_PROXY",
+    "IntegrationUri": {
+     "Fn::GetAtt": [
+      "UpdateCategoryLambda4B73E86A",
+      "Arn"
+     ]
+    },
+    "PayloadFormatVersion": "2.0"
+   },
+   "Metadata": {
+    "aws:cdk:path": "BackendStack/ExpenseApi/POST--api--categories/UpdateCategoryLambdaIntegration/Resource"
+   }
+  },
+  "ExpenseApiPOSTapicategoriesUpdateCategoryLambdaIntegrationPermissionDB4409B4": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "UpdateCategoryLambda4B73E86A",
+      "Arn"
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":execute-api:",
+       {
+        "Ref": "AWS::Region"
+       },
+       ":",
+       {
+        "Ref": "AWS::AccountId"
+       },
+       ":",
+       {
+        "Ref": "ExpenseApi5959A4F7"
+       },
+       "/*/*/api/categories"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "BackendStack/ExpenseApi/POST--api--categories/UpdateCategoryLambdaIntegration-Permission"
+   }
+  },
+  "ExpenseApiPOSTapicategoriesBACBC190": {
+   "Type": "AWS::ApiGatewayV2::Route",
+   "Properties": {
+    "ApiId": {
+     "Ref": "ExpenseApi5959A4F7"
+    },
+    "AuthorizationType": "NONE",
+    "RouteKey": "POST /api/categories",
+    "Target": {
+     "Fn::Join": [
+      "",
+      [
+       "integrations/",
+       {
+        "Ref": "ExpenseApiPOSTapicategoriesUpdateCategoryLambdaIntegrationC5ED9F77"
+       }
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "BackendStack/ExpenseApi/POST--api--categories/Resource"
+   }
+  },
+  "ExpenseApiDELETEapicategoriesDeleteCategoryLambdaIntegration7D295C12": {
+   "Type": "AWS::ApiGatewayV2::Integration",
+   "Properties": {
+    "ApiId": {
+     "Ref": "ExpenseApi5959A4F7"
+    },
+    "IntegrationType": "AWS_PROXY",
+    "IntegrationUri": {
+     "Fn::GetAtt": [
+      "DeleteCategoryLambdaF45F132B",
+      "Arn"
+     ]
+    },
+    "PayloadFormatVersion": "2.0"
+   },
+   "Metadata": {
+    "aws:cdk:path": "BackendStack/ExpenseApi/DELETE--api--categories/DeleteCategoryLambdaIntegration/Resource"
+   }
+  },
+  "ExpenseApiDELETEapicategoriesDeleteCategoryLambdaIntegrationPermission5B77FA68": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "DeleteCategoryLambdaF45F132B",
+      "Arn"
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":execute-api:",
+       {
+        "Ref": "AWS::Region"
+       },
+       ":",
+       {
+        "Ref": "AWS::AccountId"
+       },
+       ":",
+       {
+        "Ref": "ExpenseApi5959A4F7"
+       },
+       "/*/*/api/categories"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "BackendStack/ExpenseApi/DELETE--api--categories/DeleteCategoryLambdaIntegration-Permission"
+   }
+  },
+  "ExpenseApiDELETEapicategories1CABD405": {
+   "Type": "AWS::ApiGatewayV2::Route",
+   "Properties": {
+    "ApiId": {
+     "Ref": "ExpenseApi5959A4F7"
+    },
+    "AuthorizationType": "NONE",
+    "RouteKey": "DELETE /api/categories",
+    "Target": {
+     "Fn::Join": [
+      "",
+      [
+       "integrations/",
+       {
+        "Ref": "ExpenseApiDELETEapicategoriesDeleteCategoryLambdaIntegration7D295C12"
+       }
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "BackendStack/ExpenseApi/DELETE--api--categories/Resource"
+   }
+  },
+  "ExpenseApiPOSTapitransactionsCreateTransactionLambdaIntegrationDA6FFD1B": {
+   "Type": "AWS::ApiGatewayV2::Integration",
+   "Properties": {
+    "ApiId": {
+     "Ref": "ExpenseApi5959A4F7"
+    },
+    "IntegrationType": "AWS_PROXY",
+    "IntegrationUri": {
+     "Fn::GetAtt": [
+      "CreateTransactionLambda3C03D874",
+      "Arn"
+     ]
+    },
+    "PayloadFormatVersion": "2.0"
+   },
+   "Metadata": {
+    "aws:cdk:path": "BackendStack/ExpenseApi/POST--api--transactions/CreateTransactionLambdaIntegration/Resource"
+   }
+  },
+  "ExpenseApiPOSTapitransactionsCreateTransactionLambdaIntegrationPermissionFC05C3FA": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "CreateTransactionLambda3C03D874",
+      "Arn"
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":execute-api:",
+       {
+        "Ref": "AWS::Region"
+       },
+       ":",
+       {
+        "Ref": "AWS::AccountId"
+       },
+       ":",
+       {
+        "Ref": "ExpenseApi5959A4F7"
+       },
+       "/*/*/api/transactions"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "BackendStack/ExpenseApi/POST--api--transactions/CreateTransactionLambdaIntegration-Permission"
+   }
+  },
+  "ExpenseApiPOSTapitransactionsC9C73C0E": {
+   "Type": "AWS::ApiGatewayV2::Route",
+   "Properties": {
+    "ApiId": {
+     "Ref": "ExpenseApi5959A4F7"
+    },
+    "AuthorizationType": "NONE",
+    "RouteKey": "POST /api/transactions",
+    "Target": {
+     "Fn::Join": [
+      "",
+      [
+       "integrations/",
+       {
+        "Ref": "ExpenseApiPOSTapitransactionsCreateTransactionLambdaIntegrationDA6FFD1B"
+       }
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "BackendStack/ExpenseApi/POST--api--transactions/Resource"
+   }
+  },
+  "ExpenseApiGETapitransactionsListTransactionsLambdaIntegrationD849CC52": {
+   "Type": "AWS::ApiGatewayV2::Integration",
+   "Properties": {
+    "ApiId": {
+     "Ref": "ExpenseApi5959A4F7"
+    },
+    "IntegrationType": "AWS_PROXY",
+    "IntegrationUri": {
+     "Fn::GetAtt": [
+      "ListTransactionsLambda881A2531",
+      "Arn"
+     ]
+    },
+    "PayloadFormatVersion": "2.0"
+   },
+   "Metadata": {
+    "aws:cdk:path": "BackendStack/ExpenseApi/GET--api--transactions/ListTransactionsLambdaIntegration/Resource"
+   }
+  },
+  "ExpenseApiGETapitransactionsListTransactionsLambdaIntegrationPermissionB7D0B134": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "ListTransactionsLambda881A2531",
+      "Arn"
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":execute-api:",
+       {
+        "Ref": "AWS::Region"
+       },
+       ":",
+       {
+        "Ref": "AWS::AccountId"
+       },
+       ":",
+       {
+        "Ref": "ExpenseApi5959A4F7"
+       },
+       "/*/*/api/transactions"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "BackendStack/ExpenseApi/GET--api--transactions/ListTransactionsLambdaIntegration-Permission"
+   }
+  },
+  "ExpenseApiGETapitransactionsED80C914": {
+   "Type": "AWS::ApiGatewayV2::Route",
+   "Properties": {
+    "ApiId": {
+     "Ref": "ExpenseApi5959A4F7"
+    },
+    "AuthorizationType": "NONE",
+    "RouteKey": "GET /api/transactions",
+    "Target": {
+     "Fn::Join": [
+      "",
+      [
+       "integrations/",
+       {
+        "Ref": "ExpenseApiGETapitransactionsListTransactionsLambdaIntegrationD849CC52"
+       }
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "BackendStack/ExpenseApi/GET--api--transactions/Resource"
+   }
+  },
+  "ExpenseApiDELETEapitransactionsDeleteTransactionLambdaIntegrationC8E1D13E": {
+   "Type": "AWS::ApiGatewayV2::Integration",
+   "Properties": {
+    "ApiId": {
+     "Ref": "ExpenseApi5959A4F7"
+    },
+    "IntegrationType": "AWS_PROXY",
+    "IntegrationUri": {
+     "Fn::GetAtt": [
+      "DeleteTransactionLambdaFFC35BDA",
+      "Arn"
+     ]
+    },
+    "PayloadFormatVersion": "2.0"
+   },
+   "Metadata": {
+    "aws:cdk:path": "BackendStack/ExpenseApi/DELETE--api--transactions/DeleteTransactionLambdaIntegration/Resource"
+   }
+  },
+  "ExpenseApiDELETEapitransactionsDeleteTransactionLambdaIntegrationPermission23047A71": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "DeleteTransactionLambdaFFC35BDA",
+      "Arn"
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":execute-api:",
+       {
+        "Ref": "AWS::Region"
+       },
+       ":",
+       {
+        "Ref": "AWS::AccountId"
+       },
+       ":",
+       {
+        "Ref": "ExpenseApi5959A4F7"
+       },
+       "/*/*/api/transactions"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "BackendStack/ExpenseApi/DELETE--api--transactions/DeleteTransactionLambdaIntegration-Permission"
+   }
+  },
+  "ExpenseApiDELETEapitransactionsC3C9B917": {
+   "Type": "AWS::ApiGatewayV2::Route",
+   "Properties": {
+    "ApiId": {
+     "Ref": "ExpenseApi5959A4F7"
+    },
+    "AuthorizationType": "NONE",
+    "RouteKey": "DELETE /api/transactions",
+    "Target": {
+     "Fn::Join": [
+      "",
+      [
+       "integrations/",
+       {
+        "Ref": "ExpenseApiDELETEapitransactionsDeleteTransactionLambdaIntegrationC8E1D13E"
+       }
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "BackendStack/ExpenseApi/DELETE--api--transactions/Resource"
+   }
+  },
   "RegisterLambdaServiceRole8E677BA9": {
    "Type": "AWS::IAM::Role",
    "Properties": {
@@ -114,7 +904,7 @@
      "S3Bucket": {
       "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
      },
-     "S3Key": "6f2ac21e4873cfb463c311d4d16d3cb5428c7ac1cdc35c9af8370a2e763e5105.zip"
+     "S3Key": "1e70603be1f3a3fb19951dfa0b0d8bf1d46d657c4ff65af4ef8e004d20e931fe.zip"
     },
     "Environment": {
      "Variables": {
@@ -141,7 +931,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "BackendStack/RegisterLambda/Resource",
-    "aws:asset:path": "asset.6f2ac21e4873cfb463c311d4d16d3cb5428c7ac1cdc35c9af8370a2e763e5105",
+    "aws:asset:path": "asset.1e70603be1f3a3fb19951dfa0b0d8bf1d46d657c4ff65af4ef8e004d20e931fe",
     "aws:asset:is-bundled": true,
     "aws:asset:property": "Code"
    }
@@ -251,7 +1041,7 @@
      "S3Bucket": {
       "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
      },
-     "S3Key": "abac908ecd796ad6cd578e459987f47808c0db3b1cbee4aaf3c96b70bbe152c3.zip"
+     "S3Key": "1f52b12e2fb359f95f27d9989b61fe9549a77d55623d2ba7c2e345266e1a5cb8.zip"
     },
     "Environment": {
      "Variables": {
@@ -278,7 +1068,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "BackendStack/LoginLambda/Resource",
-    "aws:asset:path": "asset.abac908ecd796ad6cd578e459987f47808c0db3b1cbee4aaf3c96b70bbe152c3",
+    "aws:asset:path": "asset.1f52b12e2fb359f95f27d9989b61fe9549a77d55623d2ba7c2e345266e1a5cb8",
     "aws:asset:is-bundled": true,
     "aws:asset:property": "Code"
    }
@@ -303,6 +1093,100 @@
    "DeletionPolicy": "Retain",
    "Metadata": {
     "aws:cdk:path": "BackendStack/LoginLambda/LogGroup/Resource"
+   }
+  },
+  "LogoutLambdaServiceRole8D5EB9E1": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "BackendStack/LogoutLambda/ServiceRole/Resource"
+   }
+  },
+  "LogoutLambda05D39112": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": {
+      "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
+     },
+     "S3Key": "1f842758473ec309ce8d8fdbb9e46e0f6c24d4668b22fe414e1d3bbb174eb88a.zip"
+    },
+    "Environment": {
+     "Variables": {
+      "TABLE_NAME": {
+       "Ref": "ExpenseTable77644237"
+      },
+      "JWT_SECRET": "development_secret"
+     }
+    },
+    "Handler": "index.handler",
+    "MemorySize": 1024,
+    "Role": {
+     "Fn::GetAtt": [
+      "LogoutLambdaServiceRole8D5EB9E1",
+      "Arn"
+     ]
+    },
+    "Runtime": "nodejs20.x",
+    "Timeout": 15
+   },
+   "DependsOn": [
+    "LogoutLambdaServiceRole8D5EB9E1"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "BackendStack/LogoutLambda/Resource",
+    "aws:asset:path": "asset.1f842758473ec309ce8d8fdbb9e46e0f6c24d4668b22fe414e1d3bbb174eb88a",
+    "aws:asset:is-bundled": true,
+    "aws:asset:property": "Code"
+   }
+  },
+  "LogoutLambdaLogGroup8F98CC93": {
+   "Type": "AWS::Logs::LogGroup",
+   "Properties": {
+    "LogGroupName": {
+     "Fn::Join": [
+      "",
+      [
+       "/aws/lambda/",
+       {
+        "Ref": "LogoutLambda05D39112"
+       }
+      ]
+     ]
+    },
+    "RetentionInDays": 731
+   },
+   "UpdateReplacePolicy": "Retain",
+   "DeletionPolicy": "Retain",
+   "Metadata": {
+    "aws:cdk:path": "BackendStack/LogoutLambda/LogGroup/Resource"
    }
   },
   "GetCategoriesLambdaServiceRole4F6A0B1B": {
@@ -384,7 +1268,7 @@
      "S3Bucket": {
       "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
      },
-     "S3Key": "4963f54c99fabbe190c8f79b57086b3607c5b3c01272ec9108bb8fa835dc232a.zip"
+     "S3Key": "40637c7de9ceda0345fbb4f5f57653574b30ac9a54f1cb021d867e4db52b502e.zip"
     },
     "Environment": {
      "Variables": {
@@ -411,7 +1295,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "BackendStack/GetCategoriesLambda/Resource",
-    "aws:asset:path": "asset.4963f54c99fabbe190c8f79b57086b3607c5b3c01272ec9108bb8fa835dc232a",
+    "aws:asset:path": "asset.40637c7de9ceda0345fbb4f5f57653574b30ac9a54f1cb021d867e4db52b502e",
     "aws:asset:is-bundled": true,
     "aws:asset:property": "Code"
    }
@@ -521,7 +1405,7 @@
      "S3Bucket": {
       "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
      },
-     "S3Key": "92acf9fe274968b80db07986cef78d068f6220ee8b8bf45caf69cc80970d74cf.zip"
+     "S3Key": "e3f4de9d6852b43475fb3475c955bf22e240f7998e9a9c417edad7c235d0e39c.zip"
     },
     "Environment": {
      "Variables": {
@@ -548,7 +1432,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "BackendStack/UpdateCategoryLambda/Resource",
-    "aws:asset:path": "asset.92acf9fe274968b80db07986cef78d068f6220ee8b8bf45caf69cc80970d74cf",
+    "aws:asset:path": "asset.e3f4de9d6852b43475fb3475c955bf22e240f7998e9a9c417edad7c235d0e39c",
     "aws:asset:is-bundled": true,
     "aws:asset:property": "Code"
    }
@@ -658,7 +1542,7 @@
      "S3Bucket": {
       "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
      },
-     "S3Key": "52b67f7869129e97e604d6a66527d946a340724fe595890c7099c53c3a9b0376.zip"
+     "S3Key": "2adcc35be519fa5c8d5c3a62859f594b1ea741da4fc890377f2671bb4b751927.zip"
     },
     "Environment": {
      "Variables": {
@@ -685,7 +1569,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "BackendStack/DeleteCategoryLambda/Resource",
-    "aws:asset:path": "asset.52b67f7869129e97e604d6a66527d946a340724fe595890c7099c53c3a9b0376",
+    "aws:asset:path": "asset.2adcc35be519fa5c8d5c3a62859f594b1ea741da4fc890377f2671bb4b751927",
     "aws:asset:is-bundled": true,
     "aws:asset:property": "Code"
    }
@@ -795,7 +1679,7 @@
      "S3Bucket": {
       "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
      },
-     "S3Key": "997a671fc39e27a6649a7a5bbd2773b00a32467ab938336cd70641d77a10b71f.zip"
+     "S3Key": "62f24ce8b153c096a5a3aeac7f02afcc0316b2bbe1f3471f239894310e7122eb.zip"
     },
     "Environment": {
      "Variables": {
@@ -822,7 +1706,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "BackendStack/CreateTransactionLambda/Resource",
-    "aws:asset:path": "asset.997a671fc39e27a6649a7a5bbd2773b00a32467ab938336cd70641d77a10b71f",
+    "aws:asset:path": "asset.62f24ce8b153c096a5a3aeac7f02afcc0316b2bbe1f3471f239894310e7122eb",
     "aws:asset:is-bundled": true,
     "aws:asset:property": "Code"
    }
@@ -928,7 +1812,7 @@
      "S3Bucket": {
       "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
      },
-     "S3Key": "5e3edff5685af2e896f6cf52ef1545bbe8afb02074e578e170eec9525dd5e7ad.zip"
+     "S3Key": "b1ec1690ca2cea54414a4ea0322580aa03eaa2e18846642215a5b56e6a279990.zip"
     },
     "Environment": {
      "Variables": {
@@ -955,7 +1839,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "BackendStack/ListTransactionsLambda/Resource",
-    "aws:asset:path": "asset.5e3edff5685af2e896f6cf52ef1545bbe8afb02074e578e170eec9525dd5e7ad",
+    "aws:asset:path": "asset.b1ec1690ca2cea54414a4ea0322580aa03eaa2e18846642215a5b56e6a279990",
     "aws:asset:is-bundled": true,
     "aws:asset:property": "Code"
    }
@@ -1065,7 +1949,7 @@
      "S3Bucket": {
       "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
      },
-     "S3Key": "86ea501dfd829bc1dd039a7de689c8e1aab98a3afec8bf7f7d6a3fbf968847e4.zip"
+     "S3Key": "9c5cc0a6c22fdb92b41a32ddd3379754188920c41d877ed3011438d332bc975c.zip"
     },
     "Environment": {
      "Variables": {
@@ -1092,7 +1976,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "BackendStack/DeleteTransactionLambda/Resource",
-    "aws:asset:path": "asset.86ea501dfd829bc1dd039a7de689c8e1aab98a3afec8bf7f7d6a3fbf968847e4",
+    "aws:asset:path": "asset.9c5cc0a6c22fdb92b41a32ddd3379754188920c41d877ed3011438d332bc975c",
     "aws:asset:is-bundled": true,
     "aws:asset:property": "Code"
    }
@@ -1117,890 +2001,6 @@
    "DeletionPolicy": "Retain",
    "Metadata": {
     "aws:cdk:path": "BackendStack/DeleteTransactionLambda/LogGroup/Resource"
-   }
-  },
-  "ExpenseApi5959A4F7": {
-   "Type": "AWS::ApiGatewayV2::Api",
-   "Properties": {
-    "CorsConfiguration": {
-     "AllowHeaders": [
-      "Content-Type",
-      "Authorization"
-     ],
-     "AllowMethods": [
-      "GET",
-      "POST",
-      "PUT",
-      "DELETE",
-      "OPTIONS"
-     ],
-     "AllowOrigins": [
-      "*"
-     ]
-    },
-    "Name": "ExpenseApi",
-    "ProtocolType": "HTTP"
-   },
-   "Metadata": {
-    "aws:cdk:path": "BackendStack/ExpenseApi/Resource"
-   }
-  },
-  "ExpenseApiDefaultStageC6138CEB": {
-   "Type": "AWS::ApiGatewayV2::Stage",
-   "Properties": {
-    "ApiId": {
-     "Ref": "ExpenseApi5959A4F7"
-    },
-    "AutoDeploy": true,
-    "DefaultRouteSettings": {
-     "ThrottlingBurstLimit": 15,
-     "ThrottlingRateLimit": 10
-    },
-    "StageName": "$default"
-   },
-   "Metadata": {
-    "aws:cdk:path": "BackendStack/ExpenseApi/DefaultStage/Resource"
-   }
-  },
-  "ExpenseApiPOSTapiauthregisterRegisterIntegration3F40C3D3": {
-   "Type": "AWS::ApiGatewayV2::Integration",
-   "Properties": {
-    "ApiId": {
-     "Ref": "ExpenseApi5959A4F7"
-    },
-    "IntegrationType": "AWS_PROXY",
-    "IntegrationUri": {
-     "Fn::GetAtt": [
-      "RegisterLambda5E35AF61",
-      "Arn"
-     ]
-    },
-    "PayloadFormatVersion": "2.0"
-   },
-   "Metadata": {
-    "aws:cdk:path": "BackendStack/ExpenseApi/POST--api--auth--register/RegisterIntegration/Resource"
-   }
-  },
-  "ExpenseApiPOSTapiauthregisterRegisterIntegrationPermissionDF07047C": {
-   "Type": "AWS::Lambda::Permission",
-   "Properties": {
-    "Action": "lambda:InvokeFunction",
-    "FunctionName": {
-     "Fn::GetAtt": [
-      "RegisterLambda5E35AF61",
-      "Arn"
-     ]
-    },
-    "Principal": "apigateway.amazonaws.com",
-    "SourceArn": {
-     "Fn::Join": [
-      "",
-      [
-       "arn:",
-       {
-        "Ref": "AWS::Partition"
-       },
-       ":execute-api:",
-       {
-        "Ref": "AWS::Region"
-       },
-       ":",
-       {
-        "Ref": "AWS::AccountId"
-       },
-       ":",
-       {
-        "Ref": "ExpenseApi5959A4F7"
-       },
-       "/*/*/api/auth/register"
-      ]
-     ]
-    }
-   },
-   "Metadata": {
-    "aws:cdk:path": "BackendStack/ExpenseApi/POST--api--auth--register/RegisterIntegration-Permission"
-   }
-  },
-  "ExpenseApiPOSTapiauthregisterA4364625": {
-   "Type": "AWS::ApiGatewayV2::Route",
-   "Properties": {
-    "ApiId": {
-     "Ref": "ExpenseApi5959A4F7"
-    },
-    "AuthorizationType": "NONE",
-    "RouteKey": "POST /api/auth/register",
-    "Target": {
-     "Fn::Join": [
-      "",
-      [
-       "integrations/",
-       {
-        "Ref": "ExpenseApiPOSTapiauthregisterRegisterIntegration3F40C3D3"
-       }
-      ]
-     ]
-    }
-   },
-   "Metadata": {
-    "aws:cdk:path": "BackendStack/ExpenseApi/POST--api--auth--register/Resource"
-   }
-  },
-  "ExpenseApiPOSTapiauthloginLoginIntegration989F96B2": {
-   "Type": "AWS::ApiGatewayV2::Integration",
-   "Properties": {
-    "ApiId": {
-     "Ref": "ExpenseApi5959A4F7"
-    },
-    "IntegrationType": "AWS_PROXY",
-    "IntegrationUri": {
-     "Fn::GetAtt": [
-      "LoginLambda25499490",
-      "Arn"
-     ]
-    },
-    "PayloadFormatVersion": "2.0"
-   },
-   "Metadata": {
-    "aws:cdk:path": "BackendStack/ExpenseApi/POST--api--auth--login/LoginIntegration/Resource"
-   }
-  },
-  "ExpenseApiPOSTapiauthloginLoginIntegrationPermission05EEC2FB": {
-   "Type": "AWS::Lambda::Permission",
-   "Properties": {
-    "Action": "lambda:InvokeFunction",
-    "FunctionName": {
-     "Fn::GetAtt": [
-      "LoginLambda25499490",
-      "Arn"
-     ]
-    },
-    "Principal": "apigateway.amazonaws.com",
-    "SourceArn": {
-     "Fn::Join": [
-      "",
-      [
-       "arn:",
-       {
-        "Ref": "AWS::Partition"
-       },
-       ":execute-api:",
-       {
-        "Ref": "AWS::Region"
-       },
-       ":",
-       {
-        "Ref": "AWS::AccountId"
-       },
-       ":",
-       {
-        "Ref": "ExpenseApi5959A4F7"
-       },
-       "/*/*/api/auth/login"
-      ]
-     ]
-    }
-   },
-   "Metadata": {
-    "aws:cdk:path": "BackendStack/ExpenseApi/POST--api--auth--login/LoginIntegration-Permission"
-   }
-  },
-  "ExpenseApiPOSTapiauthloginEB198EAC": {
-   "Type": "AWS::ApiGatewayV2::Route",
-   "Properties": {
-    "ApiId": {
-     "Ref": "ExpenseApi5959A4F7"
-    },
-    "AuthorizationType": "NONE",
-    "RouteKey": "POST /api/auth/login",
-    "Target": {
-     "Fn::Join": [
-      "",
-      [
-       "integrations/",
-       {
-        "Ref": "ExpenseApiPOSTapiauthloginLoginIntegration989F96B2"
-       }
-      ]
-     ]
-    }
-   },
-   "Metadata": {
-    "aws:cdk:path": "BackendStack/ExpenseApi/POST--api--auth--login/Resource"
-   }
-  },
-  "ExpenseApiPOSTapiauthlogoutLogoutIntegrationF33D8E93": {
-   "Type": "AWS::ApiGatewayV2::Integration",
-   "Properties": {
-    "ApiId": {
-     "Ref": "ExpenseApi5959A4F7"
-    },
-    "IntegrationType": "AWS_PROXY",
-    "IntegrationUri": {
-     "Fn::GetAtt": [
-      "LogoutLambda05D39112",
-      "Arn"
-     ]
-    },
-    "PayloadFormatVersion": "2.0"
-   },
-   "Metadata": {
-    "aws:cdk:path": "BackendStack/ExpenseApi/POST--api--auth--logout/LogoutIntegration/Resource"
-   }
-  },
-  "ExpenseApiPOSTapiauthlogoutLogoutIntegrationPermissionE6567D89": {
-   "Type": "AWS::Lambda::Permission",
-   "Properties": {
-    "Action": "lambda:InvokeFunction",
-    "FunctionName": {
-     "Fn::GetAtt": [
-      "LogoutLambda05D39112",
-      "Arn"
-     ]
-    },
-    "Principal": "apigateway.amazonaws.com",
-    "SourceArn": {
-     "Fn::Join": [
-      "",
-      [
-       "arn:",
-       {
-        "Ref": "AWS::Partition"
-       },
-       ":execute-api:",
-       {
-        "Ref": "AWS::Region"
-       },
-       ":",
-       {
-        "Ref": "AWS::AccountId"
-       },
-       ":",
-       {
-        "Ref": "ExpenseApi5959A4F7"
-       },
-       "/*/*/api/auth/logout"
-      ]
-     ]
-    }
-   },
-   "Metadata": {
-    "aws:cdk:path": "BackendStack/ExpenseApi/POST--api--auth--logout/LogoutIntegration-Permission"
-   }
-  },
-  "ExpenseApiPOSTapiauthlogout521B43B1": {
-   "Type": "AWS::ApiGatewayV2::Route",
-   "Properties": {
-    "ApiId": {
-     "Ref": "ExpenseApi5959A4F7"
-    },
-    "AuthorizationType": "NONE",
-    "RouteKey": "POST /api/auth/logout",
-    "Target": {
-     "Fn::Join": [
-      "",
-      [
-       "integrations/",
-       {
-        "Ref": "ExpenseApiPOSTapiauthlogoutLogoutIntegrationF33D8E93"
-       }
-      ]
-     ]
-    }
-   },
-   "Metadata": {
-    "aws:cdk:path": "BackendStack/ExpenseApi/POST--api--auth--logout/Resource"
-   }
-  },
-  "ExpenseApiGETapicategoriesGetCatIntegrationC3B2BBF5": {
-   "Type": "AWS::ApiGatewayV2::Integration",
-   "Properties": {
-    "ApiId": {
-     "Ref": "ExpenseApi5959A4F7"
-    },
-    "IntegrationType": "AWS_PROXY",
-    "IntegrationUri": {
-     "Fn::GetAtt": [
-      "GetCategoriesLambdaB06BA665",
-      "Arn"
-     ]
-    },
-    "PayloadFormatVersion": "2.0"
-   },
-   "Metadata": {
-    "aws:cdk:path": "BackendStack/ExpenseApi/GET--api--categories/GetCatIntegration/Resource"
-   }
-  },
-  "ExpenseApiGETapicategoriesGetCatIntegrationPermissionA2A89F52": {
-   "Type": "AWS::Lambda::Permission",
-   "Properties": {
-    "Action": "lambda:InvokeFunction",
-    "FunctionName": {
-     "Fn::GetAtt": [
-      "GetCategoriesLambdaB06BA665",
-      "Arn"
-     ]
-    },
-    "Principal": "apigateway.amazonaws.com",
-    "SourceArn": {
-     "Fn::Join": [
-      "",
-      [
-       "arn:",
-       {
-        "Ref": "AWS::Partition"
-       },
-       ":execute-api:",
-       {
-        "Ref": "AWS::Region"
-       },
-       ":",
-       {
-        "Ref": "AWS::AccountId"
-       },
-       ":",
-       {
-        "Ref": "ExpenseApi5959A4F7"
-       },
-       "/*/*/api/categories"
-      ]
-     ]
-    }
-   },
-   "Metadata": {
-    "aws:cdk:path": "BackendStack/ExpenseApi/GET--api--categories/GetCatIntegration-Permission"
-   }
-  },
-  "ExpenseApiGETapicategories4ADA97B6": {
-   "Type": "AWS::ApiGatewayV2::Route",
-   "Properties": {
-    "ApiId": {
-     "Ref": "ExpenseApi5959A4F7"
-    },
-    "AuthorizationType": "NONE",
-    "RouteKey": "GET /api/categories",
-    "Target": {
-     "Fn::Join": [
-      "",
-      [
-       "integrations/",
-       {
-        "Ref": "ExpenseApiGETapicategoriesGetCatIntegrationC3B2BBF5"
-       }
-      ]
-     ]
-    }
-   },
-   "Metadata": {
-    "aws:cdk:path": "BackendStack/ExpenseApi/GET--api--categories/Resource"
-   }
-  },
-  "ExpenseApiPOSTapicategoriesUpdateCatIntegration20A0DC60": {
-   "Type": "AWS::ApiGatewayV2::Integration",
-   "Properties": {
-    "ApiId": {
-     "Ref": "ExpenseApi5959A4F7"
-    },
-    "IntegrationType": "AWS_PROXY",
-    "IntegrationUri": {
-     "Fn::GetAtt": [
-      "UpdateCategoryLambda4B73E86A",
-      "Arn"
-     ]
-    },
-    "PayloadFormatVersion": "2.0"
-   },
-   "Metadata": {
-    "aws:cdk:path": "BackendStack/ExpenseApi/POST--api--categories/UpdateCatIntegration/Resource"
-   }
-  },
-  "ExpenseApiPOSTapicategoriesUpdateCatIntegrationPermission7A90802D": {
-   "Type": "AWS::Lambda::Permission",
-   "Properties": {
-    "Action": "lambda:InvokeFunction",
-    "FunctionName": {
-     "Fn::GetAtt": [
-      "UpdateCategoryLambda4B73E86A",
-      "Arn"
-     ]
-    },
-    "Principal": "apigateway.amazonaws.com",
-    "SourceArn": {
-     "Fn::Join": [
-      "",
-      [
-       "arn:",
-       {
-        "Ref": "AWS::Partition"
-       },
-       ":execute-api:",
-       {
-        "Ref": "AWS::Region"
-       },
-       ":",
-       {
-        "Ref": "AWS::AccountId"
-       },
-       ":",
-       {
-        "Ref": "ExpenseApi5959A4F7"
-       },
-       "/*/*/api/categories"
-      ]
-     ]
-    }
-   },
-   "Metadata": {
-    "aws:cdk:path": "BackendStack/ExpenseApi/POST--api--categories/UpdateCatIntegration-Permission"
-   }
-  },
-  "ExpenseApiPOSTapicategoriesBACBC190": {
-   "Type": "AWS::ApiGatewayV2::Route",
-   "Properties": {
-    "ApiId": {
-     "Ref": "ExpenseApi5959A4F7"
-    },
-    "AuthorizationType": "NONE",
-    "RouteKey": "POST /api/categories",
-    "Target": {
-     "Fn::Join": [
-      "",
-      [
-       "integrations/",
-       {
-        "Ref": "ExpenseApiPOSTapicategoriesUpdateCatIntegration20A0DC60"
-       }
-      ]
-     ]
-    }
-   },
-   "Metadata": {
-    "aws:cdk:path": "BackendStack/ExpenseApi/POST--api--categories/Resource"
-   }
-  },
-  "ExpenseApiDELETEapicategoriesDeleteCatIntegration6B407FD4": {
-   "Type": "AWS::ApiGatewayV2::Integration",
-   "Properties": {
-    "ApiId": {
-     "Ref": "ExpenseApi5959A4F7"
-    },
-    "IntegrationType": "AWS_PROXY",
-    "IntegrationUri": {
-     "Fn::GetAtt": [
-      "DeleteCategoryLambdaF45F132B",
-      "Arn"
-     ]
-    },
-    "PayloadFormatVersion": "2.0"
-   },
-   "Metadata": {
-    "aws:cdk:path": "BackendStack/ExpenseApi/DELETE--api--categories/DeleteCatIntegration/Resource"
-   }
-  },
-  "ExpenseApiDELETEapicategoriesDeleteCatIntegrationPermission1AB460D4": {
-   "Type": "AWS::Lambda::Permission",
-   "Properties": {
-    "Action": "lambda:InvokeFunction",
-    "FunctionName": {
-     "Fn::GetAtt": [
-      "DeleteCategoryLambdaF45F132B",
-      "Arn"
-     ]
-    },
-    "Principal": "apigateway.amazonaws.com",
-    "SourceArn": {
-     "Fn::Join": [
-      "",
-      [
-       "arn:",
-       {
-        "Ref": "AWS::Partition"
-       },
-       ":execute-api:",
-       {
-        "Ref": "AWS::Region"
-       },
-       ":",
-       {
-        "Ref": "AWS::AccountId"
-       },
-       ":",
-       {
-        "Ref": "ExpenseApi5959A4F7"
-       },
-       "/*/*/api/categories"
-      ]
-     ]
-    }
-   },
-   "Metadata": {
-    "aws:cdk:path": "BackendStack/ExpenseApi/DELETE--api--categories/DeleteCatIntegration-Permission"
-   }
-  },
-  "ExpenseApiDELETEapicategories1CABD405": {
-   "Type": "AWS::ApiGatewayV2::Route",
-   "Properties": {
-    "ApiId": {
-     "Ref": "ExpenseApi5959A4F7"
-    },
-    "AuthorizationType": "NONE",
-    "RouteKey": "DELETE /api/categories",
-    "Target": {
-     "Fn::Join": [
-      "",
-      [
-       "integrations/",
-       {
-        "Ref": "ExpenseApiDELETEapicategoriesDeleteCatIntegration6B407FD4"
-       }
-      ]
-     ]
-    }
-   },
-   "Metadata": {
-    "aws:cdk:path": "BackendStack/ExpenseApi/DELETE--api--categories/Resource"
-   }
-  },
-  "ExpenseApiPOSTapitransactionsCreateTxIntegration98712A84": {
-   "Type": "AWS::ApiGatewayV2::Integration",
-   "Properties": {
-    "ApiId": {
-     "Ref": "ExpenseApi5959A4F7"
-    },
-    "IntegrationType": "AWS_PROXY",
-    "IntegrationUri": {
-     "Fn::GetAtt": [
-      "CreateTransactionLambda3C03D874",
-      "Arn"
-     ]
-    },
-    "PayloadFormatVersion": "2.0"
-   },
-   "Metadata": {
-    "aws:cdk:path": "BackendStack/ExpenseApi/POST--api--transactions/CreateTxIntegration/Resource"
-   }
-  },
-  "ExpenseApiPOSTapitransactionsCreateTxIntegrationPermissionA52AA207": {
-   "Type": "AWS::Lambda::Permission",
-   "Properties": {
-    "Action": "lambda:InvokeFunction",
-    "FunctionName": {
-     "Fn::GetAtt": [
-      "CreateTransactionLambda3C03D874",
-      "Arn"
-     ]
-    },
-    "Principal": "apigateway.amazonaws.com",
-    "SourceArn": {
-     "Fn::Join": [
-      "",
-      [
-       "arn:",
-       {
-        "Ref": "AWS::Partition"
-       },
-       ":execute-api:",
-       {
-        "Ref": "AWS::Region"
-       },
-       ":",
-       {
-        "Ref": "AWS::AccountId"
-       },
-       ":",
-       {
-        "Ref": "ExpenseApi5959A4F7"
-       },
-       "/*/*/api/transactions"
-      ]
-     ]
-    }
-   },
-   "Metadata": {
-    "aws:cdk:path": "BackendStack/ExpenseApi/POST--api--transactions/CreateTxIntegration-Permission"
-   }
-  },
-  "ExpenseApiPOSTapitransactionsC9C73C0E": {
-   "Type": "AWS::ApiGatewayV2::Route",
-   "Properties": {
-    "ApiId": {
-     "Ref": "ExpenseApi5959A4F7"
-    },
-    "AuthorizationType": "NONE",
-    "RouteKey": "POST /api/transactions",
-    "Target": {
-     "Fn::Join": [
-      "",
-      [
-       "integrations/",
-       {
-        "Ref": "ExpenseApiPOSTapitransactionsCreateTxIntegration98712A84"
-       }
-      ]
-     ]
-    }
-   },
-   "Metadata": {
-    "aws:cdk:path": "BackendStack/ExpenseApi/POST--api--transactions/Resource"
-   }
-  },
-  "ExpenseApiGETapitransactionsListTxIntegration873B715E": {
-   "Type": "AWS::ApiGatewayV2::Integration",
-   "Properties": {
-    "ApiId": {
-     "Ref": "ExpenseApi5959A4F7"
-    },
-    "IntegrationType": "AWS_PROXY",
-    "IntegrationUri": {
-     "Fn::GetAtt": [
-      "ListTransactionsLambda881A2531",
-      "Arn"
-     ]
-    },
-    "PayloadFormatVersion": "2.0"
-   },
-   "Metadata": {
-    "aws:cdk:path": "BackendStack/ExpenseApi/GET--api--transactions/ListTxIntegration/Resource"
-   }
-  },
-  "ExpenseApiGETapitransactionsListTxIntegrationPermission13AD359D": {
-   "Type": "AWS::Lambda::Permission",
-   "Properties": {
-    "Action": "lambda:InvokeFunction",
-    "FunctionName": {
-     "Fn::GetAtt": [
-      "ListTransactionsLambda881A2531",
-      "Arn"
-     ]
-    },
-    "Principal": "apigateway.amazonaws.com",
-    "SourceArn": {
-     "Fn::Join": [
-      "",
-      [
-       "arn:",
-       {
-        "Ref": "AWS::Partition"
-       },
-       ":execute-api:",
-       {
-        "Ref": "AWS::Region"
-       },
-       ":",
-       {
-        "Ref": "AWS::AccountId"
-       },
-       ":",
-       {
-        "Ref": "ExpenseApi5959A4F7"
-       },
-       "/*/*/api/transactions"
-      ]
-     ]
-    }
-   },
-   "Metadata": {
-    "aws:cdk:path": "BackendStack/ExpenseApi/GET--api--transactions/ListTxIntegration-Permission"
-   }
-  },
-  "ExpenseApiGETapitransactionsED80C914": {
-   "Type": "AWS::ApiGatewayV2::Route",
-   "Properties": {
-    "ApiId": {
-     "Ref": "ExpenseApi5959A4F7"
-    },
-    "AuthorizationType": "NONE",
-    "RouteKey": "GET /api/transactions",
-    "Target": {
-     "Fn::Join": [
-      "",
-      [
-       "integrations/",
-       {
-        "Ref": "ExpenseApiGETapitransactionsListTxIntegration873B715E"
-       }
-      ]
-     ]
-    }
-   },
-   "Metadata": {
-    "aws:cdk:path": "BackendStack/ExpenseApi/GET--api--transactions/Resource"
-   }
-  },
-  "ExpenseApiDELETEapitransactionsDeleteTxIntegrationD9CD36C4": {
-   "Type": "AWS::ApiGatewayV2::Integration",
-   "Properties": {
-    "ApiId": {
-     "Ref": "ExpenseApi5959A4F7"
-    },
-    "IntegrationType": "AWS_PROXY",
-    "IntegrationUri": {
-     "Fn::GetAtt": [
-      "DeleteTransactionLambdaFFC35BDA",
-      "Arn"
-     ]
-    },
-    "PayloadFormatVersion": "2.0"
-   },
-   "Metadata": {
-    "aws:cdk:path": "BackendStack/ExpenseApi/DELETE--api--transactions/DeleteTxIntegration/Resource"
-   }
-  },
-  "ExpenseApiDELETEapitransactionsDeleteTxIntegrationPermissionE3C5462A": {
-   "Type": "AWS::Lambda::Permission",
-   "Properties": {
-    "Action": "lambda:InvokeFunction",
-    "FunctionName": {
-     "Fn::GetAtt": [
-      "DeleteTransactionLambdaFFC35BDA",
-      "Arn"
-     ]
-    },
-    "Principal": "apigateway.amazonaws.com",
-    "SourceArn": {
-     "Fn::Join": [
-      "",
-      [
-       "arn:",
-       {
-        "Ref": "AWS::Partition"
-       },
-       ":execute-api:",
-       {
-        "Ref": "AWS::Region"
-       },
-       ":",
-       {
-        "Ref": "AWS::AccountId"
-       },
-       ":",
-       {
-        "Ref": "ExpenseApi5959A4F7"
-       },
-       "/*/*/api/transactions"
-      ]
-     ]
-    }
-   },
-   "Metadata": {
-    "aws:cdk:path": "BackendStack/ExpenseApi/DELETE--api--transactions/DeleteTxIntegration-Permission"
-   }
-  },
-  "ExpenseApiDELETEapitransactionsC3C9B917": {
-   "Type": "AWS::ApiGatewayV2::Route",
-   "Properties": {
-    "ApiId": {
-     "Ref": "ExpenseApi5959A4F7"
-    },
-    "AuthorizationType": "NONE",
-    "RouteKey": "DELETE /api/transactions",
-    "Target": {
-     "Fn::Join": [
-      "",
-      [
-       "integrations/",
-       {
-        "Ref": "ExpenseApiDELETEapitransactionsDeleteTxIntegrationD9CD36C4"
-       }
-      ]
-     ]
-    }
-   },
-   "Metadata": {
-    "aws:cdk:path": "BackendStack/ExpenseApi/DELETE--api--transactions/Resource"
-   }
-  },
-  "LogoutLambdaServiceRole8D5EB9E1": {
-   "Type": "AWS::IAM::Role",
-   "Properties": {
-    "AssumeRolePolicyDocument": {
-     "Statement": [
-      {
-       "Action": "sts:AssumeRole",
-       "Effect": "Allow",
-       "Principal": {
-        "Service": "lambda.amazonaws.com"
-       }
-      }
-     ],
-     "Version": "2012-10-17"
-    },
-    "ManagedPolicyArns": [
-     {
-      "Fn::Join": [
-       "",
-       [
-        "arn:",
-        {
-         "Ref": "AWS::Partition"
-        },
-        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
-       ]
-      ]
-     }
-    ]
-   },
-   "Metadata": {
-    "aws:cdk:path": "BackendStack/LogoutLambda/ServiceRole/Resource"
-   }
-  },
-  "LogoutLambda05D39112": {
-   "Type": "AWS::Lambda::Function",
-   "Properties": {
-    "Code": {
-     "S3Bucket": {
-      "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
-     },
-     "S3Key": "78ac1422cfcb9117316873622673ba7e79c414dfc360c8459081346a588f2992.zip"
-    },
-    "Environment": {
-     "Variables": {
-      "TABLE_NAME": {
-       "Ref": "ExpenseTable77644237"
-      },
-      "JWT_SECRET": "development_secret"
-     }
-    },
-    "Handler": "index.handler",
-    "MemorySize": 1024,
-    "Role": {
-     "Fn::GetAtt": [
-      "LogoutLambdaServiceRole8D5EB9E1",
-      "Arn"
-     ]
-    },
-    "Runtime": "nodejs20.x",
-    "Timeout": 15
-   },
-   "DependsOn": [
-    "LogoutLambdaServiceRole8D5EB9E1"
-   ],
-   "Metadata": {
-    "aws:cdk:path": "BackendStack/LogoutLambda/Resource",
-    "aws:asset:path": "asset.78ac1422cfcb9117316873622673ba7e79c414dfc360c8459081346a588f2992",
-    "aws:asset:is-bundled": true,
-    "aws:asset:property": "Code"
-   }
-  },
-  "LogoutLambdaLogGroup8F98CC93": {
-   "Type": "AWS::Logs::LogGroup",
-   "Properties": {
-    "LogGroupName": {
-     "Fn::Join": [
-      "",
-      [
-       "/aws/lambda/",
-       {
-        "Ref": "LogoutLambda05D39112"
-       }
-      ]
-     ]
-    },
-    "RetentionInDays": 731
-   },
-   "UpdateReplacePolicy": "Retain",
-   "DeletionPolicy": "Retain",
-   "Metadata": {
-    "aws:cdk:path": "BackendStack/LogoutLambda/LogGroup/Resource"
    }
   },
   "KillSwitchLambdaServiceRole4AAC0D01": {
@@ -2557,7 +2557,7 @@
      }
     ],
     "SourceObjectKeys": [
-     "928cf4e8df2e6a698811f2f7ab494a35cd6533745359590db0226619a120c3d9.zip"
+     "f42e2ad8c516cbed9e6e3df3412a4b797357656bcb96d164c2963e1592732079.zip"
     ],
     "DestinationBucketName": {
      "Ref": "PocketLogWebsiteBucket305BB495"
@@ -3263,7 +3263,7 @@
   "CDKMetadata": {
    "Type": "AWS::CDK::Metadata",
    "Properties": {
-    "Analytics": "v2:deflate64:H4sIAAAAAAAA/+1aX2/bNhD/LNVjoWhdCuwhb86frsWS1rWzDoMRBJR4kZlQPI082lMFf/eBpCjLTZqlLQokrQAbpu6OvLsfT+Qd6f1s/7dfsxfP2NrsFfxmT4o8a+fEipuUrc1lyxvFKuR51p6zXMKiTWqmSZBA9Qc0yUGbKFZBcpA8T9KEmto158kmTQxqul8iF1IKVZ4hd6Tp5O/L6cnscnby/s+T+XmSJhoqXDE5RSmKJjlIOBjS2CSbi/ToSnlzNqlkVc7ZpUIO1yZ7639eWVU4AxdtAop00+nWVpHoLak1XkNBM0TqKBxqc4rFzSshYcpo2ZFBrYRGVYGKgrlV3FnufKuEEldNckDaQpo4M86QWwnGy27SxKlEG7tWUKFu5uJjNKMI3rvmkikuQXcd2/B57B48ARNHkEeQR5AfhwdPwMQR5BHkEeTH4cETMHEEeQT5ZwH5CTixuUgFq7J2hr5YZcbYCvihr0NrLVQhaiYnRYG2Vx5kXIeJLxujnoopVgL39adw6hftDq2Z6E72wgHDOD/HaVQRq9ZF23GJWLF8o6RQ0POS58kDmPePOzo4Ojg6ODo4Ojg6+Dgc/AGw/AFcuH/cRxMs3pAvs+7rMPGXBs7eNNAdte9wjo5za5zbZM7nxAhc6mp2DL5NHscfx/8pxv/ehn5ntX5hCGtCejZcqRZtYgbCXRH/2SF2+m5S8/KyZcYAmWziflIOtcTGdcsObXEDdNwTnHTWBuohM+DXpi/8XqSh/6JNconFzdTmUhSTogBjYrn+mQvVNGGW8BgkELzLXQ1vQvkdHOvHrcS/wi3ew7tid0lsXmaeZTrHJrdG20TremRz/xhL9l5Lz3+ortBhMCMuNMKlcNYeXal4F+wnGXQljOmeTlkD+gNo/zwXqpRAqAZ3x9YK3iEnnazpAumuA4ygcWp1jaa/6945p9A+Eu8+d4F6CRVoJueEmpUwYK3qYtua21wBxek0UFgtqPldo60j8UpIMI0hqKJlWHqB+494ds9yujg/A2KcEQt+py4iLu5mdTvsALz/RezJo3MydGmLQmCeDt33IYmlydrTTp0DqGu+ZYNhfzCif7Gjz5uU1aJkBGvWrPaz9jVRPanFQ9c6P9akFqnrNydWwiJS/ZOnz9DSg1bPCy/+RhGUmvmQfagJgz4ho7QEm9Qok7Vzm5tCi7p7BQhrEcMTFK9R9MFfayQsUCYH3coRYpNA94vz809IfwlanoExrIRD5P0JLJQx+XbHrYyfAhHo9xbsdmIeZghUTMivteNO1WFyBqCk586SCM1O8HxCCX/xcbTQp98XvJzZSeoHApu0kGj5lUZFWXssDGmR224+OFwxK+kQlmwlULviBrUoRYRvJWANetoh0gOggQsNBe0R7i2JauPKnG4sd9Yd9rgIr9aoZ2BqVKarfpYhXslut+HAfv05xpSV2+NyB863DhFXpa3rofrxZClxDW5BXyI390Ph3d9DJV3OULBiCTthEtCcwT8WDA04PkOav3zn2SEjOUJFGmX/Ct/Bc+ThDG7S3PLS5VOtTxdcO+1bJpShXQCsGRXLrJ1IpiuXTABp9wa0yZppJVQZ/YyPH/b7y4WlBrNEGXd+WDFp/ds+BS22CBVY1UwLg+pdDZoRxp2COZ3H0Mf8cMvw9sR6OSa3o3GjcaNxo3HfalxIkBx5s0lnYNDqosuRfAHqsiShSr/aWqotpUfWEFZD0T7LicRPZKYaV4KDdkVq/Outz/Qv2doUUmSTtTmSwme/ATF3f5tdm19W+y8y93l2bYTY69LpbBZ+/wNIAgFGhSwAAA=="
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/+1a62/bNhD/W6qPhaJ1KbAP+eY8uhZLWtfOOgyGEVDkWWZC8TQ+7GmC/veBpCgrz2btCiStABuW7o73+JE+Ubzbz/Z/+Tl79YJs9R5lV3uC51kzN4RepWSrLxpWS1Iiy7PmnOQCFk1SEWW44Sh/gzo5aBJJSkgOkpdJmpi6cpfzpE0Tjco8LJFzIbgszpA50nTy58X0ZHYxO/n4+8n8PEkTBSVuiJii4LRODhIG2iisk3aZHq2kd6dNScULYmBL6s1+1rw1pppUfOFtff7rFU0qnrpxc0MKWESqv/P0GVoDj9G49OLvpIFCEQfQ4wYdreRgjLv1FttUkDJnJGuOVnIKquRad/w3VtIoe0pqUJ9Aed6cy0KAwV5i0STWctaBL5ysTg5CkAnIDVcoS5CmF3AWp1ZVqPsZ4yWgjRIKRWSUUKKq5/yfSIBqDSUoIuYGFSlgwNpUdHc1t7kEozuCBmoVN/WvCm0ViSsuQNfaQBk9w8ILdLc0rBl3uSaSCVDRPyudw/6uTZuEMHYGhjBiSIg7NcrC8m6Wg6VdpgPwPovYs0fnZBjSDoXAPB2G3y7jkryQyOBSZ+/9zwAukEbVd9hKk0rhJVAzQ4xYMaj0KdKrN1zAlJh1hOkWxLmVzOUJl0lKLvmqTg7cJKaJc+MMmRWgu5BuzMetSbgHmTZtwuepR/AMXBxBHkEeQX4aETwDF0eQR5BHkJ9GBM/AxRHkEeQfBeRnEES7TDkps2aG/miIaG1LYIf+1KdSXFJeETGhFG1vPMi4ARP/2hjtlESSApg/7eHO/KK5RqsnqpONb6fnOI0m4hnRoum4xhC6ficFl9Dz+hfbB5kP6x0D/P8CHLEcAxwDHAMcA/zBA/wOQnhY79Oawf/m3Zdhsgx1LAFpoPvKQhxwjjNfKLmh5zaZsbkhBtzWVV9z+DZ51D/q/yH0f2tHv7FZnxhCTkjPhplq0SR6ILyrUN6t4trYNtWvLxqiNRidTdxPyqASWLth2aGlV2COe4KTzppAPSQaHtstcL1sH8YvmiQXSK+mNhecTigFHau097UvpAmxBo9BgIEPuXuH1+H1OwTW6y3539wl72FnhmvJ0K8zz9JdYJNb2troXY9s7m/jK3tvpec/1lYYMJgRXxTGQmfNaVeDdlXz7vI9GdSavzOiRzHG3KZa6qyZ21xTxauuGm6w4rGwD5JVyPvneaXQIEWRHHQ9F6Gqb0D1y+XlDdIf3KzPQGtSwCGy/kwIirgdcAdAhJ2CMaA+WrA77x/nCJSEiy/1407ToZFmAEp67jyJ0FxD+AYltPg4WhjTr1Qvp69tMwYCbUoFWrZSKE3WHHNtFM9tNx8MVsQKcwhrsuGo3HYLFS94hG/DYQtq2iHSA6CAcQXU7BncWxtTabfx6nS507fwr4vwKoVqBrpCqbv92Dr0Fhm7SwyB/fY+xpQUuwM8B87XqojZeBd62I95shC4BdcKs0amH4bCh7+HUrgsRgldw7VlEtCcwV8WtBlwfM6ev/7g2SFHHqE0CkXfbnUHz5GHM9imuWWFy/CNT2DuOu2vdNgYdwtgSwxdZ81EEFW69AZGuX9Ak2yJklwWMc54+2m/P+5cK9BrFLFnCjZEWN+ZNQXFdwhRLCuiuEb5oQJFDMYeG+JsHkO/5oePMu9P3MHHx+3o3Ojc6Nzo3Nc6F5pZHblt0xlotIpCSLB+S+w6WrksfLa1prImPbLaYDkU7TtSI/GGzFThhjNQbtscmwF9j+QF2WoqeDbZ6iPBfd9gQMxVlLJL/dNm/1XmPi8uNed7XSkrm4XffwGkoYe3hSwAAA=="
    },
    "Metadata": {
     "aws:cdk:path": "BackendStack/CDKMetadata/Default"

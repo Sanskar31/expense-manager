@@ -71,54 +71,6 @@ export class BackendStack extends cdk.Stack {
       memorySize: 1024,
     };
 
-    const registerLambda = new nodejs.NodejsFunction(this, 'RegisterLambda', {
-      entry: path.join(__dirname, '../../backend/src/auth/register.ts'),
-      ...lambdaProps,
-    });
-    table.grantReadWriteData(registerLambda);
-
-    const loginLambda = new nodejs.NodejsFunction(this, 'LoginLambda', {
-      entry: path.join(__dirname, '../../backend/src/auth/login.ts'),
-      ...lambdaProps,
-    });
-    table.grantReadWriteData(loginLambda);
-
-    const getCategoriesLambda = new nodejs.NodejsFunction(this, 'GetCategoriesLambda', {
-      entry: path.join(__dirname, '../../backend/src/categories/get.ts'),
-      ...lambdaProps,
-    });
-    table.grantReadData(getCategoriesLambda);
-
-    const updateCategoryLambda = new nodejs.NodejsFunction(this, 'UpdateCategoryLambda', {
-      entry: path.join(__dirname, '../../backend/src/categories/update.ts'),
-      ...lambdaProps,
-    });
-    table.grantReadWriteData(updateCategoryLambda);
-
-    const deleteCategoryLambda = new nodejs.NodejsFunction(this, 'DeleteCategoryLambda', {
-      entry: path.join(__dirname, '../../backend/src/categories/delete.ts'),
-      ...lambdaProps,
-    });
-    table.grantReadWriteData(deleteCategoryLambda);
-
-    const createTransactionLambda = new nodejs.NodejsFunction(this, 'CreateTransactionLambda', {
-      entry: path.join(__dirname, '../../backend/src/transactions/create.ts'),
-      ...lambdaProps,
-    });
-    table.grantReadWriteData(createTransactionLambda);
-
-    const listTransactionsLambda = new nodejs.NodejsFunction(this, 'ListTransactionsLambda', {
-      entry: path.join(__dirname, '../../backend/src/transactions/list.ts'),
-      ...lambdaProps,
-    });
-    table.grantReadData(listTransactionsLambda);
-
-    const deleteTransactionLambda = new nodejs.NodejsFunction(this, 'DeleteTransactionLambda', {
-      entry: path.join(__dirname, '../../backend/src/transactions/delete.ts'),
-      ...lambdaProps,
-    });
-    table.grantReadWriteData(deleteTransactionLambda);
-
     const httpApi = new apigwv2.HttpApi(this, 'ExpenseApi', {
       corsPreflight: {
         allowHeaders: ['Content-Type', 'Authorization'],
@@ -141,16 +93,44 @@ export class BackendStack extends cdk.Stack {
       };
     }
 
-    const logoutLambda = new nodejs.NodejsFunction(this, 'LogoutLambda', {
-      entry: path.join(__dirname, '../../backend/src/auth/logout.ts'),
-      ...lambdaProps,
-    });
+    const allApiFunctions: nodejs.NodejsFunction[] = [];
 
-    const allApiFunctions = [
-      registerLambda, loginLambda, logoutLambda,
-      getCategoriesLambda, updateCategoryLambda, deleteCategoryLambda,
-      createTransactionLambda, listTransactionsLambda, deleteTransactionLambda,
-    ];
+    const createApiRoute = (
+      id: string,
+      entryFile: string,
+      routePath: string,
+      method: apigwv2.HttpMethod,
+      tablePermission: 'read' | 'write' | 'none' = 'none'
+    ) => {
+      const fn = new nodejs.NodejsFunction(this, id, {
+        entry: path.join(__dirname, `../../backend/src/${entryFile}`),
+        ...lambdaProps,
+      });
+      allApiFunctions.push(fn);
+
+      if (tablePermission === 'read') table.grantReadData(fn);
+      if (tablePermission === 'write') table.grantReadWriteData(fn);
+
+      httpApi.addRoutes({
+        path: routePath,
+        methods: [method],
+        integration: new apigwv2_integrations.HttpLambdaIntegration(`${id}Integration`, fn),
+      });
+
+      return fn;
+    };
+
+    createApiRoute('RegisterLambda', 'auth/register.ts', '/api/auth/register', apigwv2.HttpMethod.POST, 'write');
+    createApiRoute('LoginLambda', 'auth/login.ts', '/api/auth/login', apigwv2.HttpMethod.POST, 'write');
+    createApiRoute('LogoutLambda', 'auth/logout.ts', '/api/auth/logout', apigwv2.HttpMethod.POST, 'none');
+    
+    createApiRoute('GetCategoriesLambda', 'categories/get.ts', '/api/categories', apigwv2.HttpMethod.GET, 'read');
+    createApiRoute('UpdateCategoryLambda', 'categories/update.ts', '/api/categories', apigwv2.HttpMethod.POST, 'write');
+    createApiRoute('DeleteCategoryLambda', 'categories/delete.ts', '/api/categories', apigwv2.HttpMethod.DELETE, 'write');
+
+    createApiRoute('CreateTransactionLambda', 'transactions/create.ts', '/api/transactions', apigwv2.HttpMethod.POST, 'write');
+    const listTransactionsLambda = createApiRoute('ListTransactionsLambda', 'transactions/list.ts', '/api/transactions', apigwv2.HttpMethod.GET, 'read');
+    createApiRoute('DeleteTransactionLambda', 'transactions/delete.ts', '/api/transactions', apigwv2.HttpMethod.DELETE, 'write');
 
     const killSwitchLambda = new nodejs.NodejsFunction(this, 'KillSwitchLambda', {
       entry: path.join(__dirname, '../../backend/src/shared/kill-switch.ts'),
@@ -165,60 +145,6 @@ export class BackendStack extends cdk.Stack {
       actions: ['lambda:PutFunctionConcurrency'],
       resources: ['*'],
     }));
-
-    httpApi.addRoutes({
-      path: '/api/auth/register',
-      methods: [apigwv2.HttpMethod.POST],
-      integration: new apigwv2_integrations.HttpLambdaIntegration('RegisterIntegration', registerLambda),
-    });
-
-    httpApi.addRoutes({
-      path: '/api/auth/login',
-      methods: [apigwv2.HttpMethod.POST],
-      integration: new apigwv2_integrations.HttpLambdaIntegration('LoginIntegration', loginLambda),
-    });
-
-    httpApi.addRoutes({
-      path: '/api/auth/logout',
-      methods: [apigwv2.HttpMethod.POST],
-      integration: new apigwv2_integrations.HttpLambdaIntegration('LogoutIntegration', logoutLambda),
-    });
-
-    httpApi.addRoutes({
-      path: '/api/categories',
-      methods: [apigwv2.HttpMethod.GET],
-      integration: new apigwv2_integrations.HttpLambdaIntegration('GetCatIntegration', getCategoriesLambda),
-    });
-
-    httpApi.addRoutes({
-      path: '/api/categories',
-      methods: [apigwv2.HttpMethod.POST],
-      integration: new apigwv2_integrations.HttpLambdaIntegration('UpdateCatIntegration', updateCategoryLambda),
-    });
-
-    httpApi.addRoutes({
-      path: '/api/categories',
-      methods: [apigwv2.HttpMethod.DELETE],
-      integration: new apigwv2_integrations.HttpLambdaIntegration('DeleteCatIntegration', deleteCategoryLambda),
-    });
-
-    httpApi.addRoutes({
-      path: '/api/transactions',
-      methods: [apigwv2.HttpMethod.POST],
-      integration: new apigwv2_integrations.HttpLambdaIntegration('CreateTxIntegration', createTransactionLambda),
-    });
-
-    httpApi.addRoutes({
-      path: '/api/transactions',
-      methods: [apigwv2.HttpMethod.GET],
-      integration: new apigwv2_integrations.HttpLambdaIntegration('ListTxIntegration', listTransactionsLambda),
-    });
-
-    httpApi.addRoutes({
-      path: '/api/transactions',
-      methods: [apigwv2.HttpMethod.DELETE],
-      integration: new apigwv2_integrations.HttpLambdaIntegration('DeleteTxIntegration', deleteTransactionLambda),
-    });
 
     new cdk.CfnOutput(this, 'ApiUrl', {
       value: httpApi.apiEndpoint,

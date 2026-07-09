@@ -290,7 +290,7 @@ export default function Dashboard() {
               <p className="text-sm text-slate-500 dark:text-slate-400 mb-4">Excludes investments.</p>
               <div className="flex-1 w-full">
                 {loading ? (
-                  <div className="h-full flex items-center justify-center"><Loader text="Loading chart..." /></div>
+                  <div className="h-full flex items-center justify-center"><Loader text="Loading chart..." className="h-full" /></div>
                 ) : chartData.length > 0 ? (
                   <ResponsiveContainer width="100%" height="100%">
                     <PieChart>

@@ -15,6 +15,11 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   return user ? <>{children}</> : <Navigate to="/login" />;
 };
 
+const PublicRoute = ({ children }: { children: React.ReactNode }) => {
+  const { user } = useAuth();
+  return user ? <Navigate to="/" /> : <>{children}</>;
+};
+
 import PullToRefresh from "./components/PullToRefresh";
 
 function App() {
@@ -46,7 +51,7 @@ function App() {
                   )}
                 </Toaster>
                 <Routes>
-                  <Route path="/login" element={<Login />} />
+                  <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />
                   <Route path="/" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
                   <Route path="/admin" element={<ProtectedRoute><Admin /></ProtectedRoute>} />
                   <Route path="/analysis" element={<ProtectedRoute><Analysis /></ProtectedRoute>} />

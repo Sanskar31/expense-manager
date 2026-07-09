@@ -3,9 +3,10 @@ import { Loader2 } from "lucide-react";
 interface LoaderProps {
   text?: string;
   fullScreen?: boolean;
+  className?: string;
 }
 
-const Loader = ({ text = "Loading...", fullScreen = false }: LoaderProps) => {
+const Loader = ({ text = "Loading...", fullScreen = false, className }: LoaderProps) => {
   const content = (
     <div className="flex flex-col items-center justify-center space-y-4 p-8">
       <div className="relative">
@@ -29,7 +30,7 @@ const Loader = ({ text = "Loading...", fullScreen = false }: LoaderProps) => {
   }
 
   return (
-    <div className="w-full flex items-center justify-center min-h-[40vh]">
+    <div className={`w-full flex items-center justify-center ${className || 'min-h-[40vh]'}`}>
       {content}
     </div>
   );

@@ -68,6 +68,7 @@ export default function Admin() {
           name: editingCat.name,
           icon: editingCat.icon,
           isArchived: editingCat.isArchived,
+          isInvestment: editingCat.isInvestment,
           subcategories: newSubcategories,
         }),
       });
@@ -127,6 +128,18 @@ export default function Admin() {
                     required
                   />
                 </div>
+              </div>
+              <div className="flex items-center gap-2">
+                <input 
+                  type="checkbox" 
+                  id="isInvestment"
+                  checked={!!editingCat.isInvestment}
+                  onChange={e => setEditingCat({...editingCat, isInvestment: e.target.checked})}
+                  className="w-4 h-4 text-blue-600 bg-slate-100 border-slate-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-slate-800 focus:ring-2 dark:bg-slate-700 dark:border-slate-600 cursor-pointer"
+                />
+                <label htmlFor="isInvestment" className="text-sm font-medium text-slate-700 dark:text-slate-300 cursor-pointer">
+                  This category represents an Investment
+                </label>
               </div>
               <div>
                 <label className="block text-sm font-medium text-slate-700 dark:text-slate-400 mb-2">Subcategories</label>

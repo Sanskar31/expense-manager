@@ -2557,7 +2557,7 @@
      }
     ],
     "SourceObjectKeys": [
-     "e71c1737482bb4330e966179283f6e88597162cf218e878462f2325bc5ff96d3.zip"
+     "b779011f8f1b0fc38f8d557dc4ef9f29a577c3617483f7a7c29777d17c7e2ab3.zip"
     ],
     "DestinationBucketName": {
      "Ref": "PocketLogWebsiteBucket305BB495"

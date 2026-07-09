@@ -11,8 +11,6 @@ type ModalProps = {
 };
 
 export default function Modal({ isOpen, onClose, title, subtitle, children, maxWidth = "max-w-md" }: ModalProps) {
-  const modalRef = useRef<HTMLDivElement>(null);
-
   useEffect(() => {
     if (isOpen) {
       window.scrollTo({ top: 0, behavior: 'smooth' });

@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import { request } from "../services/api";
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend } from "recharts";
-import { ArrowDownCircle, ArrowUpCircle, Edit2, Trash2, Heart, Activity } from "lucide-react";
+import { ArrowDownCircle, ArrowUpCircle, Edit2, Trash2, Heart } from "lucide-react";
 import { useTheme } from "../contexts/ThemeContext";
 import { useCategories } from "../contexts/CategoryContext";
 import MonthPicker from "../components/MonthPicker";

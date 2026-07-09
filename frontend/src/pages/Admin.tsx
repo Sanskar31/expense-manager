@@ -26,6 +26,7 @@ export default function Admin() {
     setEditingCat(cat);
     setSubcatList(Object.values(cat.subcategories || {}));
     setNewSubcatInput("");
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handleDelete = async (SK: string, isArchived?: boolean) => {
@@ -195,7 +196,7 @@ export default function Admin() {
                     <span className="text-2xl">{cat.icon}</span>
                     <h3 className="text-xl font-bold text-slate-900 dark:text-white">{cat.name}</h3>
                   </div>
-                  <div className="flex gap-2 opacity-0 group-hover:opacity-100 transition-all">
+                  <div className="flex gap-2 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-all">
                     <button 
                       onClick={() => handleEdit(cat)}
                       className="p-1.5 rounded-lg text-slate-400 hover:text-blue-500 dark:hover:text-blue-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"

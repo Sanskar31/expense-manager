@@ -29,6 +29,9 @@ export default function Analysis() {
 
   useEffect(() => {
     fetchData();
+    const handleTxAdded = () => fetchData();
+    window.addEventListener('transaction_added', handleTxAdded);
+    return () => window.removeEventListener('transaction_added', handleTxAdded);
   }, []);
 
   const fetchData = async () => {
@@ -83,7 +86,12 @@ export default function Analysis() {
       return true;
     });
 
-    const debits = filteredTxs.filter(t => t.type === 'DEBIT');
+    const isTxInvestment = (tx: Transaction) => {
+      const cat = categories.find(c => c.SK === `CAT#${tx.categoryId}` || c.name === tx.categoryId);
+      return cat?.isInvestment;
+    };
+
+    const debits = filteredTxs.filter(t => t.type === 'DEBIT' && !isTxInvestment(t));
     
     // Daily Average
     let dailyAverage = 0;
@@ -114,6 +122,7 @@ export default function Analysis() {
 
     // Month & Day totals
     const monthTotals: Record<string, number> = {};
+    const monthInvestTotals: Record<string, number> = {};
     const dayTotals: Record<string, number> = {};
     const catTotals: Record<string, number> = {};
     const monthCatTotals: Record<string, Record<string, number>> = {};
@@ -132,6 +141,13 @@ export default function Analysis() {
       monthCatTotals[yyyyMm][catName] = (monthCatTotals[yyyyMm][catName] || 0) + tx.amount;
     });
 
+    const investments = filteredTxs.filter(t => t.type === 'DEBIT' && isTxInvestment(t));
+    investments.forEach(tx => {
+      const date = new Date(tx.timestamp);
+      const yyyyMm = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
+      monthInvestTotals[yyyyMm] = (monthInvestTotals[yyyyMm] || 0) + tx.amount;
+    });
+
     let hottestMonth = { month: "", amount: 0 };
     Object.entries(monthTotals).forEach(([month, amount]) => {
       if (amount > hottestMonth.amount) hottestMonth = { month, amount };
@@ -142,12 +158,12 @@ export default function Analysis() {
       if (amount > hottestDay.amount) hottestDay = { day, amount };
     });
 
-    const monthChartData = Object.entries(monthTotals)
-      .sort((a, b) => a[0].localeCompare(b[0]))
-      .map(([month, amount]) => ({
-        month: new Date(month + "-01").toLocaleDateString(undefined, { month: 'short', year: 'numeric' }),
-        spending: amount
-      }));
+    const allMonths = Array.from(new Set([...Object.keys(monthTotals), ...Object.keys(monthInvestTotals)])).sort();
+    const monthChartData = allMonths.map(yyyyMm => ({
+      month: new Date(yyyyMm + "-01").toLocaleDateString(undefined, { month: 'short', year: 'numeric' }),
+      spending: monthTotals[yyyyMm] || 0,
+      investing: monthInvestTotals[yyyyMm] || 0
+    }));
 
     // Top 5 Categories Pie Chart
     const pieData = Object.entries(catTotals)
@@ -159,7 +175,7 @@ export default function Analysis() {
 
     // Line chart data (Month by Month for top categories)
     const lineData = Object.keys(monthTotals).sort().map(month => {
-      const dataPoint: any = { month: new Date(month + "-01").toLocaleDateString(undefined, { month: 'short', year: '2-digit' }) };
+      const dataPoint: Record<string, string | number> = { month: new Date(month + "-01").toLocaleDateString(undefined, { month: 'short', year: '2-digit' }) };
       topCatNames.forEach(cat => {
         dataPoint[cat] = monthCatTotals[month]?.[cat] || 0;
       });
@@ -347,17 +363,18 @@ export default function Analysis() {
                       </Pie>
                       <Tooltip 
                         contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)' }}
-                        formatter={(value: any) => `₹${Number(value).toFixed(2)}`}
+                        formatter={(value: unknown) => `₹${Number(value).toFixed(2)}`}
                       />
                       <Legend 
                         layout="vertical" 
                         verticalAlign="middle" 
                         align="right"
-                        content={(props: any) => {
+                        content={(props: { payload?: ReadonlyArray<{ color?: string; value?: number | string; payload?: unknown }> }) => {
                           const { payload } = props;
+                          if (!payload) return null;
                           return (
                             <ul className="flex flex-col gap-2.5 justify-center pl-2">
-                              {payload.map((entry: any, index: number) => (
+                              {payload.map((entry, index: number) => (
                                 <li key={`item-${index}`} className="group relative flex items-center justify-start cursor-pointer gap-2">
                                   <div style={{ backgroundColor: entry.color }} className="flex-shrink-0 w-4 h-4 sm:w-5 sm:h-5 rounded-full shadow-sm hover:scale-110 transition-transform"></div>
                                   <span className="hidden sm:block text-sm text-slate-700 dark:text-slate-300 font-medium whitespace-nowrap">
@@ -382,7 +399,7 @@ export default function Analysis() {
 
             {/* Monthly Trend Bar Chart */}
             <div className="bg-white dark:bg-slate-900 p-6 rounded-3xl shadow-sm border border-slate-200 dark:border-slate-800 col-span-1 md:col-span-2 lg:col-span-4">
-              <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-6">Total Spending Trend</h3>
+              <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-6">Total Spending & Investing Trend</h3>
               <div className="h-72 w-full">
                 {monthChartData.length > 0 ? (
                   <ResponsiveContainer width="100%" height="100%">
@@ -393,9 +410,19 @@ export default function Analysis() {
                       <Tooltip 
                         cursor={{ fill: 'transparent' }}
                         contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)' }}
-                        formatter={(value: any) => [`₹${Number(value).toFixed(2)}`, 'Spending']}
+                        formatter={(value: unknown, name: unknown) => {
+                          const label = name === 'spending' ? 'Spending' : 'Investing';
+                          return [`₹${Number(value).toFixed(2)}`, label];
+                        }}
+                      />
+                      <Legend 
+                        verticalAlign="top" 
+                        height={36} 
+                        iconType="circle"
+                        formatter={(value) => <span className="text-slate-600 dark:text-slate-300 capitalize">{value}</span>}
                       />
                       <Bar dataKey="spending" fill="#3b82f6" radius={[6, 6, 0, 0]} animationDuration={1000} />
+                      <Bar dataKey="investing" fill="#22c55e" radius={[6, 6, 0, 0]} animationDuration={1000} />
                     </BarChart>
                   </ResponsiveContainer>
                 ) : (
@@ -416,16 +443,17 @@ export default function Analysis() {
                       <YAxis width={90} axisLine={false} tickLine={false} tick={{ fill: '#64748b' }} dx={-10} tickFormatter={(val) => `₹${val}`} />
                       <Tooltip 
                         contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)' }}
-                        formatter={(value: any) => `₹${Number(value).toFixed(2)}`}
+                        formatter={(value: unknown) => `₹${Number(value).toFixed(2)}`}
                       />
                       <Legend 
                         verticalAlign="top" 
                         height={48}
-                        content={(props: any) => {
+                        content={(props: { payload?: ReadonlyArray<{ color?: string; value?: number | string; payload?: unknown }> }) => {
                           const { payload } = props;
+                          if (!payload) return null;
                           return (
                             <ul className="flex flex-wrap gap-4 justify-center pb-4">
-                              {payload.map((entry: any, index: number) => (
+                              {payload.map((entry, index: number) => (
                                 <li key={`item-${index}`} className="group relative flex items-center justify-center cursor-pointer gap-2">
                                   <div style={{ backgroundColor: entry.color }} className="flex-shrink-0 w-3 h-3 sm:w-4 sm:h-4 rounded-full shadow-sm hover:scale-110 transition-transform"></div>
                                   <span className="hidden sm:block text-sm text-slate-700 dark:text-slate-300 font-medium whitespace-nowrap">

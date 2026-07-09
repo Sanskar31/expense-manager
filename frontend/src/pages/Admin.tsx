@@ -6,11 +6,12 @@ import toast from "react-hot-toast";
 import { useCategories } from "../contexts/CategoryContext";
 
 type Category = {
-  PK: string;
+  PK?: string;
   SK: string;
   name: string;
   icon: string;
   isArchived?: boolean;
+  isInvestment?: boolean;
   subcategories: Record<string, string>;
 };
 
@@ -187,7 +188,7 @@ export default function Admin() {
         )}
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {categories.map((cat: any) => (
+          {categories.map((cat: Category) => (
               <div key={cat.SK} className={`bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800 hover:border-blue-400 dark:hover:border-slate-700 transition-colors group shadow-sm hover:shadow-md ${cat.isArchived ? 'opacity-50' : ''}`}>
                 <div className="flex justify-between items-start mb-4">
                   <div className="flex items-center gap-3">
@@ -212,7 +213,7 @@ export default function Admin() {
                   </div>
                 </div>
                 <div className="flex flex-wrap gap-2 mt-4">
-                  {Object.values(cat.subcategories || {}).map((sub: any) => (
+                  {Object.values(cat.subcategories || {}).map((sub: string) => (
                     <span key={sub} className="px-3 py-1 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 text-sm rounded-full border border-slate-200 dark:border-slate-700">
                       {sub}
                     </span>

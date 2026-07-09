@@ -42,8 +42,12 @@ export default function Login() {
         login({ mobileNumber: mobile, name });
         navigate("/");
       }
-    } catch (err: any) {
-      setError(err.message);
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError("An unknown error occurred");
+      }
     } finally {
       setIsSubmitting(false);
     }

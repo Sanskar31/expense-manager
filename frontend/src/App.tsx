@@ -8,6 +8,7 @@ import Admin from "./pages/Admin";
 import Analysis from "./pages/Analysis";
 import { Toaster, ToastBar, toast } from "react-hot-toast";
 import { X } from "lucide-react";
+import GlobalFAB from "./components/GlobalFAB";
 
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   const { user } = useAuth();
@@ -50,8 +51,13 @@ function App() {
                   <Route path="/admin" element={<ProtectedRoute><Admin /></ProtectedRoute>} />
                   <Route path="/analysis" element={<ProtectedRoute><Analysis /></ProtectedRoute>} />
                 </Routes>
+                
+                <footer className="py-8 text-center text-sm text-slate-500 dark:text-slate-400">
+                  Made with ❤️ by <a href="https://www.linkedin.com/in/sanskaragarwal05/" target="_blank" rel="noopener noreferrer" className="font-semibold text-blue-600 dark:text-blue-400 hover:underline">Sanskar Agarwal</a>
+                </footer>
               </div>
             </PullToRefresh>
+            <GlobalFAB />
           </BrowserRouter>
         </CategoryProvider>
       </AuthProvider>

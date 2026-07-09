@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Loader2, Calendar, ChevronDown, CreditCard, Edit2, Plus } from "lucide-react";
+import { Loader2, Calendar, ChevronDown, CreditCard, Edit2, Plus, TrendingUp } from "lucide-react";
 import toast from "react-hot-toast";
 import { request } from "../services/api";
 import { useCategories } from "../contexts/CategoryContext";
@@ -185,8 +185,13 @@ export default function TransactionForm({ editingTx, onSuccess, onCancel }: Prop
         </div>
         
         <div>
-          <label className="block text-sm font-medium text-slate-700 dark:text-slate-400 mb-1">
-            Category <span className="text-rose-500">*</span>
+          <label className="block text-sm font-medium text-slate-700 dark:text-slate-400 mb-1 flex items-center justify-between">
+            <span>Category <span className="text-rose-500">*</span></span>
+            {type === 'DEBIT' && selectedCat?.isInvestment && (
+              <span className="text-xs bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-400 px-2 py-0.5 rounded-full flex items-center gap-1 font-semibold">
+                <TrendingUp size={12} /> Investment
+              </span>
+            )}
           </label>
           <div className="relative">
             <select 

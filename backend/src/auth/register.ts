@@ -10,7 +10,7 @@ const JWT_SECRET = process.env.JWT_SECRET || "default_secret";
 const DEFAULT_CATEGORIES = [
   { id: "480f7031-f842-4d58-aecd-06f4f70eb543", name: "Shopping", icon: "🛍", subcategories: ["Clothing/Accessories", "Gifts", "Household Items", "Other Shopping"] },
   { id: "965712f3-cb36-4be7-844d-73191ec86ca9", name: "Food/Drink", icon: "🥪", subcategories: ["Groceries", "Office Food", "Online Delivery", "Other Food/Drink", "Restaurants"] },
-  { id: "270c3433-0519-4148-9883-f69c164a3b54", name: "Investment", icon: "💰", subcategories: ["Mutual Funds", "PPF", "Real Estate"] },
+  { id: "270c3433-0519-4148-9883-f69c164a3b54", name: "Investment", icon: "💰", subcategories: ["Mutual Funds", "PPF", "Real Estate"], isInvestment: true },
   { id: "fb0d1565-7c25-43f7-8c35-1ebe6c67f1a1", name: "Bill/Utilities", icon: "🧾", subcategories: ["Electricity", "Maid/Service", "Other Bill", "Phone/Internet", "Rent"] },
   { id: "dc65395b-8e0a-49c1-83b5-744131882de8", name: "Transportation", icon: "🚘", subcategories: ["Bus", "Cab", "Fuel", "Petrol"] },
   { id: "ab184285-1f29-4ac0-a3a6-55afa227a3f3", name: "Personal Care", icon: "❤️", subcategories: ["Doctor/Medicine", "Haircut", "Other Personal Care/Health"] },

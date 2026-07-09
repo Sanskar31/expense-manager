@@ -16,7 +16,7 @@ export const handler: APIGatewayProxyHandlerV2 = withAuth(async (event, mobileNu
   const date = new Date(timestamp);
   const month = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
   
-  const item: any = {
+  const item: Record<string, unknown> = {
     PK: `USER#${mobileNumber}`,
     SK: `TX#${month}#${timestamp}`,
     type, // DEBIT or CREDIT

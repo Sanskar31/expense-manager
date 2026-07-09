@@ -7,7 +7,7 @@ import { randomUUID } from "crypto";
 export const handler: APIGatewayProxyHandlerV2 = withAuth(async (event, mobileNumber) => {
   console.log("Update Category Event:", event.body);
 
-  const { originalSK, name, icon, isArchived, subcategories } = JSON.parse(event.body || "{}");
+  const { originalSK, name, icon, isArchived, subcategories, isInvestment } = JSON.parse(event.body || "{}");
   if (!name || typeof subcategories !== 'object') {
     console.error("Invalid category format", { name, subcategories });
     return { statusCode: 400, body: JSON.stringify({ message: "Invalid category format" }) };
@@ -21,7 +21,8 @@ export const handler: APIGatewayProxyHandlerV2 = withAuth(async (event, mobileNu
     name,
     icon: icon || '🏷️',
     subcategories,
-    isArchived: isArchived || false
+    isArchived: isArchived || false,
+    isInvestment: isInvestment || false
   };
 
   console.log(`Saving category SK: ${newSK}`);

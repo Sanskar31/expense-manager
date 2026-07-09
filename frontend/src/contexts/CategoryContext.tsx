@@ -4,11 +4,13 @@ import { request } from '../services/api';
 import { useAuth } from './AuthContext';
 
 export type Category = {
+  PK?: string;
   SK: string;
   name: string;
   icon: string;
   subcategories: Record<string, string>;
   isArchived: boolean;
+  isInvestment?: boolean;
 };
 
 type CategoryContextType = {

@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import { request } from "../services/api";
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend } from "recharts";
-import { ArrowDownCircle, ArrowUpCircle, Edit2, Trash2, Heart } from "lucide-react";
+import { ArrowDownCircle, ArrowUpCircle, Edit2, Trash2, Heart, PieChart as PieChartIcon } from "lucide-react";
 import { useTheme } from "../contexts/ThemeContext";
 import { useCategories } from "../contexts/CategoryContext";
 import MonthPicker from "../components/MonthPicker";
@@ -11,7 +11,7 @@ import toast from "react-hot-toast";
 import TransactionForm, { type Transaction } from "../components/TransactionForm";
 import TransactionList from "../components/TransactionList";
 import Modal from "../components/Modal";
-import { Info } from "lucide-react";
+import { Info, TrendingUp, Wallet, Loader2 } from "lucide-react";
 
 const getLocalMonthString = () => {
   const d = new Date();
@@ -20,13 +20,29 @@ const getLocalMonthString = () => {
 
 export default function Dashboard() {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
-  const [month, setMonth] = useState(getLocalMonthString()); // YYYY-MM
+  const [month, setMonth] = useState(getLocalMonthString());
   const [loading, setLoading] = useState(false);
   const { theme } = useTheme();
   const { categories } = useCategories();
   
   // UI State
+  const [activeTab, setActiveTab] = useState<'SCORE' | 'INCOME' | 'EXPENSE' | 'INVESTMENTS' | 'NET_BALANCE'>('NET_BALANCE');
+  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+  const [isInfoOpen, setIsInfoOpen] = useState(false);
   const [viewTx, setViewTx] = useState<Transaction | null>(null);
+
+  useEffect(() => {
+    if (!isAutoPlaying) return;
+    const tabs = ['NET_BALANCE', 'INCOME', 'EXPENSE', 'INVESTMENTS', 'SCORE'] as const;
+    const interval = setInterval(() => {
+      setActiveTab(current => {
+        const currentIndex = tabs.indexOf(current);
+        const nextIndex = (currentIndex + 1) % tabs.length;
+        return tabs[nextIndex];
+      });
+    }, 4000); // 4 seconds
+    return () => clearInterval(interval);
+  }, [isAutoPlaying]);
   const [editingTx, setEditingTx] = useState<Transaction | null>(null);
   const [viewDateTxs, setViewDateTxs] = useState<{date: Date, txs: Transaction[]} | null>(null);
 
@@ -46,6 +62,12 @@ export default function Dashboard() {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    const handleTxAdded = () => fetchData();
+    window.addEventListener('transaction_added', handleTxAdded);
+    return () => window.removeEventListener('transaction_added', handleTxAdded);
+  }, [month]);
 
   const handleEditClick = (tx: Transaction) => {
     setEditingTx(tx);
@@ -75,14 +97,27 @@ export default function Dashboard() {
     }
   };
 
+  // Calculations
+  const isTxInvestment = (tx: Transaction) => {
+    const cat = categories.find(c => c.SK === `CAT#${tx.categoryId}` || c.name === tx.categoryId);
+    return cat?.isInvestment;
+  };
+
   const debits = transactions.filter(t => t.type === "DEBIT");
   const credits = transactions.filter(t => t.type === "CREDIT");
-  const totalDebit = debits.reduce((acc, t) => acc + t.amount, 0);
+
+  const investmentTxs = debits.filter(isTxInvestment);
+  const expenseTxs = debits.filter(t => !isTxInvestment(t));
+
   const totalCredit = credits.reduce((acc, t) => acc + t.amount, 0);
+  const totalInvestment = investmentTxs.reduce((acc, t) => acc + t.amount, 0);
+  const totalExpense = expenseTxs.reduce((acc, t) => acc + t.amount, 0);
+  const totalDebit = debits.reduce((acc, t) => acc + t.amount, 0); // Raw debit
+  
   const balance = totalCredit - totalDebit;
   
   const hasTransactions = debits.length > 0 || credits.length > 0;
-  const healthScore = totalCredit > 0 ? Math.max(0, Math.min(10, Math.round(((totalCredit - totalDebit) / totalCredit) * 10))) : 0;
+  const healthScore = totalCredit > 0 ? Math.max(0, Math.min(10, Math.round(((totalCredit - totalExpense) / totalCredit) * 10))) : 0;
   const scoreDisplay = hasTransactions ? `${healthScore}/10` : `-`;
   
   const [yearStr, monthStr] = month.split('-');
@@ -90,7 +125,7 @@ export default function Dashboard() {
   const isCurrentMonth = today.getFullYear() === parseInt(yearStr) && (today.getMonth() + 1) === parseInt(monthStr);
   const daysInMonth = new Date(parseInt(yearStr), parseInt(monthStr), 0).getDate();
   const daysToDivideBy = isCurrentMonth ? today.getDate() : daysInMonth;
-  const dailyAverage = totalDebit / daysToDivideBy;
+  const dailyAverage = totalExpense / daysToDivideBy;
   
   let scoreColor = "text-slate-400 bg-slate-100 dark:bg-slate-800";
   if (hasTransactions) {
@@ -99,7 +134,7 @@ export default function Dashboard() {
     else if (healthScore >= 4) scoreColor = "text-amber-500 bg-amber-100 dark:bg-amber-500/10";
   }
 
-  const categoryTotals = debits.reduce((acc: any, tx) => {
+  const categoryTotals = expenseTxs.reduce((acc: Record<string, number>, tx) => {
     const catName = categories.find(c => c.SK === `CAT#${tx.categoryId}`)?.name || tx.categoryId;
     acc[catName] = (acc[catName] || 0) + tx.amount;
     return acc;
@@ -129,56 +164,113 @@ export default function Dashboard() {
           </div>
         </div>
 
-        {/* Summary Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          <div className="bg-white dark:bg-slate-900 rounded-2xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm dark:shadow-lg flex items-center justify-between transition-colors">
-            <div>
-              <p className="text-sm font-medium text-slate-500 dark:text-slate-400 mb-1">Total Income</p>
-              <h3 className="text-3xl font-bold text-emerald-600 dark:text-emerald-400">₹{totalCredit.toFixed(2)}</h3>
-            </div>
-            <div className="p-4 bg-emerald-100 dark:bg-emerald-400/10 rounded-full">
-              <ArrowUpCircle className="text-emerald-600 dark:text-emerald-400" size={32} />
-            </div>
-          </div>
-          <div className="bg-white dark:bg-slate-900 rounded-2xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm dark:shadow-lg flex items-center justify-between transition-colors">
-            <div>
-              <p className="text-sm font-medium text-slate-500 dark:text-slate-400 mb-1">Total Expenses</p>
-              <h3 className="text-3xl font-bold text-rose-600 dark:text-rose-400">₹{totalDebit.toFixed(2)}</h3>
-            </div>
-            <div className="p-4 bg-rose-100 dark:bg-rose-400/10 rounded-full">
-              <ArrowDownCircle className="text-rose-600 dark:text-rose-400" size={32} />
-            </div>
-          </div>
-          <div className="bg-gradient-to-br from-blue-500 to-indigo-600 dark:from-blue-600 dark:to-indigo-700 rounded-2xl p-6 shadow-md dark:shadow-xl flex items-center justify-between border border-blue-400/30 dark:border-blue-500/30">
-            <div>
-              <p className="text-sm font-medium text-blue-100 dark:text-blue-200 mb-1">Monthly Net Balance</p>
-              <h3 className="text-3xl font-bold text-white">₹{balance.toFixed(2)}</h3>
-            </div>
-          </div>
-          <div className="bg-white dark:bg-slate-900 rounded-2xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm dark:shadow-lg flex items-center justify-between transition-colors col-span-1 md:col-span-2 lg:col-span-1 relative group">
-            <div>
-              <div className="flex items-center gap-2 mb-1">
-                <p className="text-sm font-medium text-slate-500 dark:text-slate-400">Health Score</p>
-                <div className="relative">
-                  <Info size={16} className="text-slate-400 cursor-help" />
-                  <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-64 p-3 bg-slate-900 dark:bg-slate-700 text-white dark:text-slate-100 text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-50 shadow-lg">
-                    Formula: ((Total Income - Total Expenses) / Total Income) * 10. Indicates how much of your income you are saving. A score of 10 means you saved all your income, 0 means you spent all or more.
-                    <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-slate-900 dark:border-t-slate-700"></div>
-                  </div>
-                </div>
-              </div>
-              <h3 className={`text-3xl font-bold ${scoreColor.split(' ')[0]}`}>{scoreDisplay}</h3>
-              <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 font-medium">Avg Daily Spend: ₹{dailyAverage.toFixed(2)}</p>
-            </div>
-            <div className={`p-4 rounded-full ${scoreColor.split(' ').slice(1).join(' ')}`}>
-              <Heart className={scoreColor.split(' ')[0]} size={32} />
-            </div>
-          </div>
-        </div>
-
+        {/* Main Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           
-          <div className="lg:col-span-1">
+          {/* Left Column: Metrics Card & Transaction Form */}
+          <div className="lg:col-span-1 flex flex-col gap-8 h-full">
+            
+            {/* Consolidated Metrics Card */}
+            <div 
+              className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm dark:shadow-lg overflow-hidden transition-colors flex flex-1 min-h-[300px]"
+              onMouseEnter={() => setIsAutoPlaying(false)}
+              onMouseLeave={() => setIsAutoPlaying(true)}
+            >
+              <div className="flex flex-col border-r border-slate-200 dark:border-slate-800 shrink-0 w-16 items-center py-4 gap-4 bg-slate-50/50 dark:bg-slate-800/20">
+                {[
+                  { id: 'NET_BALANCE', emoji: '⚖️' },
+                  { id: 'INCOME', emoji: '💰' },
+                  { id: 'EXPENSE', emoji: '📉' },
+                  { id: 'INVESTMENTS', emoji: '📈' },
+                  { id: 'SCORE', emoji: '❤️' }
+                ].map(tab => (
+                  <button 
+                    key={tab.id} 
+                    onClick={() => setActiveTab(tab.id as any)}
+                    title={tab.id.replace('_', ' ')}
+                    className={`w-10 h-10 rounded-xl flex items-center justify-center text-xl transition-all ${activeTab === tab.id ? 'bg-blue-100 dark:bg-blue-500/20 scale-110 shadow-sm opacity-100' : 'hover:bg-slate-100 dark:hover:bg-slate-800 opacity-50 hover:opacity-100'}`}
+                  >
+                    {tab.emoji}
+                  </button>
+                ))}
+              </div>
+              <div className="p-6 flex-1 flex flex-col justify-center items-center text-center relative group">
+                <div key={activeTab + (loading ? '-loading' : '')} className="animate-fade-slide-up w-full flex flex-col items-center">
+                  {loading ? (
+                    <div className="flex flex-col items-center justify-center h-40">
+                      <div className="relative mb-4">
+                        <div className="absolute inset-0 rounded-full blur-md opacity-40 bg-blue-500 animate-pulse"></div>
+                        <Loader2 className="animate-spin text-blue-600 dark:text-blue-400 relative z-10" size={40} />
+                      </div>
+                      <p className="text-sm font-medium text-slate-500 dark:text-slate-400 animate-pulse">Loading data...</p>
+                    </div>
+                  ) : (
+                    <>
+                      {activeTab === 'SCORE' && (
+                        <>
+                          <p 
+                            className="text-sm font-medium text-slate-500 dark:text-slate-400 mb-2 flex items-center gap-1 justify-center cursor-help relative group/info"
+                            onMouseEnter={() => setIsInfoOpen(true)}
+                            onMouseLeave={() => setIsInfoOpen(false)}
+                            onClick={() => setIsInfoOpen(!isInfoOpen)}
+                          >
+                            Health Score
+                            <Info size={14} />
+                            <div className={`absolute top-full mt-2 w-64 p-3 bg-slate-900 dark:bg-slate-700 text-white dark:text-slate-100 text-xs rounded-lg transition-opacity z-50 shadow-lg ${isInfoOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
+                              Formula: ((Total Income - True Expenses) / Total Income) * 10. Excludes investments.
+                            </div>
+                          </p>
+                          <div className={`w-20 h-20 rounded-full flex items-center justify-center mb-4 ${scoreColor.split(' ').slice(1).join(' ')} mx-auto`}>
+                            <Heart className={scoreColor.split(' ')[0]} size={40} />
+                          </div>
+                          <h3 className={`text-4xl font-bold ${scoreColor.split(' ')[0]}`}>{scoreDisplay}</h3>
+                        </>
+                      )}
+                      {activeTab === 'INCOME' && (
+                        <>
+                          <p className="text-sm font-medium text-slate-500 dark:text-slate-400 mb-2">Total Income</p>
+                          <div className="w-20 h-20 rounded-full flex items-center justify-center mb-4 bg-emerald-100 dark:bg-emerald-400/10 mx-auto">
+                            <ArrowUpCircle className="text-emerald-600 dark:text-emerald-400" size={40} />
+                          </div>
+                          <h3 className="text-4xl font-bold text-emerald-600 dark:text-emerald-400">₹{totalCredit.toFixed(2)}</h3>
+                        </>
+                      )}
+                      {activeTab === 'EXPENSE' && (
+                        <>
+                          <p className="text-sm font-medium text-slate-500 dark:text-slate-400 mb-2">True Expenses</p>
+                          <div className="w-20 h-20 rounded-full flex items-center justify-center mb-4 bg-rose-100 dark:bg-rose-400/10 mx-auto">
+                            <ArrowDownCircle className="text-rose-600 dark:text-rose-400" size={40} />
+                          </div>
+                          <h3 className="text-4xl font-bold text-rose-600 dark:text-rose-400">₹{totalExpense.toFixed(2)}</h3>
+                          <p className="text-xs text-slate-500 dark:text-slate-400 mt-2 font-medium">Avg Daily: ₹{dailyAverage.toFixed(2)}</p>
+                        </>
+                      )}
+                      {activeTab === 'INVESTMENTS' && (
+                        <>
+                          <p className="text-sm font-medium text-slate-500 dark:text-slate-400 mb-2">Total Investments</p>
+                          <div className="w-20 h-20 rounded-full flex items-center justify-center mb-4 bg-blue-100 dark:bg-blue-400/10 mx-auto">
+                            <TrendingUp className="text-blue-600 dark:text-blue-400" size={40} />
+                          </div>
+                          <h3 className="text-4xl font-bold text-blue-600 dark:text-blue-400">₹{totalInvestment.toFixed(2)}</h3>
+                        </>
+                      )}
+                      {activeTab === 'NET_BALANCE' && (
+                        <>
+                          <p className="text-sm font-medium text-slate-500 dark:text-slate-400 mb-2">Net Balance (Cashflow)</p>
+                          <div className="w-20 h-20 rounded-full flex items-center justify-center mb-4 bg-indigo-100 dark:bg-indigo-400/10 mx-auto">
+                            <Wallet className="text-indigo-600 dark:text-indigo-400" size={40} />
+                          </div>
+                          <h3 className={`text-4xl font-bold ${balance >= 0 ? 'text-indigo-600 dark:text-indigo-400' : 'text-rose-500'}`}>
+                            {balance >= 0 ? '+' : '-'}₹{Math.abs(balance).toFixed(2)}
+                          </h3>
+                        </>
+                      )}
+                    </>
+                  )}
+                </div>
+              </div>
+            </div>
+
             <TransactionForm 
               editingTx={editingTx} 
               onSuccess={() => {
@@ -189,11 +281,14 @@ export default function Dashboard() {
             />
           </div>
 
+          {/* Right Column: Chart & Transaction List */}
           <div className="lg:col-span-2 space-y-8">
+            
             {/* Chart */}
-            <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm dark:shadow-lg p-6 transition-colors">
-              <h2 className="text-lg font-bold text-slate-900 dark:text-white mb-6">Expense Breakdown</h2>
-              <div className="h-72 sm:h-80 w-full pb-4 sm:pb-0">
+            <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm dark:shadow-lg p-6 transition-colors h-[350px] flex flex-col">
+              <h2 className="text-lg font-bold text-slate-900 dark:text-white mb-2">Expense Breakdown</h2>
+              <p className="text-sm text-slate-500 dark:text-slate-400 mb-4">Excludes investments.</p>
+              <div className="flex-1 w-full">
                 {loading ? (
                   <div className="h-full flex items-center justify-center"><Loader text="Loading chart..." /></div>
                 ) : chartData.length > 0 ? (
@@ -203,8 +298,8 @@ export default function Dashboard() {
                         data={chartData}
                         cx="50%"
                         cy="50%"
-                        innerRadius={60}
-                        outerRadius={80}
+                        innerRadius={80}
+                        outerRadius={110}
                         paddingAngle={5}
                         dataKey="value"
                         stroke="none"
@@ -214,7 +309,7 @@ export default function Dashboard() {
                         ))}
                       </Pie>
                       <Tooltip 
-                        formatter={(value: any) => `₹${Number(value).toFixed(2)}`}
+                        formatter={(value: unknown) => `₹${Number(value).toFixed(2)}`}
                         contentStyle={{ 
                           backgroundColor: theme === 'dark' ? '#1e293b' : '#ffffff', 
                           borderColor: theme === 'dark' ? '#334155' : '#e2e8f0', 
@@ -227,11 +322,12 @@ export default function Dashboard() {
                         layout="vertical"
                         verticalAlign="middle"
                         align="right"
-                        content={(props: any) => {
+                        content={(props: { payload?: ReadonlyArray<{ color?: string; value?: number | string; payload?: unknown }> }) => {
                           const { payload } = props;
+                          if (!payload) return null;
                           return (
                             <ul className="flex flex-col gap-2.5 justify-center pl-2">
-                              {payload.map((entry: any, index: number) => (
+                              {payload.map((entry, index: number) => (
                                 <li key={`item-${index}`} className="group relative flex items-center justify-start cursor-pointer gap-2">
                                   <div style={{ backgroundColor: entry.color }} className="flex-shrink-0 w-4 h-4 sm:w-5 sm:h-5 rounded-full shadow-sm hover:scale-110 transition-transform"></div>
                                   <span className="hidden sm:block text-sm text-slate-700 dark:text-slate-300 font-medium whitespace-nowrap">
@@ -249,8 +345,9 @@ export default function Dashboard() {
                     </PieChart>
                   </ResponsiveContainer>
                 ) : (
-                  <div className="h-full flex items-center justify-center text-slate-400 dark:text-slate-500">
-                    No expense data for this month.
+                  <div className="h-full flex flex-col items-center justify-center text-slate-400">
+                    <PieChartIcon size={48} className="mb-2 opacity-50" />
+                    <p>No expenses for this month</p>
                   </div>
                 )}
               </div>
@@ -258,147 +355,105 @@ export default function Dashboard() {
 
             <TransactionList 
               transactions={transactions} 
-              loading={loading} 
-              month={month} 
-              onAddClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} 
               onTxClick={(tx) => setViewTx(tx)}
               setViewDateTxs={setViewDateTxs}
+              loading={loading}
+              month={month}
+              onAddClick={() => { window.scrollTo({ top: 0, behavior: 'smooth' }); }}
             />
           </div>
         </div>
       </main>
 
       <Modal 
-        isOpen={viewTx !== null} 
-        onClose={() => setViewTx(null)} 
+        isOpen={!!viewTx} 
+        onClose={() => setViewTx(null)}
         title="Transaction Details"
       >
         {viewTx && (
-          <div>
-            <div className="flex flex-col items-center mb-8">
-              <div className={`w-20 h-20 rounded-full mb-4 flex items-center justify-center border-4 ${viewTx.type === 'DEBIT' ? 'bg-rose-50 dark:bg-rose-500/5 border-rose-200 dark:border-rose-500/30 text-rose-600 dark:text-rose-400' : 'bg-emerald-50 dark:bg-emerald-500/5 border-emerald-200 dark:border-emerald-500/30 text-emerald-600 dark:text-emerald-400'}`}>
-                <span className="text-4xl leading-none">{categories.find(c => c.SK === `CAT#${viewTx.categoryId}`)?.icon || "🏷️"}</span>
-              </div>
-              <div className={`text-4xl font-bold ${viewTx.type === 'DEBIT' ? 'text-slate-900 dark:text-white' : 'text-emerald-600 dark:text-emerald-400'}`}>
-                {viewTx.type === 'DEBIT' ? '-' : '+'}₹{viewTx.amount.toFixed(2)}
-              </div>
-              <div className="text-slate-500 dark:text-slate-400 mt-2 text-lg text-center font-medium">{viewTx.description}</div>
+          <div className="space-y-4">
+            <div>
+              <p className="text-sm text-slate-500 dark:text-slate-400">Date</p>
+              <p className="font-medium text-slate-900 dark:text-white">
+                {new Date(viewTx.timestamp).toLocaleString()}
+              </p>
             </div>
-            
-            <div className="space-y-4 bg-slate-50 dark:bg-slate-800/50 p-4 rounded-xl border border-slate-100 dark:border-slate-700/50">
-              <div className="flex justify-between">
-                <span className="text-slate-500 dark:text-slate-400">Date & Time</span>
-                <span className="font-medium text-slate-900 dark:text-white text-right">
-                  {new Date(viewTx.timestamp).toLocaleString(undefined, { dateStyle: 'medium', timeStyle: 'short' })}
-                </span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-slate-500 dark:text-slate-400">Category</span>
-                <span className="font-medium text-slate-900 dark:text-white text-right">
-                  {categories.find(c => c.SK === `CAT#${viewTx.categoryId}`)?.name || viewTx.categoryId}
-                </span>
-              </div>
-              {viewTx.subcategoryId && (
-                <div className="flex justify-between">
-                  <span className="text-slate-500 dark:text-slate-400">Subcategory</span>
-                  <span className="font-medium text-slate-900 dark:text-white text-right">
-                    {categories.find(c => c.SK === `CAT#${viewTx.categoryId}`)?.subcategories?.[viewTx.subcategoryId] || viewTx.subcategoryId}
-                  </span>
-                </div>
-              )}
-              {viewTx.paymentMode && (
-                <div className="flex justify-between">
-                  <span className="text-slate-500 dark:text-slate-400">Payment Mode</span>
-                  <span className="font-medium text-slate-900 dark:text-white text-right">{viewTx.paymentMode}</span>
-                </div>
-              )}
-              <div className="flex justify-between">
-                <span className="text-slate-500 dark:text-slate-400">Type</span>
-                <span className="font-medium text-slate-900 dark:text-white text-right">{viewTx.type === 'DEBIT' ? 'Expense' : 'Income'}</span>
-              </div>
+            <div>
+              <p className="text-sm text-slate-500 dark:text-slate-400">Amount</p>
+              <p className={`font-bold text-xl ${viewTx.type === 'CREDIT' ? 'text-emerald-500' : 'text-rose-500'}`}>
+                {viewTx.type === 'CREDIT' ? '+' : '-'}₹{viewTx.amount.toFixed(2)}
+              </p>
             </div>
-
-            <div className="mt-6 flex gap-3">
-              <button 
+            <div>
+              <p className="text-sm text-slate-500 dark:text-slate-400">Category</p>
+              <p className="font-medium text-slate-900 dark:text-white">
+                {categories.find(c => c.SK === `CAT#${viewTx.categoryId}`)?.name || viewTx.categoryId}
+              </p>
+            </div>
+            {viewTx.description && (
+              <div>
+                <p className="text-sm text-slate-500 dark:text-slate-400">Description</p>
+                <p className="text-slate-900 dark:text-white mt-1 p-3 bg-slate-50 dark:bg-slate-800 rounded-lg">
+                  {viewTx.description}
+                </p>
+              </div>
+            )}
+            <div className="pt-4 flex gap-3">
+              <button
                 onClick={() => {
-                  const tx = viewTx;
+                  handleEditClick(viewTx);
                   setViewTx(null);
-                  handleEditClick(tx);
                 }}
-                className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-xl font-medium transition-colors flex items-center justify-center gap-2 shadow-sm"
+                className="flex-1 flex justify-center items-center gap-2 px-4 py-2 bg-blue-50 dark:bg-blue-500/10 text-blue-600 dark:text-blue-400 rounded-lg hover:bg-blue-100 dark:hover:bg-blue-500/20 transition-colors font-medium"
               >
-                <Edit2 size={18} /> Edit
+                <Edit2 size={16} /> Edit
               </button>
-              <button 
+              <button
                 onClick={() => {
-                  const tx = viewTx;
+                  handleDeleteTransaction(viewTx);
                   setViewTx(null);
-                  handleDeleteTransaction(tx);
                 }}
-                className="flex-1 bg-rose-600 hover:bg-rose-700 text-white py-3 rounded-xl font-medium transition-colors flex items-center justify-center gap-2 shadow-sm"
+                className="flex-1 flex justify-center items-center gap-2 px-4 py-2 bg-rose-50 dark:bg-rose-500/10 text-rose-600 dark:text-rose-400 rounded-lg hover:bg-rose-100 dark:hover:bg-rose-500/20 transition-colors font-medium"
               >
-                <Trash2 size={18} /> Delete
+                <Trash2 size={16} /> Delete
               </button>
             </div>
           </div>
         )}
       </Modal>
       
-      {/* Daily Transactions Modal */}
-      <Modal
-        isOpen={viewDateTxs !== null}
+      <Modal 
+        isOpen={!!viewDateTxs} 
         onClose={() => setViewDateTxs(null)}
-        title="Daily Transactions"
-        subtitle={viewDateTxs ? viewDateTxs.date.toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) : undefined}
-        maxWidth="max-w-lg"
+        title={viewDateTxs ? new Date(viewDateTxs.date).toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) : ""}
+        maxWidth="max-w-2xl"
       >
         {viewDateTxs && (
-          <div>
-            {viewDateTxs.txs.length === 0 ? (
-              <div className="text-center py-8 text-slate-400 dark:text-slate-500">No transactions on this day.</div>
-            ) : (
-              <div className="space-y-3">
-                {viewDateTxs.txs.map(tx => {
-                  const txCat = categories.find(c => c.SK === `CAT#${tx.categoryId}`) || { name: tx.categoryId, icon: "🏷️", subcategories: {} as Record<string, string> };
-                  const subcats = txCat.subcategories as Record<string, string>;
-                  const txSubCatName = tx.subcategoryId && subcats ? subcats[tx.subcategoryId] : tx.subcategoryId;
-
-                  return (
-                    <div 
-                      key={tx.SK} 
-                      onClick={() => {
-                        setViewDateTxs(null);
-                        setViewTx(tx);
-                      }}
-                      className="flex items-center justify-between p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors border border-slate-100 dark:border-slate-700/50 cursor-pointer"
-                    >
-                      <div className="flex items-center gap-3 min-w-0 flex-1">
-                        <div className={`w-12 h-12 rounded-full flex-shrink-0 flex items-center justify-center border-2 ${tx.type === 'DEBIT' ? 'bg-rose-50 dark:bg-rose-500/5 border-rose-200 dark:border-rose-500/30 text-rose-600 dark:text-rose-400' : 'bg-emerald-50 dark:bg-emerald-500/5 border-emerald-200 dark:border-emerald-500/30 text-emerald-600 dark:text-emerald-400'}`}>
-                          <span className="text-xl leading-none">{txCat.icon}</span>
-                        </div>
-                        <div className="min-w-0 flex-1 pr-4">
-                          <p className="font-semibold text-slate-900 dark:text-white truncate">
-                            {tx.description || "No Description"}
-                          </p>
-                          <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 truncate">
-                            {new Date(tx.timestamp).toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit' })}
-                            {` • ${txCat.name}${txSubCatName ? ` (${txSubCatName})` : ''}`}
-                          </p>
-                        </div>
-                      </div>
-                      <div className="flex flex-col items-end flex-shrink-0">
-                        <div className={`font-bold text-base ${tx.type === 'DEBIT' ? 'text-slate-900 dark:text-white' : 'text-emerald-600 dark:text-emerald-400'}`}>
-                          {tx.type === 'DEBIT' ? '-' : '+'}₹{tx.amount.toFixed(2)}
-                        </div>
-                      </div>
+          <div className="space-y-4 max-h-[60vh] overflow-y-auto pr-2">
+             {viewDateTxs.txs.map(tx => (
+               <div key={tx.SK} className="flex items-center justify-between p-4 bg-slate-50 dark:bg-slate-800 rounded-xl border border-slate-100 dark:border-slate-700">
+                  <div className="flex items-center gap-4">
+                    <div className={`p-3 rounded-full ${tx.type === 'CREDIT' ? 'bg-emerald-100 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400' : 'bg-rose-100 dark:bg-rose-500/10 text-rose-600 dark:text-rose-400'}`}>
+                      {tx.type === 'CREDIT' ? <ArrowUpCircle size={24} /> : <ArrowDownCircle size={24} />}
                     </div>
-                  )
-                })}
-              </div>
-            )}
+                    <div>
+                      <p className="font-bold text-slate-900 dark:text-white">
+                        {categories.find(c => c.SK === `CAT#${tx.categoryId}`)?.name || tx.categoryId}
+                      </p>
+                      {tx.description && <p className="text-sm text-slate-500 dark:text-slate-400 mt-0.5">{tx.description}</p>}
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <p className={`font-bold ${tx.type === 'CREDIT' ? 'text-emerald-600 dark:text-emerald-400' : 'text-slate-900 dark:text-white'}`}>
+                      {tx.type === 'CREDIT' ? '+' : '-'}₹{tx.amount.toFixed(2)}
+                    </p>
+                  </div>
+               </div>
+             ))}
           </div>
         )}
       </Modal>
+
     </div>
   );
 }

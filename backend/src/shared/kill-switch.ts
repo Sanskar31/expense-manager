@@ -2,7 +2,7 @@ import { LambdaClient, PutFunctionConcurrencyCommand } from "@aws-sdk/client-lam
 
 const lambdaClient = new LambdaClient({});
 
-export const handler = async (event: any) => {
+export const handler = async (event: unknown) => {
   console.log("KILL SWITCH ACTIVATED. RECEIVED SNS EVENT:", JSON.stringify(event, null, 2));
 
   const functionNamesStr = process.env.FUNCTION_NAMES;

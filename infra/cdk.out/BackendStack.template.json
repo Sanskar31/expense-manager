@@ -821,6 +821,89 @@
     "aws:cdk:path": "BackendStack/ExpenseApi/DELETE--api--transactions/Resource"
    }
   },
+  "ExpenseApiGETapiadminusersAdminUsersLambdaIntegration9DE7BB50": {
+   "Type": "AWS::ApiGatewayV2::Integration",
+   "Properties": {
+    "ApiId": {
+     "Ref": "ExpenseApi5959A4F7"
+    },
+    "IntegrationType": "AWS_PROXY",
+    "IntegrationUri": {
+     "Fn::GetAtt": [
+      "AdminUsersLambda591F2BE7",
+      "Arn"
+     ]
+    },
+    "PayloadFormatVersion": "2.0"
+   },
+   "Metadata": {
+    "aws:cdk:path": "BackendStack/ExpenseApi/GET--api--admin--users/AdminUsersLambdaIntegration/Resource"
+   }
+  },
+  "ExpenseApiGETapiadminusersAdminUsersLambdaIntegrationPermissionF2AD9A8F": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "AdminUsersLambda591F2BE7",
+      "Arn"
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":execute-api:",
+       {
+        "Ref": "AWS::Region"
+       },
+       ":",
+       {
+        "Ref": "AWS::AccountId"
+       },
+       ":",
+       {
+        "Ref": "ExpenseApi5959A4F7"
+       },
+       "/*/*/api/admin/users"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "BackendStack/ExpenseApi/GET--api--admin--users/AdminUsersLambdaIntegration-Permission"
+   }
+  },
+  "ExpenseApiGETapiadminusers30848F60": {
+   "Type": "AWS::ApiGatewayV2::Route",
+   "Properties": {
+    "ApiId": {
+     "Ref": "ExpenseApi5959A4F7"
+    },
+    "AuthorizationType": "NONE",
+    "RouteKey": "GET /api/admin/users",
+    "Target": {
+     "Fn::Join": [
+      "",
+      [
+       "integrations/",
+       {
+        "Ref": "ExpenseApiGETapiadminusersAdminUsersLambdaIntegration9DE7BB50"
+       }
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "BackendStack/ExpenseApi/GET--api--admin--users/Resource"
+   }
+  },
   "RegisterLambdaServiceRole8E677BA9": {
    "Type": "AWS::IAM::Role",
    "Properties": {
@@ -904,7 +987,7 @@
      "S3Bucket": {
       "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
      },
-     "S3Key": "3d98e94d28e9df13539e11fec6f07de802c9f545cbfa237bb91535c5885e4b81.zip"
+     "S3Key": "e2a35d25b0772351264503075e25ed7f852372ebf48e54c748d39c25a55fc8ff.zip"
     },
     "Environment": {
      "Variables": {
@@ -931,7 +1014,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "BackendStack/RegisterLambda/Resource",
-    "aws:asset:path": "asset.3d98e94d28e9df13539e11fec6f07de802c9f545cbfa237bb91535c5885e4b81",
+    "aws:asset:path": "asset.e2a35d25b0772351264503075e25ed7f852372ebf48e54c748d39c25a55fc8ff",
     "aws:asset:is-bundled": true,
     "aws:asset:property": "Code"
    }
@@ -1041,7 +1124,7 @@
      "S3Bucket": {
       "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
      },
-     "S3Key": "1f52b12e2fb359f95f27d9989b61fe9549a77d55623d2ba7c2e345266e1a5cb8.zip"
+     "S3Key": "b8fbcbcc38fb06b08e2c944f798b93febd7b4a2050affeeb86c68d8dd03d88b0.zip"
     },
     "Environment": {
      "Variables": {
@@ -1068,7 +1151,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "BackendStack/LoginLambda/Resource",
-    "aws:asset:path": "asset.1f52b12e2fb359f95f27d9989b61fe9549a77d55623d2ba7c2e345266e1a5cb8",
+    "aws:asset:path": "asset.b8fbcbcc38fb06b08e2c944f798b93febd7b4a2050affeeb86c68d8dd03d88b0",
     "aws:asset:is-bundled": true,
     "aws:asset:property": "Code"
    }
@@ -1136,7 +1219,7 @@
      "S3Bucket": {
       "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
      },
-     "S3Key": "1f842758473ec309ce8d8fdbb9e46e0f6c24d4668b22fe414e1d3bbb174eb88a.zip"
+     "S3Key": "5dfa6e9d5433cca162e73ca9f3981401c54b5c90004de4b0c13e9d09b9638db3.zip"
     },
     "Environment": {
      "Variables": {
@@ -1162,7 +1245,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "BackendStack/LogoutLambda/Resource",
-    "aws:asset:path": "asset.1f842758473ec309ce8d8fdbb9e46e0f6c24d4668b22fe414e1d3bbb174eb88a",
+    "aws:asset:path": "asset.5dfa6e9d5433cca162e73ca9f3981401c54b5c90004de4b0c13e9d09b9638db3",
     "aws:asset:is-bundled": true,
     "aws:asset:property": "Code"
    }
@@ -1268,7 +1351,7 @@
      "S3Bucket": {
       "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
      },
-     "S3Key": "40637c7de9ceda0345fbb4f5f57653574b30ac9a54f1cb021d867e4db52b502e.zip"
+     "S3Key": "6d23b55a1e9943a712ae717f57ee05eed4b979bd07b91a02f74f985966852864.zip"
     },
     "Environment": {
      "Variables": {
@@ -1295,7 +1378,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "BackendStack/GetCategoriesLambda/Resource",
-    "aws:asset:path": "asset.40637c7de9ceda0345fbb4f5f57653574b30ac9a54f1cb021d867e4db52b502e",
+    "aws:asset:path": "asset.6d23b55a1e9943a712ae717f57ee05eed4b979bd07b91a02f74f985966852864",
     "aws:asset:is-bundled": true,
     "aws:asset:property": "Code"
    }
@@ -1405,7 +1488,7 @@
      "S3Bucket": {
       "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
      },
-     "S3Key": "dcff18c72f9bb7da33d86a85e8b0fadbca51c689db7275dfb0ba89b26408d2a4.zip"
+     "S3Key": "2e75d5063cc78e277c6cbc5f7a43c8d6d5fdd05a960badebc8dd34d78add2b60.zip"
     },
     "Environment": {
      "Variables": {
@@ -1432,7 +1515,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "BackendStack/UpdateCategoryLambda/Resource",
-    "aws:asset:path": "asset.dcff18c72f9bb7da33d86a85e8b0fadbca51c689db7275dfb0ba89b26408d2a4",
+    "aws:asset:path": "asset.2e75d5063cc78e277c6cbc5f7a43c8d6d5fdd05a960badebc8dd34d78add2b60",
     "aws:asset:is-bundled": true,
     "aws:asset:property": "Code"
    }
@@ -1542,7 +1625,7 @@
      "S3Bucket": {
       "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
      },
-     "S3Key": "2adcc35be519fa5c8d5c3a62859f594b1ea741da4fc890377f2671bb4b751927.zip"
+     "S3Key": "b84008d77812ae118a7701083ece53294a202e89b7d75b4df15ec30d47af3769.zip"
     },
     "Environment": {
      "Variables": {
@@ -1569,7 +1652,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "BackendStack/DeleteCategoryLambda/Resource",
-    "aws:asset:path": "asset.2adcc35be519fa5c8d5c3a62859f594b1ea741da4fc890377f2671bb4b751927",
+    "aws:asset:path": "asset.b84008d77812ae118a7701083ece53294a202e89b7d75b4df15ec30d47af3769",
     "aws:asset:is-bundled": true,
     "aws:asset:property": "Code"
    }
@@ -1679,7 +1762,7 @@
      "S3Bucket": {
       "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
      },
-     "S3Key": "62f24ce8b153c096a5a3aeac7f02afcc0316b2bbe1f3471f239894310e7122eb.zip"
+     "S3Key": "2fa205f09c61aa1aaf4ad81d49ac2466a27701fc5fee6b99e351da4b794fb1f9.zip"
     },
     "Environment": {
      "Variables": {
@@ -1706,7 +1789,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "BackendStack/CreateTransactionLambda/Resource",
-    "aws:asset:path": "asset.62f24ce8b153c096a5a3aeac7f02afcc0316b2bbe1f3471f239894310e7122eb",
+    "aws:asset:path": "asset.2fa205f09c61aa1aaf4ad81d49ac2466a27701fc5fee6b99e351da4b794fb1f9",
     "aws:asset:is-bundled": true,
     "aws:asset:property": "Code"
    }
@@ -1812,7 +1895,7 @@
      "S3Bucket": {
       "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
      },
-     "S3Key": "b1ec1690ca2cea54414a4ea0322580aa03eaa2e18846642215a5b56e6a279990.zip"
+     "S3Key": "572a70b3bb18437e2313b66452ef2ebc387c05d3c3a1c59e69d714f651fa63f6.zip"
     },
     "Environment": {
      "Variables": {
@@ -1839,7 +1922,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "BackendStack/ListTransactionsLambda/Resource",
-    "aws:asset:path": "asset.b1ec1690ca2cea54414a4ea0322580aa03eaa2e18846642215a5b56e6a279990",
+    "aws:asset:path": "asset.572a70b3bb18437e2313b66452ef2ebc387c05d3c3a1c59e69d714f651fa63f6",
     "aws:asset:is-bundled": true,
     "aws:asset:property": "Code"
    }
@@ -1949,7 +2032,7 @@
      "S3Bucket": {
       "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
      },
-     "S3Key": "9c5cc0a6c22fdb92b41a32ddd3379754188920c41d877ed3011438d332bc975c.zip"
+     "S3Key": "6a972ce8a75b777bf9ad1b9e45a3df02e8dc2a84224ec51499dc672f753dfb7b.zip"
     },
     "Environment": {
      "Variables": {
@@ -1976,7 +2059,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "BackendStack/DeleteTransactionLambda/Resource",
-    "aws:asset:path": "asset.9c5cc0a6c22fdb92b41a32ddd3379754188920c41d877ed3011438d332bc975c",
+    "aws:asset:path": "asset.6a972ce8a75b777bf9ad1b9e45a3df02e8dc2a84224ec51499dc672f753dfb7b",
     "aws:asset:is-bundled": true,
     "aws:asset:property": "Code"
    }
@@ -2001,6 +2084,139 @@
    "DeletionPolicy": "Retain",
    "Metadata": {
     "aws:cdk:path": "BackendStack/DeleteTransactionLambda/LogGroup/Resource"
+   }
+  },
+  "AdminUsersLambdaServiceRole4F30EB6D": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "BackendStack/AdminUsersLambda/ServiceRole/Resource"
+   }
+  },
+  "AdminUsersLambdaServiceRoleDefaultPolicy5CF33648": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "dynamodb:BatchGetItem",
+        "dynamodb:ConditionCheckItem",
+        "dynamodb:DescribeTable",
+        "dynamodb:GetItem",
+        "dynamodb:GetRecords",
+        "dynamodb:GetShardIterator",
+        "dynamodb:Query",
+        "dynamodb:Scan"
+       ],
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::GetAtt": [
+         "ExpenseTable77644237",
+         "Arn"
+        ]
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "AdminUsersLambdaServiceRoleDefaultPolicy5CF33648",
+    "Roles": [
+     {
+      "Ref": "AdminUsersLambdaServiceRole4F30EB6D"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "BackendStack/AdminUsersLambda/ServiceRole/DefaultPolicy/Resource"
+   }
+  },
+  "AdminUsersLambda591F2BE7": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": {
+      "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
+     },
+     "S3Key": "c5c7f52a524a4dff84c5d396a64441768a0eb409d0e88762fdf1d6d454119a44.zip"
+    },
+    "Environment": {
+     "Variables": {
+      "TABLE_NAME": {
+       "Ref": "ExpenseTable77644237"
+      },
+      "JWT_SECRET": "development_secret"
+     }
+    },
+    "Handler": "index.handler",
+    "MemorySize": 1024,
+    "Role": {
+     "Fn::GetAtt": [
+      "AdminUsersLambdaServiceRole4F30EB6D",
+      "Arn"
+     ]
+    },
+    "Runtime": "nodejs22.x",
+    "Timeout": 15
+   },
+   "DependsOn": [
+    "AdminUsersLambdaServiceRoleDefaultPolicy5CF33648",
+    "AdminUsersLambdaServiceRole4F30EB6D"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "BackendStack/AdminUsersLambda/Resource",
+    "aws:asset:path": "asset.c5c7f52a524a4dff84c5d396a64441768a0eb409d0e88762fdf1d6d454119a44",
+    "aws:asset:is-bundled": true,
+    "aws:asset:property": "Code"
+   }
+  },
+  "AdminUsersLambdaLogGroup34572E56": {
+   "Type": "AWS::Logs::LogGroup",
+   "Properties": {
+    "LogGroupName": {
+     "Fn::Join": [
+      "",
+      [
+       "/aws/lambda/",
+       {
+        "Ref": "AdminUsersLambda591F2BE7"
+       }
+      ]
+     ]
+    },
+    "RetentionInDays": 731
+   },
+   "UpdateReplacePolicy": "Retain",
+   "DeletionPolicy": "Retain",
+   "Metadata": {
+    "aws:cdk:path": "BackendStack/AdminUsersLambda/LogGroup/Resource"
    }
   },
   "KillSwitchLambdaServiceRole4AAC0D01": {
@@ -2068,7 +2284,7 @@
      "S3Bucket": {
       "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
      },
-     "S3Key": "15e0cd2c4134523b3327b009003a6c2888e539a623886483355fdc44141dcd54.zip"
+     "S3Key": "d6f5af884bd217ac445a66a7357dc678cd8f5498d03ffea768525f9a8505e420.zip"
     },
     "Environment": {
      "Variables": {
@@ -2114,6 +2330,10 @@
          ",",
          {
           "Ref": "DeleteTransactionLambdaFFC35BDA"
+         },
+         ",",
+         {
+          "Ref": "AdminUsersLambda591F2BE7"
          }
         ]
        ]
@@ -2137,7 +2357,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "BackendStack/KillSwitchLambda/Resource",
-    "aws:asset:path": "asset.15e0cd2c4134523b3327b009003a6c2888e539a623886483355fdc44141dcd54",
+    "aws:asset:path": "asset.d6f5af884bd217ac445a66a7357dc678cd8f5498d03ffea768525f9a8505e420",
     "aws:asset:is-bundled": true,
     "aws:asset:property": "Code"
    }
@@ -2557,7 +2777,7 @@
      }
     ],
     "SourceObjectKeys": [
-     "5f60a3a2e21c615200c3f46fe015e214578a10a635ee0d94290cddde43480137.zip"
+     "b07a8fccb549d38333903768be8bd4860f6ecf4a535fdf851b5bfa290b014926.zip"
     ],
     "DestinationBucketName": {
      "Ref": "PocketLogWebsiteBucket305BB495"
@@ -3002,6 +3222,9 @@
        },
        {
         "Ref": "DeleteTransactionLambdaServiceRoleADB401C9"
+       },
+       {
+        "Ref": "AdminUsersLambdaServiceRole4F30EB6D"
        }
       ]
      }
@@ -3263,7 +3486,7 @@
   "CDKMetadata": {
    "Type": "AWS::CDK::Metadata",
    "Properties": {
-    "Analytics": "v2:deflate64:H4sIAAAAAAAA/+1abW/bNhD+LdXHQtHadBiGfHNeuhZLWs/OOgyGEVDkRWZC8TS+2NME/feBpCjLSZpm7QokrYAEku6O9/KQPlG828/2f3qZvXhGNnqPsus9wfOsmRtCr1Oy0RcNqyUpkeVZc05yAYsmqYgy3HCUv0KdHDSJJCUkB8nzJE1MXbnbedKmiUZl7pfIuRBcFmfIHGk6+fNiejK7mJ389vvJ/DxJEwUlromYouC0Tg4SBtoorJN2mR5dSu9Om5KKF8TAhtTr/ax5Y0w1qfjC2/r0v1c0qXjqxs0NKWARqf7J02doDTxE49KLv5UGCkUcQA8bdHQpB2Pco7fYpoKUOSNZc3Qpp6BKrnXHf20ljbKnpAb1AZTnzbksBBjsJRZNYi1nHfjCyerkIASZgFxzhbIEaXoBZ3FqVYW6nzFeAtoooVBERgklqnrO/4kEqFZQgiJiblCRAgasdUW3d3ObSzC6I2igVnFT/6LQVpF4yQXoWhsoo2dYeIHukYY1425XRDIBKvpnpXPYP7VpkxDGzsAQRgwJcadGWVjezXKwtMt0AN4nEXvy6JwMQ9qiEJinw/DbZVySFxIZXOnsnb8M4AJpVH2HrTSpFF4BNTPEiBWDSp8ivX7NBUyJWUWYbkGcW8lcnnCZpOSSX9bJgZvENHFunCGzAnQX0o35uDUJH0GmTZvw99gjeAIujiCPII8gP44InoCLI8gjyCPIjyOCJ+DiCPII8vcC8hMIol2mnJRZM0N/NES0tiWwQ3/qUykuKa+ImFCKtjceZNyAif9sjHZKIkkBzJ/2cGd+0ezQ6onqZOPX6TlOo4l4RrRoOq4xhK7eSsEl9Lz+w/Ze5v16xwD/vwBHLMcAxwDHAMcAv/MAv4EQ7tf7uGbwv3n3eZgsQx1LQBrovrIQB5zjzBdKbui5TWZsbogBt3XVOw7fJo/6R/3fhf6v7ehXNusTQ8gJ6dkwUy2aRA+EtxXKu1XsjG1T/eqiIVqD0dnEXVIGlcDaDcsOLb0Gc9wTnHTWBOoh0fDQboHdsn0Yv2iSXCC9ntpccDqhFHSs0n6sfSFNiDV4DAIMvM/dN7wOn98hsF5vyf/mLnkPOzNcS4Z+lXmW7gKb3NLWRu96ZHP/GD/Zeys9/6G2woDBjPiiMBY6a067GrSrmne378ig1vyNET2KMeY21VJnzdzmmipeddVwgxWPhX2QrELev88rhQYpiuSg67kIVX0Dql8uz2+Q/uBmdQZakwIOkfVnQlDE7YA7ACLsFIwB9ZsFu/X+YY5ASbj4XD/uNB0aaQagpOfOkwjNDsI3KKHFx9HCmH6lejm9s80YCLQpFWjZpUJpsuaYa6N4brv5YHBJrDCHsCJrjsptt1Dxgkf41hw2oKYdIj0AChhXQM2ewb2VMZV2G69Olzt9C7+6CK9SqGagK5S624+tQm+RsdvEENhvPsaYkmJ7gOfA+VIVMRtvQw/7MU8WAjfgWmFWyPT9UPjw91AKl8UooSvYWSYBzRn8ZUGbAcfn7Pmr954dcuQRSqNQ9O1Wd/AceTiDbZpbVrgM3/gE5u7T/k6HjXG3ADbE0FXWTARRpUtvYJT7BTTJhijJZRHjjI8f9vvjzpUCvUIRe6ZgTYT1nVlTUHyLEMWyIoprlO8rUMRg7LEhzuYx9Gt++Crz/sQdfHzdjs6Nzo3Ojc59qXOhmdWR2zadgUarKIQE67fErqOVy8JnW2sqa9Ijqw2WQ9G+IzUSb8hMFa45A+W2zbEZ0PdIXpCNpoJnk40+Etz3DQbEXEUpu9I/rPd/zF7+nL14dqU53+tKWdksXP8FjIl2H4UsAAA="
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/+1abW/bNhD+LdXHQtHadBiGfHNeuhZLWtfOOgyGEdDkWWZC8TS+2NME/feBpCjLeWv6BiSdgASW7o7Hu4f0iT49+9n+Ly+zF8/IRu9RdrUn+CKrp4bQq5Rs9EXNKkkKZIusPicLAbM6KYky3HCUv0OVHNSJJAUkB8nzJE1MVbrLadKkiUZl7rdYcCG4zM+QOdF49NfF+GRyMTn58MfJ9DxJEwUFrokYo+C0Sg4SBtoorJJmnh4tpQ+nSUnJc2JgQ6r1fla/MaYclXzm53rYv3c2Knnqxk4NyWEWpf7OyydoDTzU69wPeSsN5Io4oB4+8Ggpe+PcrZ+5SQUpFoxk9dFSjkEVXOtW/9pKGm1PSQXqIyivm3KZCzDYWczqxFrO2oUQzlYnByHZBOSaK5QFSNMZuBnHVpWou9XjBaCNFgpFVBRQoKqm/N8ogHIFBSgipgYVyaGnWpd0ezW1CwlGtwIN1Cpuqt8U2jIKl1yArrSBIkaGuTdob2nYP+5yRSQToGJ8VrqA/V2T1glh7AwMYcSQkHdqlIX57SoHSzNPe+B9ErEnj85JP6UtCkF52k+/mccteSGRwaXO3vmPHlwgjapumStNSoWXQM0EMWLFoNSnSK9ecwFjYlYRphsQL6xkrma4qlJwyZdVcuAWMU1cGGfIrADdpnRtPW4swh3INGkd/h57Bk8gxAHkAeQB5MeRwRMIcQB5AHkA+XFk8ARCHEAeQB5AfhwZPIEQPw3yE0iimaecFFk9Qd+LI1rbAtihb7OVikvKSyJGlKLtJg82bsDI/zaP8xREkhyYb69xN/2s3pFVI9XaxhbAOY7jFLEpN6tbrTGErt5KwSV0uq57cK/yfr9Dgt8uwQHLIcEhwSHBIcEhwR87wR8ghfv9Pq4V/LzovgyTeXgbKiANcv9+Kg44x4l/3XbNz00xY1NDDLizud4J+KZ48D/4H/x/A//fO9DvPK0vPKHmpGf9SjirE90z3r5Hv93Fztgm1a8uaqI1GJ2N3EfKoBRYuWHZoaVXYI47gbPO6iA9JBo+h9+ySzAJPmZ1shBIr8Z2ITgdUQo68gnuIt2kCbEGj0GAgfcL1wjRoYcRkuv8Fvwf7h4QfT6RIxLpV5lX6Ta50Q1vTYyuQ3fhb2Pfo5ul0z90rjCgtyqevoC5zurTli3h+B3t5TvSY0X8H4Qe2ghEk2qps3pqF5oqXrZkDoMlj7wUkKxE3h0kSoUGKYrkoKUMBVKKAdXtoefXRH9yszoDrUkOh8i6bhvk8RziWmuEnYIxoD5YsNvoHxYIFISLL43j1qkDH6wHSnruIonQ7CB8TRLYak4WxnTb19vpnfNNz6BJqUDLlgqlyepjro3iC9uuB4MlscIcwoqsOSp3zkPFcx7hW3PYgBq3iHQAKGBcATV7BvdWxpTanfhaX66vGb6KEV6lUE1Alyh1exBcBYqcsdtqEdRv7lKMSb5tjTpwvtZFLNPb1MNB0IuFwA04JtcKmb4fCp/+HkrhShsldAU72ySgOYG/LWjT0/hiPn313qtD4TxCaRSKjjV4i86J+yvYpAvLclf6a1/V3HXaXelwIm83wIYYusrqkSCqcDUPjHLfgDrZECW5zGOe8fbjftdIXinQKxSR8gdrIqwnFo5B8S1CFIuSKK5Rvi9BEYORIkbcnMfQ7fn+M87HE386xOfwENwQ3BDcENzXBhc42U7cNOkENFpFIRRYf1Z2xGwuc19trSmtSY+sNlj0TTtCdRResxkrXHMGyp2nI5fVU3wvyEZTwbPRRh8J7mmvATH3ri671D+t93/OXv6avXh2qTnfa18SZpPw+R/iEXMFUC8AAA=="
    },
    "Metadata": {
     "aws:cdk:path": "BackendStack/CDKMetadata/Default"

@@ -141,9 +141,9 @@ export default function TransactionList({
       )}
       
       {loading ? (
-        <div className="py-8"><Loader text="Loading transactions..." /></div>
+        <div className="py-8"><Loader className="min-h-0" text="Loading transactions..." /></div>
       ) : loadingAll && timeMode === 'all' ? (
-        <div className="py-8"><Loader text="Loading all transactions..." /></div>
+        <div className="py-8"><Loader className="min-h-0" text="Loading all transactions..." /></div>
       ) : filteredTransactions.length === 0 ? (
         <div className="text-center py-12 flex flex-col items-center justify-center border-2 border-dashed border-slate-200 dark:border-slate-800 rounded-xl">
           <div className="bg-slate-100 dark:bg-slate-800 p-4 rounded-full mb-4">

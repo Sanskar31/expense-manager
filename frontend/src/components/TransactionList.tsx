@@ -73,7 +73,7 @@ export default function TransactionList({
   const sourceTransactions = timeMode === 'month' ? transactions : allTransactions;
   const filteredTransactions = sourceTransactions.filter(tx => {
     if (!searchQuery.trim()) return true;
-    const query = searchQuery.replace(/\s+/g, '').toLowerCase();
+    const queryTerms = searchQuery.toLowerCase().trim().split(/\s+/);
     
     const txCat = categories.find(c => c.SK === `CAT#${tx.categoryId}`);
     const catName = txCat?.name?.toLowerCase() || '';
@@ -81,8 +81,14 @@ export default function TransactionList({
     const subCatName = (tx.subcategoryId && subcats ? subcats[tx.subcategoryId] : tx.subcategoryId)?.toLowerCase() || '';
     
     const combinedString = `${tx.description || ''} ${tx.amount} ${catName} ${subCatName} ${tx.paymentMode || ''}`.toLowerCase();
+    const words = combinedString.split(/[\s\W]+/);
     
-    return fuzzyMatch(query, combinedString);
+    return queryTerms.every(term => {
+      // Direct substring match (e.g. "500", "swigg")
+      if (combinedString.includes(term)) return true;
+      // Fuzzy match per word (e.g. "dnr" matches "dinner")
+      return words.some(word => fuzzyMatch(term, word));
+    });
   });
 
   // Reset page when month changes (handled implicitly by Dashboard, or we can handle it here)

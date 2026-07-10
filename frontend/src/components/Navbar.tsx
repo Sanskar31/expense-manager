@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import { useTheme } from "../contexts/ThemeContext";
-import { LogOut, LayoutDashboard, Settings, Sun, Moon, Wallet, PieChart, Menu, X } from "lucide-react";
+import { LogOut, LayoutDashboard, Settings, Sun, Moon, Wallet, PieChart, Menu, X, Users } from "lucide-react";
 
 import { request } from "../services/api";
 
@@ -26,8 +26,12 @@ export default function Navbar() {
   const navLinks = [
     { name: "Dashboard", path: "/", icon: <LayoutDashboard size={18} /> },
     { name: "Analysis", path: "/analysis", icon: <PieChart size={18} /> },
-    { name: "Categories", path: "/admin", icon: <Settings size={18} /> },
+    { name: "Categories", path: "/category", icon: <Settings size={18} /> },
   ];
+
+  if (user?.mobileNumber === "+919828376660") {
+    navLinks.push({ name: "Admin", path: "/admin", icon: <Users size={18} /> });
+  }
 
   return (
     <nav className="sticky top-0 z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 transition-colors">

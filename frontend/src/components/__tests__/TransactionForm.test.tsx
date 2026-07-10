@@ -2,7 +2,7 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { vi, describe, it, expect, beforeEach } from 'vitest';
 import userEvent from '@testing-library/user-event';
 import TransactionForm from '../TransactionForm';
-import { CategoryProvider } from '../../contexts/CategoryContext';
+// removed CategoryProvider
 import { PaymentMode, TransactionType } from '../../types';
 import * as api from '../../services/api';
 import toast from 'react-hot-toast';
@@ -111,14 +111,17 @@ describe('TransactionForm Component', () => {
       }));
     });
 
-    const calledBody = JSON.parse(vi.mocked(api.request).mock.calls[0][1].body as string);
-    expect(calledBody).toMatchObject({
-      type: TransactionType.DEBIT,
-      amount: 500,
-      description: 'Dinner',
-      categoryId: 'Food',
-      paymentMode: PaymentMode.UPI
-    });
+    const requestCall = vi.mocked(api.request).mock.calls[0];
+    if (requestCall && requestCall[1]) {
+      const calledBody = JSON.parse(requestCall[1].body as string);
+      expect(calledBody).toMatchObject({
+        type: TransactionType.DEBIT,
+        amount: 500,
+        description: 'Dinner',
+        categoryId: 'Food',
+        paymentMode: PaymentMode.UPI
+      });
+    }
 
     expect(toast.success).toHaveBeenCalledWith('Transaction added!');
     expect(mockOnSuccess).toHaveBeenCalled();

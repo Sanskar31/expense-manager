@@ -132,6 +132,8 @@ export class BackendStack extends cdk.Stack {
     const listTransactionsLambda = createApiRoute('ListTransactionsLambda', 'transactions/list.ts', '/api/transactions', apigwv2.HttpMethod.GET, 'read');
     createApiRoute('DeleteTransactionLambda', 'transactions/delete.ts', '/api/transactions', apigwv2.HttpMethod.DELETE, 'write');
 
+    createApiRoute('AdminUsersLambda', 'admin/users.ts', '/api/admin/users', apigwv2.HttpMethod.GET, 'read');
+
     const killSwitchLambda = new nodejs.NodejsFunction(this, 'KillSwitchLambda', {
       entry: path.join(__dirname, '../../backend/src/shared/kill-switch.ts'),
       ...lambdaProps,

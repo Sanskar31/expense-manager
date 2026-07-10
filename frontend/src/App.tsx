@@ -4,6 +4,7 @@ import { ThemeProvider } from "./contexts/ThemeContext";
 import { CategoryProvider } from "./contexts/CategoryContext";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
+import Category from "./pages/Category";
 import Admin from "./pages/Admin";
 import Analysis from "./pages/Analysis";
 import { Toaster, ToastBar, toast } from "react-hot-toast";
@@ -53,6 +54,7 @@ function App() {
                   <Routes>
                   <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />
                   <Route path="/" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+                  <Route path="/category" element={<ProtectedRoute><Category /></ProtectedRoute>} />
                   <Route path="/admin" element={<ProtectedRoute><Admin /></ProtectedRoute>} />
                   <Route path="/analysis" element={<ProtectedRoute><Analysis /></ProtectedRoute>} />
                 </Routes>

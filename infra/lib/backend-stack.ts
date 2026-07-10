@@ -56,7 +56,7 @@ export class BackendStack extends cdk.Stack {
     });
 
     const lambdaProps = {
-      runtime: lambda.Runtime.NODEJS_20_X,
+      runtime: lambda.Runtime.NODEJS_22_X,
       projectRoot: path.join(__dirname, '../../backend'),
       depsLockFilePath: path.join(__dirname, '../../backend/package-lock.json'),
       environment: {

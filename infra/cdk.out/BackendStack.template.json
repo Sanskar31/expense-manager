@@ -922,7 +922,7 @@
       "Arn"
      ]
     },
-    "Runtime": "nodejs20.x",
+    "Runtime": "nodejs22.x",
     "Timeout": 15
    },
    "DependsOn": [
@@ -1059,7 +1059,7 @@
       "Arn"
      ]
     },
-    "Runtime": "nodejs20.x",
+    "Runtime": "nodejs22.x",
     "Timeout": 15
    },
    "DependsOn": [
@@ -1154,7 +1154,7 @@
       "Arn"
      ]
     },
-    "Runtime": "nodejs20.x",
+    "Runtime": "nodejs22.x",
     "Timeout": 15
    },
    "DependsOn": [
@@ -1286,7 +1286,7 @@
       "Arn"
      ]
     },
-    "Runtime": "nodejs20.x",
+    "Runtime": "nodejs22.x",
     "Timeout": 15
    },
    "DependsOn": [
@@ -1423,7 +1423,7 @@
       "Arn"
      ]
     },
-    "Runtime": "nodejs20.x",
+    "Runtime": "nodejs22.x",
     "Timeout": 15
    },
    "DependsOn": [
@@ -1560,7 +1560,7 @@
       "Arn"
      ]
     },
-    "Runtime": "nodejs20.x",
+    "Runtime": "nodejs22.x",
     "Timeout": 15
    },
    "DependsOn": [
@@ -1697,7 +1697,7 @@
       "Arn"
      ]
     },
-    "Runtime": "nodejs20.x",
+    "Runtime": "nodejs22.x",
     "Timeout": 15
    },
    "DependsOn": [
@@ -1830,7 +1830,7 @@
       "Arn"
      ]
     },
-    "Runtime": "nodejs20.x",
+    "Runtime": "nodejs22.x",
     "Timeout": 15
    },
    "DependsOn": [
@@ -1967,7 +1967,7 @@
       "Arn"
      ]
     },
-    "Runtime": "nodejs20.x",
+    "Runtime": "nodejs22.x",
     "Timeout": 15
    },
    "DependsOn": [
@@ -2128,7 +2128,7 @@
       "Arn"
      ]
     },
-    "Runtime": "nodejs20.x",
+    "Runtime": "nodejs22.x",
     "Timeout": 15
    },
    "DependsOn": [
@@ -2557,7 +2557,7 @@
      }
     ],
     "SourceObjectKeys": [
-     "b779011f8f1b0fc38f8d557dc4ef9f29a577c3617483f7a7c29777d17c7e2ab3.zip"
+     "24f385c7e128e000d9b444edf83d4d34135127648220d3a2b25c972530da380d.zip"
     ],
     "DestinationBucketName": {
      "Ref": "PocketLogWebsiteBucket305BB495"

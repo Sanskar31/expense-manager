@@ -1,10 +1,11 @@
-import { useState } from "react";
-import { List, Grid, Wallet } from "lucide-react";
+import { useState, useEffect } from "react";
+import { List, Grid, Wallet, Search } from "lucide-react";
 import { useCategories } from "../contexts/CategoryContext";
 import CalendarView from "./CalendarView";
 import Loader from "./Loader";
 import { type Transaction } from "./TransactionForm";
 import { TransactionType } from "../types";
+import { request } from "../services/api";
 
 type Props = {
   transactions: Transaction[];
@@ -27,6 +28,50 @@ export default function TransactionList({
   const [page, setPage] = useState(1);
   const ITEMS_PER_PAGE = 5;
   const { categories } = useCategories();
+
+  const [searchQuery, setSearchQuery] = useState("");
+  const [timeMode, setTimeMode] = useState<'month' | 'all'>('month');
+  const [allTransactions, setAllTransactions] = useState<Transaction[]>([]);
+  const [loadingAll, setLoadingAll] = useState(false);
+
+  useEffect(() => {
+    if (timeMode === 'all' && allTransactions.length === 0) {
+      const fetchAll = async () => {
+        setLoadingAll(true);
+        try {
+          const data = await request('/transactions');
+          setAllTransactions(data || []);
+        } catch (e) {
+          console.error(e);
+        } finally {
+          setLoadingAll(false);
+        }
+      };
+      fetchAll();
+    }
+  }, [timeMode]);
+
+  // Reset page when switching mode or searching
+  useEffect(() => {
+    setPage(1);
+  }, [timeMode, searchQuery]);
+
+  const sourceTransactions = timeMode === 'month' ? transactions : allTransactions;
+  const filteredTransactions = sourceTransactions.filter(tx => {
+    if (!searchQuery.trim()) return true;
+    const query = searchQuery.toLowerCase();
+    const txCat = categories.find(c => c.SK === `CAT#${tx.categoryId}`);
+    const catName = txCat?.name?.toLowerCase() || '';
+    const subcats = txCat?.subcategories as Record<string, string>;
+    const subCatName = (tx.subcategoryId && subcats ? subcats[tx.subcategoryId] : tx.subcategoryId)?.toLowerCase() || '';
+    return (
+      (tx.description || '').toLowerCase().includes(query) ||
+      tx.amount.toString().includes(query) ||
+      catName.includes(query) ||
+      subCatName.includes(query) ||
+      (tx.paymentMode || '').toLowerCase().includes(query)
+    );
+  });
 
   // Reset page when month changes (handled implicitly by Dashboard, or we can handle it here)
   // Actually, since Dashboard passes new transactions, we should reset page when transactions change or month changes
@@ -53,17 +98,48 @@ export default function TransactionList({
           </button>
         </div>
       </div>
+
+      {viewMode === 'list' && (
+        <div className="flex flex-col sm:flex-row gap-4 mb-6">
+          <div className="flex-1 relative">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
+            <input 
+              type="text" 
+              placeholder="Search transactions..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full pl-10 pr-4 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition-shadow"
+            />
+          </div>
+          <div className="flex bg-slate-100 dark:bg-slate-800 p-1 rounded-lg border border-slate-200 dark:border-slate-700 self-start sm:self-auto w-full sm:w-auto">
+            <button 
+              onClick={() => setTimeMode('month')}
+              className={`flex-1 sm:flex-none px-4 py-1.5 text-sm font-medium rounded-md transition-colors ${timeMode === 'month' ? 'bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-sm' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-300'}`}
+            >
+              This Month
+            </button>
+            <button 
+              onClick={() => setTimeMode('all')}
+              className={`flex-1 sm:flex-none px-4 py-1.5 text-sm font-medium rounded-md transition-colors ${timeMode === 'all' ? 'bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-sm' : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-300'}`}
+            >
+              All Time
+            </button>
+          </div>
+        </div>
+      )}
       
       {loading ? (
         <div className="py-8"><Loader text="Loading transactions..." /></div>
-      ) : transactions.length === 0 ? (
+      ) : loadingAll && timeMode === 'all' ? (
+        <div className="py-8"><Loader text="Loading all transactions..." /></div>
+      ) : filteredTransactions.length === 0 ? (
         <div className="text-center py-12 flex flex-col items-center justify-center border-2 border-dashed border-slate-200 dark:border-slate-800 rounded-xl">
           <div className="bg-slate-100 dark:bg-slate-800 p-4 rounded-full mb-4">
             <Wallet size={32} className="text-slate-400 dark:text-slate-500" />
           </div>
           <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-2">No Transactions Yet</h3>
           <p className="text-slate-500 dark:text-slate-400 max-w-sm mb-6 text-sm">
-            You haven't logged any income or expenses for {new Date(month + '-01').toLocaleDateString(undefined, { month: 'long', year: 'numeric' })}.
+            {searchQuery ? "No transactions match your search." : (timeMode === 'month' ? `You haven't logged any income or expenses for ${new Date(month + '-01').toLocaleDateString(undefined, { month: 'long', year: 'numeric' })}.` : "You haven't logged any transactions yet.")}
           </p>
           <button 
             onClick={onAddClick}
@@ -82,7 +158,7 @@ export default function TransactionList({
         </div>
       ) : (
         <div className="space-y-4">
-          {transactions.slice((page - 1) * ITEMS_PER_PAGE, page * ITEMS_PER_PAGE).map(tx => {
+          {filteredTransactions.slice((page - 1) * ITEMS_PER_PAGE, page * ITEMS_PER_PAGE).map(tx => {
             const txCat = categories.find(c => c.SK === `CAT#${tx.categoryId}`) || { name: tx.categoryId, icon: "🏷️", subcategories: {} as Record<string, string> };
             const subcats = txCat.subcategories as Record<string, string>;
             const txSubCatName = tx.subcategoryId && subcats ? subcats[tx.subcategoryId] : tx.subcategoryId;
@@ -123,10 +199,10 @@ export default function TransactionList({
           
           <div className="pt-4 mt-4 border-t border-slate-100 dark:border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4">
             <span className="text-sm text-slate-500 dark:text-slate-400 font-medium bg-slate-100 dark:bg-slate-800/50 px-3 py-1.5 rounded-lg">
-              Total {transactions.length} transaction{transactions.length !== 1 ? 's' : ''} this month
+              {searchQuery ? `Found ${filteredTransactions.length} result${filteredTransactions.length !== 1 ? 's' : ''}` : `Total ${filteredTransactions.length} transaction${filteredTransactions.length !== 1 ? 's' : ''} ${timeMode === 'month' ? 'this month' : 'overall'}`}
             </span>
             
-            {transactions.length > ITEMS_PER_PAGE && (
+            {filteredTransactions.length > ITEMS_PER_PAGE && (
               <div className="flex items-center justify-between sm:justify-end w-full sm:w-auto gap-4">
                 <button 
                   onClick={() => setPage(p => Math.max(1, p - 1))}
@@ -136,11 +212,11 @@ export default function TransactionList({
                   Previous
                 </button>
                 <span className="text-sm text-slate-500 dark:text-slate-400 whitespace-nowrap">
-                  Page {page} of {Math.ceil(transactions.length / ITEMS_PER_PAGE)}
+                  Page {page} of {Math.ceil(filteredTransactions.length / ITEMS_PER_PAGE)}
                 </span>
                 <button 
-                  onClick={() => setPage(p => Math.min(Math.ceil(transactions.length / ITEMS_PER_PAGE), p + 1))}
-                  disabled={page === Math.ceil(transactions.length / ITEMS_PER_PAGE)}
+                  onClick={() => setPage(p => Math.min(Math.ceil(filteredTransactions.length / ITEMS_PER_PAGE), p + 1))}
+                  disabled={page === Math.ceil(filteredTransactions.length / ITEMS_PER_PAGE)}
                   className="px-4 py-2 text-sm font-medium text-slate-600 dark:text-slate-300 bg-slate-100 dark:bg-slate-800 rounded-lg disabled:opacity-50 transition-colors hover:bg-slate-200 dark:hover:bg-slate-700"
                 >
                   Next

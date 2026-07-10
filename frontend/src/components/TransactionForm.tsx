@@ -186,7 +186,7 @@ export default function TransactionForm({ editingTx, onSuccess, onCancel }: Prop
         </div>
         
         <div>
-          <label className="block text-sm font-medium text-slate-700 dark:text-slate-400 mb-1 flex items-center justify-between">
+          <label htmlFor="categorySelect" className="block text-sm font-medium text-slate-700 dark:text-slate-400 mb-1 flex items-center justify-between">
             <span>Category <span className="text-rose-500">*</span></span>
             {type === TransactionType.DEBIT && selectedCat?.isInvestment && (
               <span className="text-xs bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-400 px-2 py-0.5 rounded-full flex items-center gap-1 font-semibold">
@@ -196,6 +196,7 @@ export default function TransactionForm({ editingTx, onSuccess, onCancel }: Prop
           </label>
           <div className="relative">
             <select 
+              id="categorySelect"
               value={categoryId} onChange={e => setCategoryId(e.target.value)} required
               className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-xl pl-4 pr-10 py-3 text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none transition-all appearance-none cursor-pointer"
             >
@@ -227,9 +228,10 @@ export default function TransactionForm({ editingTx, onSuccess, onCancel }: Prop
         )}
 
         <div>
-          <label className="block text-sm font-medium text-slate-700 dark:text-slate-400 mb-1">Payment Mode (Optional)</label>
+          <label htmlFor="paymentModeSelect" className="block text-sm font-medium text-slate-700 dark:text-slate-400 mb-1">Payment Mode (Optional)</label>
           <div className="relative">
             <select 
+              id="paymentModeSelect"
               value={paymentMode} onChange={e => setPaymentMode(e.target.value)}
               className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-xl pl-4 pr-10 py-3 text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none transition-all appearance-none cursor-pointer"
             >

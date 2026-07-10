@@ -163,7 +163,7 @@ export default function TransactionForm({ editingTx, onSuccess, onCancel }: Prop
             Amount (₹) <span className="text-rose-500">*</span>
           </label>
           <input 
-            type="number" step="0.01" value={amount} onChange={e => setAmount(e.target.value)} required 
+            type="number" step="0.01" inputMode="decimal" value={amount} onChange={e => setAmount(e.target.value)} required 
             className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none transition-all"
             placeholder="0.00"
           />

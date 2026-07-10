@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import Navbar from "../components/Navbar";
 import { request } from "../services/api";
 import { Loader2, Users, Receipt, Phone } from "lucide-react";
 import toast from "react-hot-toast";
@@ -32,8 +33,10 @@ export default function Admin() {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
-      <header className="mb-8">
+    <div className="min-h-screen">
+      <Navbar />
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
+        <header className="mb-8">
         <h1 className="text-3xl font-bold text-slate-900 dark:text-white flex items-center gap-3">
           <Users className="text-blue-600 dark:text-blue-400" size={32} />
           Admin Panel
@@ -100,6 +103,7 @@ export default function Admin() {
           </div>
         </div>
       )}
+      </main>
     </div>
   );
 }

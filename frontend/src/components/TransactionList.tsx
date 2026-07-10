@@ -51,6 +51,20 @@ export default function TransactionList({
     }
   }, [timeMode]);
 
+  const fuzzyMatch = (pattern: string, str: string) => {
+    let patternIdx = 0;
+    let strIdx = 0;
+    const patternLen = pattern.length;
+    const strLen = str.length;
+    while (patternIdx < patternLen && strIdx < strLen) {
+      if (pattern[patternIdx] === str[strIdx]) {
+        patternIdx++;
+      }
+      strIdx++;
+    }
+    return patternIdx === patternLen;
+  };
+
   // Reset page when switching mode or searching
   useEffect(() => {
     setPage(1);
@@ -59,18 +73,16 @@ export default function TransactionList({
   const sourceTransactions = timeMode === 'month' ? transactions : allTransactions;
   const filteredTransactions = sourceTransactions.filter(tx => {
     if (!searchQuery.trim()) return true;
-    const query = searchQuery.toLowerCase();
+    const query = searchQuery.replace(/\s+/g, '').toLowerCase();
+    
     const txCat = categories.find(c => c.SK === `CAT#${tx.categoryId}`);
     const catName = txCat?.name?.toLowerCase() || '';
     const subcats = txCat?.subcategories as Record<string, string>;
     const subCatName = (tx.subcategoryId && subcats ? subcats[tx.subcategoryId] : tx.subcategoryId)?.toLowerCase() || '';
-    return (
-      (tx.description || '').toLowerCase().includes(query) ||
-      tx.amount.toString().includes(query) ||
-      catName.includes(query) ||
-      subCatName.includes(query) ||
-      (tx.paymentMode || '').toLowerCase().includes(query)
-    );
+    
+    const combinedString = `${tx.description || ''} ${tx.amount} ${catName} ${subCatName} ${tx.paymentMode || ''}`.toLowerCase();
+    
+    return fuzzyMatch(query, combinedString);
   });
 
   // Reset page when month changes (handled implicitly by Dashboard, or we can handle it here)

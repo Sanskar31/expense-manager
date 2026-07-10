@@ -1,20 +1,13 @@
 import { useState, useEffect, useMemo } from 'react';
 import Navbar from "../components/Navbar";
+import type { Transaction } from '../components/TransactionForm';
+import { TransactionType } from '../types';
 import { request } from "../services/api";
 import Loader from "../components/Loader";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, LineChart, Line, Legend } from "recharts";
 import { TrendingUp, Flame, Download, Activity, ArrowUpRight, ArrowDownRight, RotateCcw } from "lucide-react";
 import toast from "react-hot-toast";
 import { useCategories } from "../contexts/CategoryContext";
-
-type Transaction = {
-  SK: string;
-  type: "DEBIT" | "CREDIT";
-  amount: number;
-  categoryId: string;
-  timestamp: string;
-  description?: string;
-};
 
 const COLORS = ['#ef4444', '#f97316', '#f59e0b', '#84cc16', '#14b8a6', '#3b82f6', '#8b5cf6', '#d946ef'];
 
@@ -91,7 +84,7 @@ export default function Analysis() {
       return cat?.isInvestment;
     };
 
-    const debits = filteredTxs.filter(t => t.type === 'DEBIT' && !isTxInvestment(t));
+    const debits = filteredTxs.filter(t => t.type === TransactionType.DEBIT && !isTxInvestment(t));
     
     // Daily Average
     let dailyAverage = 0;
@@ -113,7 +106,7 @@ export default function Analysis() {
     const lastYear = currentYear - 1;
     let currYearSpent = 0;
     let lastYearSpent = 0;
-    allTransactions.filter(t => t.type === 'DEBIT').forEach(tx => {
+    allTransactions.filter(t => t.type === TransactionType.DEBIT).forEach(tx => {
       const y = new Date(tx.timestamp).getFullYear();
       if (y === currentYear) currYearSpent += tx.amount;
       if (y === lastYear) lastYearSpent += tx.amount;
@@ -141,7 +134,7 @@ export default function Analysis() {
       monthCatTotals[yyyyMm][catName] = (monthCatTotals[yyyyMm][catName] || 0) + tx.amount;
     });
 
-    const investments = filteredTxs.filter(t => t.type === 'DEBIT' && isTxInvestment(t));
+    const investments = filteredTxs.filter(t => t.type === TransactionType.DEBIT && isTxInvestment(t));
     investments.forEach(tx => {
       const date = new Date(tx.timestamp);
       const yyyyMm = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;

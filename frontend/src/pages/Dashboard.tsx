@@ -8,7 +8,8 @@ import { useCategories } from "../contexts/CategoryContext";
 import MonthPicker from "../components/MonthPicker";
 import Loader from "../components/Loader";
 import toast from "react-hot-toast";
-import TransactionForm, { type Transaction } from "../components/TransactionForm";
+import TransactionForm, { type Transaction } from '../components/TransactionForm';
+import { TransactionType } from '../types';
 import TransactionList from "../components/TransactionList";
 import Modal from "../components/Modal";
 import { Info, TrendingUp, Wallet, Loader2 } from "lucide-react";
@@ -103,8 +104,8 @@ export default function Dashboard() {
     return cat?.isInvestment;
   };
 
-  const debits = transactions.filter(t => t.type === "DEBIT");
-  const credits = transactions.filter(t => t.type === "CREDIT");
+  const debits = transactions.filter(t => t.type === TransactionType.DEBIT);
+  const credits = transactions.filter(t => t.type === TransactionType.CREDIT);
 
   const investmentTxs = debits.filter(isTxInvestment);
   const expenseTxs = debits.filter(t => !isTxInvestment(t));

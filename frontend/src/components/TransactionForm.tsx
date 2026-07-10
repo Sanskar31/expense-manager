@@ -3,15 +3,16 @@ import { Loader2, Calendar, ChevronDown, CreditCard, Edit2, Plus, TrendingUp } f
 import toast from "react-hot-toast";
 import { request } from "../services/api";
 import { useCategories } from "../contexts/CategoryContext";
+import { TransactionType, PaymentMode } from "../types";
 
 export type Transaction = {
   SK: string;
-  type: "DEBIT" | "CREDIT";
+  type: TransactionType;
   amount: number;
   categoryId: string;
   subcategoryId?: string;
   description?: string;
-  paymentMode?: string;
+  paymentMode?: PaymentMode | string;
   timestamp: string;
 };
 
@@ -29,12 +30,12 @@ type Props = {
 export default function TransactionForm({ editingTx, onSuccess, onCancel }: Props) {
   const { categories } = useCategories();
   
-  const [type, setType] = useState<"DEBIT" | "CREDIT">("DEBIT");
+  const [type, setType] = useState<TransactionType>(TransactionType.DEBIT);
   const [amount, setAmount] = useState("");
   const [categoryId, setCategoryId] = useState("");
   const [subcategoryId, setSubcategoryId] = useState("");
   const [description, setDescription] = useState("");
-  const [paymentMode, setPaymentMode] = useState("UPI");
+  const [paymentMode, setPaymentMode] = useState<PaymentMode | string>(PaymentMode.UPI);
   const [txDate, setTxDate] = useState(getLocalDateString());
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -53,12 +54,12 @@ export default function TransactionForm({ editingTx, onSuccess, onCancel }: Prop
   }, [editingTx]);
 
   const resetForm = () => {
-    setType("DEBIT");
+    setType(TransactionType.DEBIT);
     setAmount("");
     setCategoryId("");
     setSubcategoryId("");
     setDescription("");
-    setPaymentMode("UPI");
+    setPaymentMode(PaymentMode.UPI);
     setTxDate(getLocalDateString());
   };
 
@@ -131,16 +132,16 @@ export default function TransactionForm({ editingTx, onSuccess, onCancel }: Prop
       
       <div className="flex p-1 bg-slate-100 dark:bg-slate-800 rounded-xl mb-6 border border-slate-200 dark:border-slate-700">
         <button 
-          onClick={() => { setType("DEBIT"); setPaymentMode("UPI"); }} 
+          onClick={() => { setType(TransactionType.DEBIT); setPaymentMode(PaymentMode.UPI); }} 
           type="button"
-          className={`flex-1 py-2 text-sm font-medium rounded-lg transition-all ${type === "DEBIT" ? "bg-white dark:bg-rose-500/20 text-rose-600 dark:text-rose-400 shadow-sm" : "text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"}`}
+          className={`flex-1 py-2 text-sm font-medium rounded-lg transition-all ${type === TransactionType.DEBIT ? "bg-white dark:bg-rose-500/20 text-rose-600 dark:text-rose-400 shadow-sm" : "text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"}`}
         >
           Expense
         </button>
         <button 
-          onClick={() => { setType("CREDIT"); setPaymentMode("Net Banking"); }} 
+          onClick={() => { setType(TransactionType.CREDIT); setPaymentMode(PaymentMode.NET_BANKING); }} 
           type="button"
-          className={`flex-1 py-2 text-sm font-medium rounded-lg transition-all ${type === "CREDIT" ? "bg-white dark:bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 shadow-sm" : "text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"}`}
+          className={`flex-1 py-2 text-sm font-medium rounded-lg transition-all ${type === TransactionType.CREDIT ? "bg-white dark:bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 shadow-sm" : "text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"}`}
         >
           Income
         </button>
@@ -154,7 +155,7 @@ export default function TransactionForm({ editingTx, onSuccess, onCancel }: Prop
           <input 
             type="text" value={description} onChange={e => setDescription(e.target.value)} required
             className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none transition-all"
-            placeholder={type === "DEBIT" ? "What did you pay for?" : "How did you get this money?"}
+            placeholder={type === TransactionType.DEBIT ? "What did you pay for?" : "How did you get this money?"}
           />
         </div>
 
@@ -187,7 +188,7 @@ export default function TransactionForm({ editingTx, onSuccess, onCancel }: Prop
         <div>
           <label className="block text-sm font-medium text-slate-700 dark:text-slate-400 mb-1 flex items-center justify-between">
             <span>Category <span className="text-rose-500">*</span></span>
-            {type === 'DEBIT' && selectedCat?.isInvestment && (
+            {type === TransactionType.DEBIT && selectedCat?.isInvestment && (
               <span className="text-xs bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-400 px-2 py-0.5 rounded-full flex items-center gap-1 font-semibold">
                 <TrendingUp size={12} /> Investment
               </span>
@@ -232,12 +233,12 @@ export default function TransactionForm({ editingTx, onSuccess, onCancel }: Prop
               value={paymentMode} onChange={e => setPaymentMode(e.target.value)}
               className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-xl pl-4 pr-10 py-3 text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none transition-all appearance-none cursor-pointer"
             >
-              <option value="">None</option>
-              <option value="UPI">UPI</option>
-              <option value="Credit Card">Credit Card</option>
-              <option value="Debit Card">Debit Card</option>
-              <option value="Net Banking">Net Banking</option>
-              <option value="Cash">Cash</option>
+              <option value={PaymentMode.NONE}>None</option>
+              <option value={PaymentMode.UPI}>UPI</option>
+              <option value={PaymentMode.CREDIT_CARD}>Credit Card</option>
+              <option value={PaymentMode.DEBIT_CARD}>Debit Card</option>
+              <option value={PaymentMode.NET_BANKING}>Net Banking</option>
+              <option value={PaymentMode.CASH}>Cash</option>
             </select>
             <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400">
               <CreditCard size={20} />
@@ -247,7 +248,7 @@ export default function TransactionForm({ editingTx, onSuccess, onCancel }: Prop
 
         <button type="submit" disabled={isSubmitting} className="w-full mt-4 bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 rounded-xl transition-colors shadow-md shadow-blue-500/20 disabled:opacity-70 flex items-center justify-center gap-2">
           {isSubmitting && <Loader2 className="animate-spin w-5 h-5" />}
-          {editingTx ? "Update" : "Add"} {type === "DEBIT" ? "Expense" : "Income"}
+          {editingTx ? "Update" : "Add"} {type === TransactionType.DEBIT ? "Expense" : "Income"}
         </button>
       </form>
     </div>

@@ -4,6 +4,7 @@ import { useCategories } from "../contexts/CategoryContext";
 import CalendarView from "./CalendarView";
 import Loader from "./Loader";
 import { type Transaction } from "./TransactionForm";
+import { TransactionType } from "../types";
 
 type Props = {
   transactions: Transaction[];
@@ -93,7 +94,7 @@ export default function TransactionList({
                 className="flex items-center justify-between p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors border border-slate-100 dark:border-slate-700/50 cursor-pointer"
               >
                 <div className="flex items-center gap-3 min-w-0 flex-1">
-                  <div className={`w-12 h-12 rounded-full flex-shrink-0 flex items-center justify-center border-2 ${tx.type === 'DEBIT' ? 'bg-rose-50 dark:bg-rose-500/5 border-rose-200 dark:border-rose-500/30 text-rose-600 dark:text-rose-400' : 'bg-emerald-50 dark:bg-emerald-500/5 border-emerald-200 dark:border-emerald-500/30 text-emerald-600 dark:text-emerald-400'}`}>
+                  <div className={`w-12 h-12 rounded-full flex-shrink-0 flex items-center justify-center border-2 ${tx.type === TransactionType.DEBIT ? 'bg-rose-50 dark:bg-rose-500/5 border-rose-200 dark:border-rose-500/30 text-rose-600 dark:text-rose-400' : 'bg-emerald-50 dark:bg-emerald-500/5 border-emerald-200 dark:border-emerald-500/30 text-emerald-600 dark:text-emerald-400'}`}>
                     <span className="text-xl leading-none">{txCat.icon}</span>
                   </div>
                   <div className="min-w-0 flex-1 pr-4">
@@ -107,8 +108,8 @@ export default function TransactionList({
                   </div>
                 </div>
                 <div className="flex flex-col items-end flex-shrink-0">
-                  <div className={`font-bold text-base sm:text-lg ${tx.type === 'DEBIT' ? 'text-slate-900 dark:text-white' : 'text-emerald-600 dark:text-emerald-400'}`}>
-                    {tx.type === 'DEBIT' ? '-' : '+'}₹{tx.amount.toFixed(2)}
+                  <div className={`font-bold text-base sm:text-lg ${tx.type === TransactionType.DEBIT ? 'text-slate-900 dark:text-white' : 'text-emerald-600 dark:text-emerald-400'}`}>
+                    {tx.type === TransactionType.DEBIT ? '-' : '+'}₹{tx.amount.toFixed(2)}
                   </div>
                   {tx.paymentMode && (
                     <div className="text-xs text-slate-500 dark:text-slate-400 mt-0.5 px-2 py-0.5 rounded bg-slate-200 dark:bg-slate-700">

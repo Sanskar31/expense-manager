@@ -1,8 +1,10 @@
 import { useMemo } from 'react';
 
+import { TransactionType } from '../types';
+
 type Transaction = {
   SK: string;
-  type: "DEBIT" | "CREDIT";
+  type: TransactionType;
   amount: number;
   categoryId: string;
   subCategory?: string;
@@ -31,7 +33,7 @@ export default function CalendarView({ month, transactions, onDayClick }: Calend
     let maxExpense = 0;
 
     transactions.forEach(tx => {
-      if (tx.type === 'DEBIT') {
+      if (tx.type === TransactionType.DEBIT) {
         // use local date for matching
         const txDate = new Date(tx.timestamp);
         // Only count if it matches the current year and month

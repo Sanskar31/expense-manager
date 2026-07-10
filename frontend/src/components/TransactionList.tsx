@@ -120,27 +120,33 @@ export default function TransactionList({
             )
           })}
           
-          {transactions.length > ITEMS_PER_PAGE && (
-            <div className="flex items-center justify-between pt-4 mt-4 border-t border-slate-100 dark:border-slate-800">
-              <button 
-                onClick={() => setPage(p => Math.max(1, p - 1))}
-                disabled={page === 1}
-                className="px-4 py-2 text-sm font-medium text-slate-600 dark:text-slate-300 bg-slate-100 dark:bg-slate-800 rounded-lg disabled:opacity-50 transition-colors hover:bg-slate-200 dark:hover:bg-slate-700"
-              >
-                Previous
-              </button>
-              <span className="text-sm text-slate-500 dark:text-slate-400">
-                Page {page} of {Math.ceil(transactions.length / ITEMS_PER_PAGE)}
-              </span>
-              <button 
-                onClick={() => setPage(p => Math.min(Math.ceil(transactions.length / ITEMS_PER_PAGE), p + 1))}
-                disabled={page === Math.ceil(transactions.length / ITEMS_PER_PAGE)}
-                className="px-4 py-2 text-sm font-medium text-slate-600 dark:text-slate-300 bg-slate-100 dark:bg-slate-800 rounded-lg disabled:opacity-50 transition-colors hover:bg-slate-200 dark:hover:bg-slate-700"
-              >
-                Next
-              </button>
-            </div>
-          )}
+          <div className="pt-4 mt-4 border-t border-slate-100 dark:border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <span className="text-sm text-slate-500 dark:text-slate-400 font-medium bg-slate-100 dark:bg-slate-800/50 px-3 py-1.5 rounded-lg">
+              Total {transactions.length} transaction{transactions.length !== 1 ? 's' : ''} this month
+            </span>
+            
+            {transactions.length > ITEMS_PER_PAGE && (
+              <div className="flex items-center justify-between sm:justify-end w-full sm:w-auto gap-4">
+                <button 
+                  onClick={() => setPage(p => Math.max(1, p - 1))}
+                  disabled={page === 1}
+                  className="px-4 py-2 text-sm font-medium text-slate-600 dark:text-slate-300 bg-slate-100 dark:bg-slate-800 rounded-lg disabled:opacity-50 transition-colors hover:bg-slate-200 dark:hover:bg-slate-700"
+                >
+                  Previous
+                </button>
+                <span className="text-sm text-slate-500 dark:text-slate-400 whitespace-nowrap">
+                  Page {page} of {Math.ceil(transactions.length / ITEMS_PER_PAGE)}
+                </span>
+                <button 
+                  onClick={() => setPage(p => Math.min(Math.ceil(transactions.length / ITEMS_PER_PAGE), p + 1))}
+                  disabled={page === Math.ceil(transactions.length / ITEMS_PER_PAGE)}
+                  className="px-4 py-2 text-sm font-medium text-slate-600 dark:text-slate-300 bg-slate-100 dark:bg-slate-800 rounded-lg disabled:opacity-50 transition-colors hover:bg-slate-200 dark:hover:bg-slate-700"
+                >
+                  Next
+                </button>
+              </div>
+            )}
+          </div>
         </div>
       )}
     </div>

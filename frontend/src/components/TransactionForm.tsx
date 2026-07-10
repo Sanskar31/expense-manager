@@ -34,7 +34,7 @@ export default function TransactionForm({ editingTx, onSuccess, onCancel }: Prop
   const [categoryId, setCategoryId] = useState("");
   const [subcategoryId, setSubcategoryId] = useState("");
   const [description, setDescription] = useState("");
-  const [paymentMode, setPaymentMode] = useState("");
+  const [paymentMode, setPaymentMode] = useState("UPI");
   const [txDate, setTxDate] = useState(getLocalDateString());
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -58,7 +58,7 @@ export default function TransactionForm({ editingTx, onSuccess, onCancel }: Prop
     setCategoryId("");
     setSubcategoryId("");
     setDescription("");
-    setPaymentMode("");
+    setPaymentMode("UPI");
     setTxDate(getLocalDateString());
   };
 
@@ -131,14 +131,14 @@ export default function TransactionForm({ editingTx, onSuccess, onCancel }: Prop
       
       <div className="flex p-1 bg-slate-100 dark:bg-slate-800 rounded-xl mb-6 border border-slate-200 dark:border-slate-700">
         <button 
-          onClick={() => setType("DEBIT")} 
+          onClick={() => { setType("DEBIT"); setPaymentMode("UPI"); }} 
           type="button"
           className={`flex-1 py-2 text-sm font-medium rounded-lg transition-all ${type === "DEBIT" ? "bg-white dark:bg-rose-500/20 text-rose-600 dark:text-rose-400 shadow-sm" : "text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"}`}
         >
           Expense
         </button>
         <button 
-          onClick={() => setType("CREDIT")} 
+          onClick={() => { setType("CREDIT"); setPaymentMode("Net Banking"); }} 
           type="button"
           className={`flex-1 py-2 text-sm font-medium rounded-lg transition-all ${type === "CREDIT" ? "bg-white dark:bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 shadow-sm" : "text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"}`}
         >

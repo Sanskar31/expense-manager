@@ -5,7 +5,7 @@ import { withAuth } from "../shared/withAuth";
 
 export const handler: APIGatewayProxyHandlerV2 = withAuth(async (event, mobileNumber) => {
   console.log("Create Transaction Event:", event.body);
-  const { type, amount, categoryId, subcategoryId, description, paymentMode, timestamp, originalSK } = JSON.parse(event.body || "{}");
+  const { type, amount, categoryId, subcategoryId, description, paymentMode, timestamp, originalSK, txId } = JSON.parse(event.body || "{}");
   
   if (!type || amount === undefined || !categoryId || description === undefined || !timestamp) {
     console.error("Missing required fields", { type, amount, categoryId, description, timestamp });
@@ -16,9 +16,12 @@ export const handler: APIGatewayProxyHandlerV2 = withAuth(async (event, mobileNu
   const date = new Date(timestamp);
   const month = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
   
+  const { randomUUID } = require('crypto');
+  const idempotencyKey = txId || randomUUID();
+  
   const item: Record<string, unknown> = {
     PK: `USER#${mobileNumber}`,
-    SK: `TX#${month}#${timestamp}`,
+    SK: `TX#${month}#${idempotencyKey}`,
     type, // DEBIT or CREDIT
     amount,
     categoryId,

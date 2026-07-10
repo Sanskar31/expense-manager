@@ -36,7 +36,9 @@ export default function TransactionForm({ editingTx, onSuccess, onCancel }: Prop
   const [subcategoryId, setSubcategoryId] = useState("");
   const [description, setDescription] = useState("");
   const [paymentMode, setPaymentMode] = useState<PaymentMode | string>(PaymentMode.UPI);
-  const [txDate, setTxDate] = useState(getLocalDateString());
+  const [txDate, setTxDate] = useState<string>(getLocalDateString());
+  const [txId, setTxId] = useState<string>(() => crypto.randomUUID());
+  
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
@@ -61,6 +63,7 @@ export default function TransactionForm({ editingTx, onSuccess, onCancel }: Prop
     setDescription("");
     setPaymentMode(PaymentMode.UPI);
     setTxDate(getLocalDateString());
+    setTxId(crypto.randomUUID());
   };
 
   const handleAddTx = async (e: React.FormEvent) => {
@@ -89,6 +92,7 @@ export default function TransactionForm({ editingTx, onSuccess, onCancel }: Prop
         description,
         paymentMode,
         timestamp: selectedDate.toISOString(),
+        txId,
       };
       
       await request("/transactions", {

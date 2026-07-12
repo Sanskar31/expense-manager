@@ -40,7 +40,8 @@ export default function TransactionList({
         setLoadingAll(true);
         try {
           const data = await request('/transactions');
-          setAllTransactions(data || []);
+          const sortedAll = (data || []).sort((a: any, b: any) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
+          setAllTransactions(sortedAll);
         } catch (e) {
           console.error(e);
         } finally {

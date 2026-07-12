@@ -38,8 +38,11 @@ export const request = async (endpoint: string, options: RequestInit = {}) => {
     if (response.status === 401) {
       if (window.location.pathname !== '/login') {
         window.location.href = '/login';
+        throw new Error("Session expired");
+      } else {
+        const err = await response.json().catch(() => ({}));
+        throw new Error(err.message || "Invalid credentials");
       }
-      throw new Error("Session expired");
     }
 
     const err = await response.json().catch(() => ({}));

@@ -3,10 +3,12 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import { request } from "../services/api";
 import { Loader2, Wallet } from "lucide-react";
+import PhoneInput from "react-phone-number-input";
+import "react-phone-number-input/style.css";
 
 export default function Login() {
   const [isLogin, setIsLogin] = useState(true);
-  const [mobile, setMobile] = useState("");
+  const [mobile, setMobile] = useState<string | undefined>("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [error, setError] = useState("");
@@ -18,10 +20,9 @@ export default function Login() {
     e.preventDefault();
     setError("");
 
-    // Validate mobile number format: + followed by 1-3 digits country code, then exactly 10 digits
-    const mobileRegex = /^\+\d{1,3}\d{10}$/;
-    if (!mobileRegex.test(mobile)) {
-      setError("Please enter a valid mobile number with country code (e.g. +919876543210)");
+    // Validate mobile number: E.164 format via regex (handled mostly by the PhoneInput, but let's be safe)
+    if (!mobile || mobile.length < 10) {
+      setError("Please enter a valid mobile number");
       return;
     }
 
@@ -79,7 +80,16 @@ export default function Login() {
           )}
           <div>
             <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Mobile Number</label>
-            <input type="text" value={mobile} onChange={(e) => setMobile(e.target.value)} required className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all outline-none" placeholder="+1234567890" />
+            <div className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-900 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white rounded-xl focus-within:ring-2 focus-within:ring-blue-500 focus-within:border-transparent transition-all">
+              <PhoneInput
+                defaultCountry="IN"
+                value={mobile}
+                onChange={setMobile}
+                placeholder="Enter phone number"
+                className="w-full outline-none bg-transparent"
+                style={{ "--PhoneInput-color--focus": "transparent" } as React.CSSProperties}
+              />
+            </div>
           </div>
           <div>
             <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Password</label>

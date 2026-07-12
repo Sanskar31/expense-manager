@@ -22,3 +22,67 @@ body {
 .animate-fade-slide-up {
   animation: fade-slide-up 0.4s ease-out forwards;
 }
+
+/* React Phone Number Input Customizations */
+.PhoneInput {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+.PhoneInputCountry {
+  display: flex;
+  align-items: center;
+  position: relative;
+  margin-right: 0.75rem;
+  padding-right: 0.75rem;
+  border-right: 1px solid #cbd5e1; /* slate-300 */
+}
+:is(.dark .PhoneInputCountry) {
+  border-right-color: #334155; /* slate-700 */
+}
+.PhoneInputCountryIcon {
+  width: 1.75rem;
+  height: 1.25rem;
+  border-radius: 0.25rem;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+.PhoneInputCountryIconImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.PhoneInputCountrySelect {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+.PhoneInputCountrySelectArrow {
+  display: block;
+  content: "";
+  width: 0.35rem;
+  height: 0.35rem;
+  margin-left: 0.4rem;
+  border-bottom: 2px solid #64748b; /* slate-500 */
+  border-right: 2px solid #64748b;
+  transform: rotate(45deg);
+  transition: transform 0.2s, border-color 0.2s;
+}
+:is(.dark .PhoneInputCountrySelectArrow) {
+  border-color: #94a3b8; /* slate-400 */
+}
+.PhoneInputCountrySelect:focus ~ .PhoneInputCountrySelectArrow {
+  transform: rotate(225deg);
+  border-color: #3b82f6; /* blue-500 */
+}
+.PhoneInputInput {
+  flex: 1;
+  min-width: 0;
+  background: transparent;
+  outline: none;
+  font-size: 1rem;
+}

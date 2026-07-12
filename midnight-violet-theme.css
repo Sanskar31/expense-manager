@@ -1,0 +1,25 @@
+/* Midnight Violet Experimental Theme Checkpoint */
+/* Add this to index.css if you ever want to revert back to the deep violet dark mode */
+
+@theme {
+  --color-slate-50: #f5f3ff;
+  --color-slate-100: #ede9fe;
+  --color-slate-200: #ddd6fe;
+  --color-slate-300: #c4b5fd;
+  --color-slate-400: #a78bfa;
+  --color-slate-500: #8b5cf6;
+  --color-slate-600: #7c3aed;
+  --color-slate-700: #4c1d95;
+  --color-slate-800: #1e1338;
+  --color-slate-900: #120b22;
+  --color-slate-950: #0a0614;
+}
+
+@layer base {
+  html {
+    background-color: #f5f3ff; /* matches new slate-50 */
+  }
+  html.dark {
+    background-color: #0a0614; /* matches new slate-950 */
+  }
+}

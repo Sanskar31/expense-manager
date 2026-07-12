@@ -39,7 +39,7 @@ function App() {
                       {t.type !== 'loading' && (
                         <button
                           onClick={() => toast.dismiss(t.id)}
-                          className="ml-2 flex-shrink-0 rounded-full p-1 text-slate-400 hover:bg-slate-100 hover:text-slate-900 dark:hover:bg-slate-800 dark:hover:text-slate-50 transition-colors"
+                          className="ml-2 flex-shrink-0 rounded-full p-1 text-zinc-400 hover:bg-zinc-100 hover:text-zinc-900 dark:hover:bg-zinc-800 dark:hover:text-zinc-50 transition-colors"
                         >
                           <X size={16} />
                         </button>
@@ -50,7 +50,7 @@ function App() {
               )}
             </Toaster>
             <PullToRefresh onRefresh={() => window.location.reload()}>
-              <div className="min-h-screen bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-50 font-sans transition-colors duration-200">
+              <div className="min-h-screen bg-zinc-50 text-zinc-900 dark:bg-zinc-950 dark:text-zinc-50 font-sans transition-colors duration-200">
                   <Routes>
                   <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />
                   <Route path="/" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
@@ -59,7 +59,7 @@ function App() {
                   <Route path="/analysis" element={<ProtectedRoute><Analysis /></ProtectedRoute>} />
                 </Routes>
                 
-                <footer className="py-8 text-center text-sm text-slate-500 dark:text-slate-400">
+                <footer className="py-8 text-center text-sm text-zinc-500 dark:text-zinc-400">
                   Made with ❤️ by <a href="https://www.linkedin.com/in/sanskaragarwal05/" target="_blank" rel="noopener noreferrer" className="font-semibold text-blue-600 dark:text-blue-400 hover:underline">Sanskar Agarwal</a>
                 </footer>
               </div>

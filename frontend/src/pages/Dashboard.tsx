@@ -129,7 +129,7 @@ export default function Dashboard() {
   const daysToDivideBy = isCurrentMonth ? today.getDate() : daysInMonth;
   const dailyAverage = totalExpense / daysToDivideBy;
   
-  let scoreColor = "text-slate-400 bg-slate-100 dark:bg-slate-800";
+  let scoreColor = "text-zinc-400 bg-zinc-100 dark:bg-zinc-800";
   if (hasTransactions) {
     scoreColor = "text-rose-500 bg-rose-100 dark:bg-rose-500/10";
     if (healthScore >= 8) scoreColor = "text-emerald-500 bg-emerald-100 dark:bg-emerald-500/10";
@@ -156,10 +156,10 @@ export default function Dashboard() {
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
         
         {/* Header & Month Selector */}
-        <div className="flex flex-col sm:flex-row justify-between items-center bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm dark:shadow-lg transition-colors">
+        <div className="flex flex-col sm:flex-row justify-between items-center bg-white dark:bg-zinc-900 p-6 rounded-2xl border border-zinc-200 dark:border-zinc-800 shadow-sm dark:shadow-lg transition-colors">
           <div>
-            <h1 className="text-2xl font-bold text-slate-900 dark:text-white mb-1">📊 Financial Overview</h1>
-            <p className="text-slate-500 dark:text-slate-400">Track and manage your expenses</p>
+            <h1 className="text-2xl font-bold text-zinc-900 dark:text-white mb-1">📊 Financial Overview</h1>
+            <p className="text-zinc-500 dark:text-zinc-400">Track and manage your expenses</p>
           </div>
           <div className="mt-4 sm:mt-0 z-40">
             <MonthPicker value={month} onChange={setMonth} />
@@ -174,11 +174,11 @@ export default function Dashboard() {
             
             {/* Consolidated Metrics Card */}
             <div 
-              className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm dark:shadow-lg overflow-hidden transition-colors flex flex-1 min-h-[300px]"
+              className="bg-white dark:bg-zinc-900 rounded-2xl border border-zinc-200 dark:border-zinc-800 shadow-sm dark:shadow-lg overflow-hidden transition-colors flex flex-1 min-h-[300px]"
               onMouseEnter={() => setIsAutoPlaying(false)}
               onMouseLeave={() => setIsAutoPlaying(true)}
             >
-              <div className="flex flex-col border-r border-slate-200 dark:border-slate-800 shrink-0 w-16 items-center py-4 gap-4 bg-slate-50/50 dark:bg-slate-800/20">
+              <div className="flex flex-col border-r border-zinc-200 dark:border-zinc-800 shrink-0 w-16 items-center py-4 gap-4 bg-zinc-50/50 dark:bg-zinc-800/20">
                 {[
                   { id: 'NET_BALANCE', emoji: '⚖️' },
                   { id: 'INCOME', emoji: '💰' },
@@ -190,7 +190,7 @@ export default function Dashboard() {
                     key={tab.id} 
                     onClick={() => setActiveTab(tab.id as any)}
                     title={tab.id.replace('_', ' ')}
-                    className={`w-10 h-10 rounded-xl flex items-center justify-center text-xl transition-all ${activeTab === tab.id ? 'bg-blue-100 dark:bg-blue-500/20 scale-110 shadow-sm opacity-100' : 'hover:bg-slate-100 dark:hover:bg-slate-800 opacity-50 hover:opacity-100'}`}
+                    className={`w-10 h-10 rounded-xl flex items-center justify-center text-xl transition-all ${activeTab === tab.id ? 'bg-blue-100 dark:bg-blue-500/20 scale-110 shadow-sm opacity-100' : 'hover:bg-zinc-100 dark:hover:bg-zinc-800 opacity-50 hover:opacity-100'}`}
                   >
                     {tab.emoji}
                   </button>
@@ -204,21 +204,21 @@ export default function Dashboard() {
                         <div className="absolute inset-0 rounded-full blur-md opacity-40 bg-blue-500 animate-pulse"></div>
                         <Loader2 className="animate-spin text-blue-600 dark:text-blue-400 relative z-10" size={40} />
                       </div>
-                      <p className="text-sm font-medium text-slate-500 dark:text-slate-400 animate-pulse">Loading data...</p>
+                      <p className="text-sm font-medium text-zinc-500 dark:text-zinc-400 animate-pulse">Loading data...</p>
                     </div>
                   ) : (
                     <>
                       {activeTab === 'SCORE' && (
                         <>
                           <p 
-                            className="text-sm font-medium text-slate-500 dark:text-slate-400 mb-2 flex items-center gap-1 justify-center cursor-help relative group/info"
+                            className="text-sm font-medium text-zinc-500 dark:text-zinc-400 mb-2 flex items-center gap-1 justify-center cursor-help relative group/info"
                             onMouseEnter={() => setIsInfoOpen(true)}
                             onMouseLeave={() => setIsInfoOpen(false)}
                             onClick={() => setIsInfoOpen(!isInfoOpen)}
                           >
                             Health Score
                             <Info size={14} />
-                            <div className={`absolute top-full mt-2 w-64 p-3 bg-slate-900 dark:bg-slate-700 text-white dark:text-slate-100 text-xs rounded-lg transition-opacity z-50 shadow-lg ${isInfoOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
+                            <div className={`absolute top-full mt-2 w-64 p-3 bg-zinc-900 dark:bg-zinc-700 text-white dark:text-zinc-100 text-xs rounded-lg transition-opacity z-50 shadow-lg ${isInfoOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
                               Formula: ((Total Income - True Expenses) / Total Income) * 10. Excludes investments.
                             </div>
                           </p>
@@ -230,7 +230,7 @@ export default function Dashboard() {
                       )}
                       {activeTab === 'INCOME' && (
                         <>
-                          <p className="text-sm font-medium text-slate-500 dark:text-slate-400 mb-2">Total Income</p>
+                          <p className="text-sm font-medium text-zinc-500 dark:text-zinc-400 mb-2">Total Income</p>
                           <div className="w-20 h-20 rounded-full flex items-center justify-center mb-4 bg-emerald-100 dark:bg-emerald-400/10 mx-auto">
                             <ArrowUpCircle className="text-emerald-600 dark:text-emerald-400" size={40} />
                           </div>
@@ -239,17 +239,17 @@ export default function Dashboard() {
                       )}
                       {activeTab === 'EXPENSE' && (
                         <>
-                          <p className="text-sm font-medium text-slate-500 dark:text-slate-400 mb-2">True Expenses</p>
+                          <p className="text-sm font-medium text-zinc-500 dark:text-zinc-400 mb-2">True Expenses</p>
                           <div className="w-20 h-20 rounded-full flex items-center justify-center mb-4 bg-rose-100 dark:bg-rose-400/10 mx-auto">
                             <ArrowDownCircle className="text-rose-600 dark:text-rose-400" size={40} />
                           </div>
                           <h3 className="text-4xl font-bold text-rose-600 dark:text-rose-400">₹{totalExpense.toFixed(2)}</h3>
-                          <p className="text-xs text-slate-500 dark:text-slate-400 mt-2 font-medium">Avg Daily: ₹{dailyAverage.toFixed(2)}</p>
+                          <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-2 font-medium">Avg Daily: ₹{dailyAverage.toFixed(2)}</p>
                         </>
                       )}
                       {activeTab === 'INVESTMENTS' && (
                         <>
-                          <p className="text-sm font-medium text-slate-500 dark:text-slate-400 mb-2">Total Investments</p>
+                          <p className="text-sm font-medium text-zinc-500 dark:text-zinc-400 mb-2">Total Investments</p>
                           <div className="w-20 h-20 rounded-full flex items-center justify-center mb-4 bg-blue-100 dark:bg-blue-400/10 mx-auto">
                             <TrendingUp className="text-blue-600 dark:text-blue-400" size={40} />
                           </div>
@@ -258,7 +258,7 @@ export default function Dashboard() {
                       )}
                       {activeTab === 'NET_BALANCE' && (
                         <>
-                          <p className="text-sm font-medium text-slate-500 dark:text-slate-400 mb-2">Net Balance (Cashflow)</p>
+                          <p className="text-sm font-medium text-zinc-500 dark:text-zinc-400 mb-2">Net Balance (Cashflow)</p>
                           <div className="w-20 h-20 rounded-full flex items-center justify-center mb-4 bg-indigo-100 dark:bg-indigo-400/10 mx-auto">
                             <Wallet className="text-indigo-600 dark:text-indigo-400" size={40} />
                           </div>
@@ -287,9 +287,9 @@ export default function Dashboard() {
           <div className="lg:col-span-2 space-y-8">
             
             {/* Chart */}
-            <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm dark:shadow-lg p-6 transition-colors h-[350px] flex flex-col">
-              <h2 className="text-lg font-bold text-slate-900 dark:text-white mb-2">Expense Breakdown</h2>
-              <p className="text-sm text-slate-500 dark:text-slate-400 mb-4">Excludes investments.</p>
+            <div className="bg-white dark:bg-zinc-900 rounded-2xl border border-zinc-200 dark:border-zinc-800 shadow-sm dark:shadow-lg p-6 transition-colors h-[350px] flex flex-col">
+              <h2 className="text-lg font-bold text-zinc-900 dark:text-white mb-2">Expense Breakdown</h2>
+              <p className="text-sm text-zinc-500 dark:text-zinc-400 mb-4">Excludes investments.</p>
               <div className="flex-1 w-full">
                 {loading ? (
                   <div className="h-full flex items-center justify-center"><Loader text="Loading chart..." className="h-full" /></div>
@@ -332,10 +332,10 @@ export default function Dashboard() {
                               {payload.map((entry, index: number) => (
                                 <li key={`item-${index}`} className="group relative flex items-center justify-start cursor-pointer gap-2">
                                   <div style={{ backgroundColor: entry.color }} className="flex-shrink-0 w-4 h-4 sm:w-5 sm:h-5 rounded-full shadow-sm hover:scale-110 transition-transform"></div>
-                                  <span className="hidden sm:block text-sm text-slate-700 dark:text-slate-300 font-medium whitespace-nowrap">
+                                  <span className="hidden sm:block text-sm text-zinc-700 dark:text-zinc-300 font-medium whitespace-nowrap">
                                     {entry.value}
                                   </span>
-                                  <div className="sm:hidden absolute right-full mr-3 top-1/2 -translate-y-1/2 bg-slate-900 dark:bg-slate-700 text-white dark:text-slate-100 text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-50 shadow-lg border border-slate-700/50 dark:border-slate-600/50">
+                                  <div className="sm:hidden absolute right-full mr-3 top-1/2 -tranzinc-y-1/2 bg-zinc-900 dark:bg-zinc-700 text-white dark:text-zinc-100 text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-50 shadow-lg border border-zinc-700/50 dark:border-zinc-600/50">
                                     {entry.value}
                                   </div>
                                 </li>
@@ -347,7 +347,7 @@ export default function Dashboard() {
                     </PieChart>
                   </ResponsiveContainer>
                 ) : (
-                  <div className="h-full flex flex-col items-center justify-center text-slate-400">
+                  <div className="h-full flex flex-col items-center justify-center text-zinc-400">
                     <PieChartIcon size={48} className="mb-2 opacity-50" />
                     <p>No expenses for this month</p>
                   </div>
@@ -375,27 +375,27 @@ export default function Dashboard() {
         {viewTx && (
           <div className="space-y-4">
             <div>
-              <p className="text-sm text-slate-500 dark:text-slate-400">Date</p>
-              <p className="font-medium text-slate-900 dark:text-white">
+              <p className="text-sm text-zinc-500 dark:text-zinc-400">Date</p>
+              <p className="font-medium text-zinc-900 dark:text-white">
                 {new Date(viewTx.timestamp).toLocaleString()}
               </p>
             </div>
             <div>
-              <p className="text-sm text-slate-500 dark:text-slate-400">Amount</p>
+              <p className="text-sm text-zinc-500 dark:text-zinc-400">Amount</p>
               <p className={`font-bold text-xl ${viewTx.type === 'CREDIT' ? 'text-emerald-500' : 'text-rose-500'}`}>
                 {viewTx.type === 'CREDIT' ? '+' : '-'}₹{viewTx.amount.toFixed(2)}
               </p>
             </div>
             <div>
-              <p className="text-sm text-slate-500 dark:text-slate-400">Category</p>
-              <p className="font-medium text-slate-900 dark:text-white">
+              <p className="text-sm text-zinc-500 dark:text-zinc-400">Category</p>
+              <p className="font-medium text-zinc-900 dark:text-white">
                 {categories.find(c => c.SK === `CAT#${viewTx.categoryId}`)?.name || viewTx.categoryId}
               </p>
             </div>
             {viewTx.description && (
               <div>
-                <p className="text-sm text-slate-500 dark:text-slate-400">Description</p>
-                <p className="text-slate-900 dark:text-white mt-1 p-3 bg-slate-50 dark:bg-slate-800 rounded-lg">
+                <p className="text-sm text-zinc-500 dark:text-zinc-400">Description</p>
+                <p className="text-zinc-900 dark:text-white mt-1 p-3 bg-zinc-50 dark:bg-zinc-800 rounded-lg">
                   {viewTx.description}
                 </p>
               </div>
@@ -433,20 +433,20 @@ export default function Dashboard() {
         {viewDateTxs && (
           <div className="space-y-4 max-h-[60vh] overflow-y-auto pr-2">
              {viewDateTxs.txs.map(tx => (
-               <div key={tx.SK} className="flex items-center justify-between p-4 bg-slate-50 dark:bg-slate-800 rounded-xl border border-slate-100 dark:border-slate-700">
+               <div key={tx.SK} className="flex items-center justify-between p-4 bg-zinc-50 dark:bg-zinc-800 rounded-xl border border-zinc-100 dark:border-zinc-700">
                   <div className="flex items-center gap-4">
                     <div className={`p-3 rounded-full ${tx.type === 'CREDIT' ? 'bg-emerald-100 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400' : 'bg-rose-100 dark:bg-rose-500/10 text-rose-600 dark:text-rose-400'}`}>
                       {tx.type === 'CREDIT' ? <ArrowUpCircle size={24} /> : <ArrowDownCircle size={24} />}
                     </div>
                     <div>
-                      <p className="font-bold text-slate-900 dark:text-white">
+                      <p className="font-bold text-zinc-900 dark:text-white">
                         {categories.find(c => c.SK === `CAT#${tx.categoryId}`)?.name || tx.categoryId}
                       </p>
-                      {tx.description && <p className="text-sm text-slate-500 dark:text-slate-400 mt-0.5">{tx.description}</p>}
+                      {tx.description && <p className="text-sm text-zinc-500 dark:text-zinc-400 mt-0.5">{tx.description}</p>}
                     </div>
                   </div>
                   <div className="text-right">
-                    <p className={`font-bold ${tx.type === 'CREDIT' ? 'text-emerald-600 dark:text-emerald-400' : 'text-slate-900 dark:text-white'}`}>
+                    <p className={`font-bold ${tx.type === 'CREDIT' ? 'text-emerald-600 dark:text-emerald-400' : 'text-zinc-900 dark:text-white'}`}>
                       {tx.type === 'CREDIT' ? '+' : '-'}₹{tx.amount.toFixed(2)}
                     </p>
                   </div>

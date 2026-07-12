@@ -2,10 +2,10 @@
 
 @layer base {
   html {
-    background-color: #f8fafc;
+    background-color: #fafafa; /* zinc-50 */
   }
   html.dark {
-    background-color: #020617;
+    background-color: #09090b; /* zinc-950 */
   }
 }
 
@@ -35,10 +35,10 @@ body {
   position: relative;
   margin-right: 0.75rem;
   padding-right: 0.75rem;
-  border-right: 1px solid #cbd5e1; /* slate-300 */
+  border-right: 1px solid #cbd5e1; /* zinc-300 */
 }
 :is(.dark .PhoneInputCountry) {
-  border-right-color: #334155; /* slate-700 */
+  border-right-color: #334155; /* zinc-700 */
 }
 .PhoneInputCountryIcon {
   width: 1.75rem;
@@ -67,13 +67,13 @@ body {
   width: 0.35rem;
   height: 0.35rem;
   margin-left: 0.4rem;
-  border-bottom: 2px solid #64748b; /* slate-500 */
+  border-bottom: 2px solid #64748b; /* zinc-500 */
   border-right: 2px solid #64748b;
   transform: rotate(45deg);
   transition: transform 0.2s, border-color 0.2s;
 }
 :is(.dark .PhoneInputCountrySelectArrow) {
-  border-color: #94a3b8; /* slate-400 */
+  border-color: #94a3b8; /* zinc-400 */
 }
 .PhoneInputCountrySelect:focus ~ .PhoneInputCountrySelectArrow {
   transform: rotate(225deg);

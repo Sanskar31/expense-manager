@@ -1,4 +1,4 @@
-import { Loader2 } from "lucide-react";
+import { Wallet } from "lucide-react";
 
 interface LoaderProps {
   text?: string;
@@ -8,14 +8,18 @@ interface LoaderProps {
 
 const Loader = ({ text = "Loading...", fullScreen = false, className }: LoaderProps) => {
   const content = (
-    <div className="flex flex-col items-center justify-center space-y-4 p-8">
-      <div className="relative">
+    <div className="flex flex-col items-center justify-center space-y-6 p-8">
+      <div className="relative w-16 h-16 flex items-center justify-center">
         {/* Outer glowing ring */}
-        <div className="absolute inset-0 rounded-full blur-md opacity-40 bg-blue-500 animate-pulse"></div>
-        {/* Spinning icon */}
-        <Loader2 className="w-12 h-12 text-blue-600 dark:text-blue-400 animate-spin relative z-10" />
+        <div className="absolute inset-0 rounded-full blur-md opacity-30 bg-blue-500 animate-pulse"></div>
+        {/* Track ring */}
+        <div className="absolute inset-0 rounded-full border-[3px] border-zinc-200 dark:border-zinc-800"></div>
+        {/* Spinning gradient ring */}
+        <div className="absolute inset-0 rounded-full border-[3px] border-transparent border-t-blue-500 dark:border-t-blue-400 animate-spin"></div>
+        {/* Center icon */}
+        <Wallet className="w-7 h-7 text-blue-600 dark:text-blue-400 animate-pulse relative z-10" />
       </div>
-      <p className="text-lg font-medium text-slate-600 dark:text-slate-300 animate-pulse">
+      <p className="text-lg font-medium text-zinc-600 dark:text-zinc-300 tracking-wide animate-pulse">
         {text}
       </p>
     </div>
@@ -23,7 +27,7 @@ const Loader = ({ text = "Loading...", fullScreen = false, className }: LoaderPr
 
   if (fullScreen) {
     return (
-      <div className="min-h-screen w-full flex items-center justify-center bg-slate-50 dark:bg-slate-950">
+      <div className="min-h-screen w-full flex items-center justify-center bg-zinc-50 dark:bg-zinc-950">
         {content}
       </div>
     );

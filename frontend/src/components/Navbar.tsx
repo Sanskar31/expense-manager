@@ -34,7 +34,7 @@ export default function Navbar() {
   }
 
   return (
-    <nav className="sticky top-0 z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 transition-colors">
+    <nav className="sticky top-0 z-50 bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md border-b border-zinc-200 dark:border-zinc-800 transition-colors">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center gap-8">
@@ -52,8 +52,8 @@ export default function Navbar() {
                   to={link.path}
                   className={`px-3 py-2 rounded-md text-sm font-medium flex items-center gap-2 transition-colors ${
                     location.pathname === link.path
-                      ? "bg-slate-100 dark:bg-slate-800 text-blue-600 dark:text-blue-400"
-                      : "text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800"
+                      ? "bg-zinc-100 dark:bg-zinc-800 text-blue-600 dark:text-blue-400"
+                      : "text-zinc-600 hover:text-zinc-900 dark:text-zinc-300 dark:hover:text-white hover:bg-zinc-50 dark:hover:bg-zinc-800"
                   }`}
                 >
                   {link.icon} {link.name}
@@ -63,16 +63,16 @@ export default function Navbar() {
           </div>
           
           <div className="flex items-center gap-2 sm:gap-4">
-            <span className="text-sm text-slate-600 dark:text-slate-400 hidden sm:block">Hello, {user?.name || user?.mobileNumber}</span>
-            <button onClick={toggleTheme} className="p-2 text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors rounded-full hover:bg-slate-100 dark:hover:bg-slate-800" title="Toggle Theme">
+            <span className="text-sm text-zinc-600 dark:text-zinc-400 hidden sm:block">Hello, {user?.name || user?.mobileNumber}</span>
+            <button onClick={toggleTheme} className="p-2 text-zinc-500 dark:text-zinc-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors rounded-full hover:bg-zinc-100 dark:hover:bg-zinc-800" title="Toggle Theme">
               {theme === "dark" ? <Sun size={20} /> : <Moon size={20} />}
             </button>
-            <button onClick={handleLogout} className="p-2 text-slate-500 dark:text-slate-400 hover:text-red-500 dark:hover:text-red-400 transition-colors rounded-full hover:bg-slate-100 dark:hover:bg-slate-800" title="Logout">
+            <button onClick={handleLogout} className="p-2 text-zinc-500 dark:text-zinc-400 hover:text-red-500 dark:hover:text-red-400 transition-colors rounded-full hover:bg-zinc-100 dark:hover:bg-zinc-800" title="Logout">
               <LogOut size={20} />
             </button>
             <button 
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} 
-              className="md:hidden p-2 text-slate-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors rounded-md hover:bg-slate-100 dark:hover:bg-slate-800"
+              className="md:hidden p-2 text-zinc-500 dark:text-zinc-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors rounded-md hover:bg-zinc-100 dark:hover:bg-zinc-800"
             >
               {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
@@ -82,7 +82,7 @@ export default function Navbar() {
       
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
-        <div className="md:hidden border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 pb-3 pt-2 px-2 space-y-1 shadow-lg absolute w-full">
+        <div className="md:hidden border-t border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 pb-3 pt-2 px-2 space-y-1 shadow-lg absolute w-full">
           {navLinks.map((link) => (
             <Link
               key={link.path}
@@ -90,8 +90,8 @@ export default function Navbar() {
               onClick={() => setIsMobileMenuOpen(false)}
               className={`block px-3 py-2 rounded-md text-base font-medium flex items-center gap-3 transition-colors ${
                 location.pathname === link.path
-                  ? "bg-slate-100 dark:bg-slate-800 text-blue-600 dark:text-blue-400"
-                  : "text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800"
+                  ? "bg-zinc-100 dark:bg-zinc-800 text-blue-600 dark:text-blue-400"
+                  : "text-zinc-600 hover:text-zinc-900 dark:text-zinc-300 dark:hover:text-white hover:bg-zinc-50 dark:hover:bg-zinc-800"
               }`}
             >
               {link.icon} {link.name}

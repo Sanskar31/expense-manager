@@ -115,9 +115,9 @@ export default function TransactionForm({ editingTx, onSuccess, onCancel }: Prop
   const selectedCat = categories.find(c => c.SK === `CAT#${categoryId}` || c.name === categoryId);
 
   return (
-    <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm dark:shadow-lg p-6 transition-colors">
+    <div className="bg-white dark:bg-zinc-900 rounded-2xl border border-zinc-200 dark:border-zinc-800 shadow-sm dark:shadow-lg p-6 transition-colors">
       <div className="flex items-center justify-between mb-6">
-        <h2 className="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
+        <h2 className="text-lg font-bold text-zinc-900 dark:text-white flex items-center gap-2">
           {editingTx ? <Edit2 size={20} className="text-blue-500 dark:text-blue-400" /> : <Plus size={20} className="text-blue-500 dark:text-blue-400" />}
           {editingTx ? "Edit Transaction" : "New Transaction"}
         </h2>
@@ -127,25 +127,25 @@ export default function TransactionForm({ editingTx, onSuccess, onCancel }: Prop
               resetForm();
               onCancel();
             }}
-            className="text-sm text-slate-500 hover:text-slate-700 dark:hover:text-slate-300"
+            className="text-sm text-zinc-500 hover:text-zinc-700 dark:hover:text-zinc-300"
           >
             Cancel Edit
           </button>
         )}
       </div>
       
-      <div className="flex p-1 bg-slate-100 dark:bg-slate-800 rounded-xl mb-6 border border-slate-200 dark:border-slate-700">
+      <div className="flex p-1 bg-zinc-100 dark:bg-zinc-800 rounded-xl mb-6 border border-zinc-200 dark:border-zinc-700">
         <button 
           onClick={() => { setType(TransactionType.DEBIT); setPaymentMode(PaymentMode.UPI); }} 
           type="button"
-          className={`flex-1 py-2 text-sm font-medium rounded-lg transition-all ${type === TransactionType.DEBIT ? "bg-white dark:bg-rose-500/20 text-rose-600 dark:text-rose-400 shadow-sm" : "text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"}`}
+          className={`flex-1 py-2 text-sm font-medium rounded-lg transition-all ${type === TransactionType.DEBIT ? "bg-white dark:bg-rose-500/20 text-rose-600 dark:text-rose-400 shadow-sm" : "text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white"}`}
         >
           Expense
         </button>
         <button 
           onClick={() => { setType(TransactionType.CREDIT); setPaymentMode(PaymentMode.NET_BANKING); }} 
           type="button"
-          className={`flex-1 py-2 text-sm font-medium rounded-lg transition-all ${type === TransactionType.CREDIT ? "bg-white dark:bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 shadow-sm" : "text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"}`}
+          className={`flex-1 py-2 text-sm font-medium rounded-lg transition-all ${type === TransactionType.CREDIT ? "bg-white dark:bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 shadow-sm" : "text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white"}`}
         >
           Income
         </button>
@@ -153,44 +153,44 @@ export default function TransactionForm({ editingTx, onSuccess, onCancel }: Prop
 
       <form onSubmit={handleAddTx} className="space-y-4">
         <div>
-          <label className="block text-sm font-medium text-slate-700 dark:text-slate-400 mb-1">
+          <label className="block text-sm font-medium text-zinc-700 dark:text-zinc-400 mb-1">
             Description <span className="text-rose-500">*</span>
           </label>
           <input 
             type="text" value={description} onChange={e => setDescription(e.target.value)} required
-            className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+            className="w-full bg-zinc-50 dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-700 rounded-xl px-4 py-3 text-zinc-900 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none transition-all"
             placeholder={type === TransactionType.DEBIT ? "What did you pay for?" : "How did you get this money?"}
           />
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-slate-700 dark:text-slate-400 mb-1">
+          <label className="block text-sm font-medium text-zinc-700 dark:text-zinc-400 mb-1">
             Amount (₹) <span className="text-rose-500">*</span>
           </label>
           <input 
             type="number" step="0.01" inputMode="decimal" value={amount} onChange={e => setAmount(e.target.value)} required 
-            className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-xl px-4 py-3 text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+            className="w-full bg-zinc-50 dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-700 rounded-xl px-4 py-3 text-zinc-900 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none transition-all"
             placeholder="0.00"
           />
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-slate-700 dark:text-slate-400 mb-1">
+          <label className="block text-sm font-medium text-zinc-700 dark:text-zinc-400 mb-1">
             Date <span className="text-rose-500">*</span>
           </label>
           <div className="relative">
             <input 
               type="date" value={txDate} onChange={e => setTxDate(e.target.value)} required 
-              className="w-full min-w-0 max-w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-xl pl-4 pr-10 py-3 text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none transition-all appearance-none [&::-webkit-calendar-picker-indicator]:opacity-0 [&::-webkit-calendar-picker-indicator]:absolute [&::-webkit-calendar-picker-indicator]:w-full [&::-webkit-calendar-picker-indicator]:h-full [&::-webkit-calendar-picker-indicator]:cursor-pointer"
+              className="w-full min-w-0 max-w-full bg-zinc-50 dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-700 rounded-xl pl-4 pr-10 py-3 text-zinc-900 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none transition-all appearance-none [&::-webkit-calendar-picker-indicator]:opacity-0 [&::-webkit-calendar-picker-indicator]:absolute [&::-webkit-calendar-picker-indicator]:w-full [&::-webkit-calendar-picker-indicator]:h-full [&::-webkit-calendar-picker-indicator]:cursor-pointer"
             />
-            <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400">
+            <div className="absolute right-4 top-1/2 -tranzinc-y-1/2 pointer-events-none text-zinc-400">
               <Calendar size={20} />
             </div>
           </div>
         </div>
         
         <div>
-          <label htmlFor="categorySelect" className="block text-sm font-medium text-slate-700 dark:text-slate-400 mb-1 flex items-center justify-between">
+          <label htmlFor="categorySelect" className="block text-sm font-medium text-zinc-700 dark:text-zinc-400 mb-1 flex items-center justify-between">
             <span>Category <span className="text-rose-500">*</span></span>
             {type === TransactionType.DEBIT && selectedCat?.isInvestment && (
               <span className="text-xs bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-400 px-2 py-0.5 rounded-full flex items-center gap-1 font-semibold">
@@ -202,12 +202,12 @@ export default function TransactionForm({ editingTx, onSuccess, onCancel }: Prop
             <select 
               id="categorySelect"
               value={categoryId} onChange={e => setCategoryId(e.target.value)} required
-              className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-xl pl-4 pr-10 py-3 text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none transition-all appearance-none cursor-pointer"
+              className="w-full bg-zinc-50 dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-700 rounded-xl pl-4 pr-10 py-3 text-zinc-900 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none transition-all appearance-none cursor-pointer"
             >
               <option value="" disabled>Select Category</option>
               {activeCategories.map(c => <option key={c.SK} value={c.SK.replace('CAT#', '')}>{c.icon} {c.name}</option>)}
             </select>
-            <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400">
+            <div className="absolute right-4 top-1/2 -tranzinc-y-1/2 pointer-events-none text-zinc-400">
               <ChevronDown size={20} />
             </div>
           </div>
@@ -215,16 +215,16 @@ export default function TransactionForm({ editingTx, onSuccess, onCancel }: Prop
 
         {selectedCat && Object.keys(selectedCat.subcategories || {}).length > 0 && (
           <div>
-            <label className="block text-sm font-medium text-slate-700 dark:text-slate-400 mb-1">Subcategory</label>
+            <label className="block text-sm font-medium text-zinc-700 dark:text-zinc-400 mb-1">Subcategory</label>
             <div className="relative">
               <select 
                 value={subcategoryId} onChange={e => setSubcategoryId(e.target.value)}
-                className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-xl pl-4 pr-10 py-3 text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none transition-all appearance-none cursor-pointer"
+                className="w-full bg-zinc-50 dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-700 rounded-xl pl-4 pr-10 py-3 text-zinc-900 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none transition-all appearance-none cursor-pointer"
               >
                 <option value="">None</option>
                 {Object.entries(selectedCat.subcategories).map(([id, name]) => <option key={id} value={id}>{name}</option>)}
               </select>
-              <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400">
+              <div className="absolute right-4 top-1/2 -tranzinc-y-1/2 pointer-events-none text-zinc-400">
                 <ChevronDown size={20} />
               </div>
             </div>
@@ -232,12 +232,12 @@ export default function TransactionForm({ editingTx, onSuccess, onCancel }: Prop
         )}
 
         <div>
-          <label htmlFor="paymentModeSelect" className="block text-sm font-medium text-slate-700 dark:text-slate-400 mb-1">Payment Mode (Optional)</label>
+          <label htmlFor="paymentModeSelect" className="block text-sm font-medium text-zinc-700 dark:text-zinc-400 mb-1">Payment Mode (Optional)</label>
           <div className="relative">
             <select 
               id="paymentModeSelect"
               value={paymentMode} onChange={e => setPaymentMode(e.target.value)}
-              className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-xl pl-4 pr-10 py-3 text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none transition-all appearance-none cursor-pointer"
+              className="w-full bg-zinc-50 dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-700 rounded-xl pl-4 pr-10 py-3 text-zinc-900 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none transition-all appearance-none cursor-pointer"
             >
               <option value={PaymentMode.NONE}>None</option>
               <option value={PaymentMode.UPI}>UPI</option>
@@ -246,7 +246,7 @@ export default function TransactionForm({ editingTx, onSuccess, onCancel }: Prop
               <option value={PaymentMode.NET_BANKING}>Net Banking</option>
               <option value={PaymentMode.CASH}>Cash</option>
             </select>
-            <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400">
+            <div className="absolute right-4 top-1/2 -tranzinc-y-1/2 pointer-events-none text-zinc-400">
               <CreditCard size={20} />
             </div>
           </div>

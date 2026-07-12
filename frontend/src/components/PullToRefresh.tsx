@@ -84,7 +84,7 @@ export default function PullToRefresh({ children, onRefresh }: PullToRefreshProp
         }}
       >
         <div 
-          className="bg-white dark:bg-slate-800 p-2 rounded-full shadow-md flex items-center justify-center transition-transform"
+          className="bg-white dark:bg-zinc-800 p-2 rounded-full shadow-md flex items-center justify-center transition-transform"
           style={{ transform: `rotate(${pullingDistance * 2}deg)` }}
         >
           <Loader2 

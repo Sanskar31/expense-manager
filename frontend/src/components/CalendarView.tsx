@@ -56,7 +56,7 @@ export default function CalendarView({ month, transactions, onDayClick }: Calend
 
   const getHeatmapClass = (day: number) => {
     if (!expensesByDate[day] || expensesByDate[day].total === 0) {
-      return "bg-slate-50 dark:bg-slate-800/30 text-slate-700 dark:text-slate-300 border-slate-100 dark:border-slate-800/50 hover:bg-slate-100 dark:hover:bg-slate-800";
+      return "bg-zinc-50 dark:bg-zinc-800/30 text-zinc-700 dark:text-zinc-300 border-zinc-100 dark:border-zinc-800/50 hover:bg-zinc-100 dark:hover:bg-zinc-800";
     }
 
     const ratio = expensesByDate[day].total / maxExpense;
@@ -74,7 +74,7 @@ export default function CalendarView({ month, transactions, onDayClick }: Calend
     <div className="w-full">
       <div className="grid grid-cols-7 gap-2 mb-2">
         {dayNames.map(day => (
-          <div key={day} className="text-center text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider py-2">
+          <div key={day} className="text-center text-xs font-medium text-zinc-500 dark:text-zinc-400 uppercase tracking-wider py-2">
             {day}
           </div>
         ))}

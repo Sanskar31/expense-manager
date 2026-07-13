@@ -40,6 +40,9 @@ export default function TransactionForm({ editingTx, onSuccess, onCancel }: Prop
   const [txId, setTxId] = useState<string>(() => crypto.randomUUID());
   
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [suggestions, setSuggestions] = useState<Transaction[]>([]);
+  const [showSuggestions, setShowSuggestions] = useState(false);
+  const [allTxCache, setAllTxCache] = useState<Transaction[] | null>(null);
 
   useEffect(() => {
     if (editingTx) {
@@ -64,6 +67,50 @@ export default function TransactionForm({ editingTx, onSuccess, onCancel }: Prop
     setPaymentMode(PaymentMode.UPI);
     setTxDate(getLocalDateString());
     setTxId(crypto.randomUUID());
+    setShowSuggestions(false);
+  };
+
+  const handleDescriptionChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const val = e.target.value;
+    setDescription(val);
+    
+    if (val.length >= 3) {
+      let cache = allTxCache;
+      if (!cache) {
+        try {
+          cache = await request('/transactions');
+          if (cache) setAllTxCache(cache);
+        } catch (err) {
+          console.error("Failed to fetch history", err);
+        }
+      }
+      
+      if (cache) {
+        const matches: Transaction[] = [];
+        const seen = new Set<string>();
+        for (const tx of cache) {
+          if (tx.type === type && tx.description && tx.description.toLowerCase().includes(val.toLowerCase())) {
+            const descLower = tx.description.toLowerCase();
+            if (!seen.has(descLower)) {
+              seen.add(descLower);
+              matches.push(tx);
+              if (matches.length >= 5) break;
+            }
+          }
+        }
+        setSuggestions(matches);
+        setShowSuggestions(matches.length > 0);
+      }
+    } else {
+      setShowSuggestions(false);
+    }
+  };
+
+  const handleSuggestionClick = (tx: Transaction) => {
+    setDescription(tx.description || "");
+    setCategoryId(tx.categoryId);
+    setSubcategoryId(tx.subcategoryId || "");
+    setShowSuggestions(false);
   };
 
   const handleAddTx = async (e: React.FormEvent) => {
@@ -152,15 +199,39 @@ export default function TransactionForm({ editingTx, onSuccess, onCancel }: Prop
       </div>
 
       <form onSubmit={handleAddTx} className="space-y-4">
-        <div>
+        <div className="relative">
           <label className="block text-sm font-medium text-zinc-700 dark:text-zinc-400 mb-1">
             Description <span className="text-rose-500">*</span>
           </label>
           <input 
-            type="text" value={description} onChange={e => setDescription(e.target.value)} required
+            type="text" value={description} onChange={handleDescriptionChange} required
+            onBlur={() => setTimeout(() => setShowSuggestions(false), 200)}
+            onFocus={(e) => { if (e.target.value.length >= 3 && suggestions.length > 0) setShowSuggestions(true); }}
             className="w-full bg-zinc-50 dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-700 rounded-xl px-4 py-3 text-zinc-900 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none transition-all"
             placeholder={type === TransactionType.DEBIT ? "What did you pay for?" : "How did you get this money?"}
+            autoComplete="off"
           />
+          {showSuggestions && (
+            <ul className="absolute z-50 w-full bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-xl mt-1 shadow-lg overflow-hidden max-h-60 overflow-y-auto">
+              {suggestions.map((tx, idx) => {
+                const cat = categories.find(c => c.SK === `CAT#${tx.categoryId}`);
+                const catName = cat?.name || tx.categoryId;
+                const subCatName = tx.subcategoryId && cat?.subcategories ? cat.subcategories[tx.subcategoryId] || tx.subcategoryId : tx.subcategoryId;
+                return (
+                  <li 
+                    key={idx}
+                    onClick={() => handleSuggestionClick(tx)}
+                    className="px-4 py-3 cursor-pointer hover:bg-zinc-100 dark:hover:bg-zinc-700 flex flex-col transition-colors border-b last:border-0 border-zinc-100 dark:border-zinc-700"
+                  >
+                    <span className="font-medium text-zinc-900 dark:text-zinc-100">{tx.description}</span>
+                    <span className="text-xs text-zinc-500 dark:text-zinc-400">
+                      {catName} {subCatName ? `> ${subCatName}` : ''}
+                    </span>
+                  </li>
+                );
+              })}
+            </ul>
+          )}
         </div>
 
         <div>

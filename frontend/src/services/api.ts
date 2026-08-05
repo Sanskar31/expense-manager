@@ -11,9 +11,14 @@ export const request = async (endpoint: string, options: any = {}) => {
   const controller = new AbortController();
   const timeoutId = setTimeout(() => controller.abort(), options.timeout || 30000); // 30 second default timeout for AI
 
+  const isAiQuery = endpoint === '/ai/query';
+  const baseUrl = isAiQuery && import.meta.env.VITE_AI_URL 
+    ? import.meta.env.VITE_AI_URL 
+    : `/api${endpoint}`;
+
   let response;
   try {
-    response = await fetch(`/api${endpoint}`, { 
+    response = await fetch(baseUrl, { 
       ...options, 
       headers,
       credentials: "include",

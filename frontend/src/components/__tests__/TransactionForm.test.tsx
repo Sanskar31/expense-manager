@@ -40,6 +40,7 @@ describe('TransactionForm Component', () => {
 
   beforeEach(() => {
     vi.clearAllMocks();
+    vi.mocked(api.request).mockResolvedValue([]);
   });
 
   const renderComponent = (editingTx = null) => {
@@ -80,6 +81,9 @@ describe('TransactionForm Component', () => {
     // Fill only description
     await user.type(screen.getByPlaceholderText(/what did you pay for/i), 'Lunch');
     
+    // Clear the mock so we don't count the autocomplete request
+    vi.mocked(api.request).mockClear();
+
     // Bypass HTML5 validation by firing submit on the form directly
     const form = screen.getByRole('button', { name: /add expense/i }).closest('form');
     if (form) fireEvent.submit(form);
@@ -92,8 +96,8 @@ describe('TransactionForm Component', () => {
     renderComponent();
     const user = userEvent.setup();
     
-    // Mock successful request
-    vi.mocked(api.request).mockResolvedValueOnce({});
+    // Mock successful requests: 1st is autocomplete GET (returns array), 2nd is submit POST (returns object)
+    vi.mocked(api.request).mockResolvedValueOnce([]).mockResolvedValueOnce({});
 
     await user.type(screen.getByPlaceholderText(/what did you pay for/i), 'Dinner');
     await user.type(screen.getByPlaceholderText(/0.00/i), '500');

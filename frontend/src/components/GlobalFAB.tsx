@@ -50,6 +50,7 @@ export default function GlobalFAB() {
           editingTx={null}
           onSuccess={handleSuccess} 
           onCancel={() => setIsOpen(false)} 
+          showHeader={false}
         />
       </Modal>
 

@@ -25,9 +25,10 @@ type Props = {
   editingTx: Transaction | null;
   onSuccess: () => void;
   onCancel: () => void;
+  showHeader?: boolean;
 };
 
-export default function TransactionForm({ editingTx, onSuccess, onCancel }: Props) {
+export default function TransactionForm({ editingTx, onSuccess, onCancel, showHeader = true }: Props) {
   const { categories } = useCategories();
   
   const [type, setType] = useState<TransactionType>(TransactionType.DEBIT);
@@ -163,23 +164,25 @@ export default function TransactionForm({ editingTx, onSuccess, onCancel }: Prop
 
   return (
     <div className="bg-white dark:bg-zinc-900 rounded-2xl border border-zinc-200 dark:border-zinc-800 shadow-sm dark:shadow-lg p-6 transition-colors">
-      <div className="flex items-center justify-between mb-6">
-        <h2 className="text-lg font-bold text-zinc-900 dark:text-white flex items-center gap-2">
-          {editingTx ? <Edit2 size={20} className="text-blue-500 dark:text-blue-400" /> : <Plus size={20} className="text-blue-500 dark:text-blue-400" />}
-          {editingTx ? "Edit Transaction" : "New Transaction"}
-        </h2>
-        {editingTx && (
-          <button 
-            onClick={() => {
-              resetForm();
-              onCancel();
-            }}
-            className="text-sm text-zinc-500 hover:text-zinc-700 dark:hover:text-zinc-300"
-          >
-            Cancel Edit
-          </button>
-        )}
-      </div>
+      {showHeader && (
+        <div className="flex items-center justify-between mb-6">
+          <h2 className="text-lg font-bold text-zinc-900 dark:text-white flex items-center gap-2">
+            {editingTx ? <Edit2 size={20} className="text-blue-500 dark:text-blue-400" /> : <Plus size={20} className="text-blue-500 dark:text-blue-400" />}
+            {editingTx ? "Edit Transaction" : "New Transaction"}
+          </h2>
+          {editingTx && (
+            <button 
+              onClick={() => {
+                resetForm();
+                onCancel();
+              }}
+              className="text-sm text-zinc-500 hover:text-zinc-700 dark:hover:text-zinc-300"
+            >
+              Cancel Edit
+            </button>
+          )}
+        </div>
+      )}
       
       <div className="flex p-1 bg-zinc-100 dark:bg-zinc-800 rounded-xl mb-6 border border-zinc-200 dark:border-zinc-700">
         <button 

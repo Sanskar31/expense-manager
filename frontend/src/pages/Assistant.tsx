@@ -39,6 +39,7 @@ export default function Assistant({ onClose }: AssistantProps = {}) {
     }
   ]);
   const [isTyping, setIsTyping] = useState(false);
+  const [isLoadingHistory, setIsLoadingHistory] = useState(true);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
@@ -58,6 +59,8 @@ export default function Assistant({ onClose }: AssistantProps = {}) {
       }
     } catch (err) {
       console.error("Failed to load history", err);
+    } finally {
+      setIsLoadingHistory(false);
     }
   };
 
@@ -259,7 +262,32 @@ export default function Assistant({ onClose }: AssistantProps = {}) {
       {/* Chat Area */}
       <div className="flex-1 overflow-y-auto p-4 sm:p-8 space-y-8">
         <div className="space-y-8 pb-16">
-          {messages.map(msg => (
+          {isLoadingHistory ? (
+            <div className="space-y-8">
+              {/* Skeleton AI Message */}
+              <div className="flex gap-3 sm:gap-5 max-w-[95%] sm:max-w-[85%] mr-auto">
+                <div className="flex-shrink-0 w-10 h-10 rounded-2xl hidden sm:flex bg-zinc-200 dark:bg-zinc-800 animate-pulse mt-1"></div>
+                <div className="flex flex-col items-start w-full">
+                  <div className="w-64 sm:w-96 h-24 bg-zinc-200 dark:bg-zinc-800 rounded-3xl rounded-tl-md animate-pulse"></div>
+                </div>
+              </div>
+              {/* Skeleton User Message */}
+              <div className="flex gap-3 sm:gap-5 max-w-[95%] sm:max-w-[85%] ml-auto flex-row-reverse">
+                <div className="flex-shrink-0 w-10 h-10 rounded-2xl hidden sm:flex bg-blue-200 dark:bg-blue-900/40 animate-pulse mt-1"></div>
+                <div className="flex flex-col items-end w-full">
+                  <div className="w-48 sm:w-64 h-16 bg-blue-200 dark:bg-blue-900/40 rounded-3xl rounded-tr-md animate-pulse"></div>
+                </div>
+              </div>
+              {/* Skeleton AI Message 2 */}
+              <div className="flex gap-3 sm:gap-5 max-w-[95%] sm:max-w-[85%] mr-auto">
+                <div className="flex-shrink-0 w-10 h-10 rounded-2xl hidden sm:flex bg-zinc-200 dark:bg-zinc-800 animate-pulse mt-1"></div>
+                <div className="flex flex-col items-start w-full">
+                  <div className="w-56 sm:w-80 h-32 bg-zinc-200 dark:bg-zinc-800 rounded-3xl rounded-tl-md animate-pulse"></div>
+                </div>
+              </div>
+            </div>
+          ) : (
+            messages.map(msg => (
           <div key={msg.id} className={`flex gap-3 sm:gap-5 max-w-[95%] sm:max-w-[85%] ${msg.sender === 'user' ? 'ml-auto flex-row-reverse' : 'mr-auto'}`}>
             <div className="flex-shrink-0 w-10 h-10 rounded-2xl flex items-center justify-center mt-1 hidden sm:flex shadow-sm">
               {msg.sender === 'user' ? (
@@ -303,7 +331,7 @@ export default function Assistant({ onClose }: AssistantProps = {}) {
               </div>
             </div>
           </div>
-        ))}
+          )))}
         
         {isTyping && (
           <div className="flex gap-4 max-w-[80%] mr-auto animate-fade-in">

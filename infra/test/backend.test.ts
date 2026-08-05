@@ -38,6 +38,16 @@ describe('Backend Stack', () => {
     });
   });
 
+  it('Creates AiChatHistoryLambda', () => {
+    template.hasResourceProperties('AWS::Lambda::Function', {
+      Environment: {
+        Variables: {
+          TABLE_NAME: Match.anyValue()
+        }
+      }
+    });
+  });
+
   it('Creates a CloudFront Distribution', () => {
     template.hasResourceProperties('AWS::CloudFront::Distribution', {
       DistributionConfig: {

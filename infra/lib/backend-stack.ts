@@ -155,6 +155,7 @@ export class BackendStack extends cdk.Stack {
     aiQueryQueue.grantSendMessages(queryInitLambda);
 
     createApiRoute('QueryStatusLambda', 'ai/queryStatus.ts', '/api/ai/status', apigwv2.HttpMethod.GET, 'read');
+    createApiRoute('AiChatHistoryLambda', 'ai/chatHistory.ts', '/api/ai/history', apigwv2.HttpMethod.ANY, 'write');
 
     const queryWorkerLambda = new nodejs.NodejsFunction(this, 'QueryWorkerLambda', {
       entry: path.join(__dirname, '../../backend/src/ai/queryWorker.ts'),

@@ -1,10 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Send, Bot, User, Sparkles, Loader2, Copy, Check } from 'lucide-react';
+import { Send, Bot, User, Sparkles, Loader2, Copy, Check, Trash2, X } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, Cell } from 'recharts';
 import { useTheme } from '../contexts/ThemeContext';
 import { request } from '../services/api';
 import toast from 'react-hot-toast';
+import Modal from '../components/Modal';
 
 type Message = {
   id: string;
@@ -13,12 +14,17 @@ type Message = {
   chartData?: any[];
 };
 
-export default function Assistant() {
+type AssistantProps = {
+  onClose?: () => void;
+};
+
+export default function Assistant({ onClose }: AssistantProps = {}) {
   const { theme } = useTheme();
   const [input, setInput] = useState('');
   const [model, setModel] = useState<'gemini-3.6-flash' | 'gemini-3.1-pro-preview'>('gemini-3.6-flash');
   const [isModelMenuOpen, setIsModelMenuOpen] = useState(false);
   const [copiedId, setCopiedId] = useState<string | null>(null);
+  const [isConfirmClearOpen, setIsConfirmClearOpen] = useState(false);
 
   const handleCopy = (id: string, text: string) => {
     navigator.clipboard.writeText(text);
@@ -44,6 +50,42 @@ export default function Assistant() {
     scrollToBottom();
   }, [messages, isTyping]);
 
+  const loadHistory = async () => {
+    try {
+      const response = await request('/ai/history');
+      if (response.messages && response.messages.length > 0) {
+        setMessages(response.messages);
+      }
+    } catch (err) {
+      console.error("Failed to load history", err);
+    }
+  };
+
+  useEffect(() => {
+    loadHistory();
+  }, []);
+
+  const confirmClear = () => {
+    setIsConfirmClearOpen(true);
+  };
+
+  const executeClear = async () => {
+    setIsConfirmClearOpen(false);
+    try {
+      await request('/ai/history', { method: 'DELETE' });
+      setMessages([
+        {
+          id: '1',
+          sender: 'ai',
+          text: 'Hi there! I am your AI Financial Assistant. Ask me anything about your spending habits, trends, or specific transactions. For example, "How much did I spend on office food last month?"'
+        }
+      ]);
+      toast.success("Chat history cleared!");
+    } catch (err) {
+      toast.error("Failed to clear history");
+    }
+  };
+
   const handleSend = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!input.trim()) return;
@@ -54,6 +96,7 @@ export default function Assistant() {
       text: input
     };
 
+    const prevMessages = [...messages];
     setMessages(prev => [...prev, userMessage]);
     setInput('');
     setIsTyping(true);
@@ -93,7 +136,15 @@ export default function Assistant() {
         chartData: finalResult?.chartData,
       };
       
-      setMessages(prev => [...prev, aiResponse]);
+      const newMessages = [...prevMessages, userMessage, aiResponse];
+      setMessages(newMessages);
+
+      // Save to backend
+      request('/ai/history', {
+        method: 'POST',
+        body: JSON.stringify({ messages: newMessages })
+      }).catch(console.error);
+
     } catch (err: any) {
       if (err.message === "Rate limit exceeded") {
         setMessages(prev => [...prev, {
@@ -185,11 +236,29 @@ export default function Assistant() {
             <p className="text-xs text-zinc-500 dark:text-zinc-400 font-medium mt-0.5">Powered by Gemini</p>
           </div>
         </div>
+        <div className="flex items-center gap-1">
+          <button
+            onClick={confirmClear}
+            title="Clear History"
+            className="p-2 text-zinc-400 hover:text-red-500 dark:text-zinc-500 dark:hover:text-red-400 transition-colors rounded-xl hover:bg-red-50 dark:hover:bg-red-900/20"
+          >
+            <Trash2 className="w-5 h-5" />
+          </button>
+          {onClose && (
+            <button
+              onClick={onClose}
+              title="Close"
+              className="p-2 text-zinc-400 hover:text-zinc-600 dark:text-zinc-500 dark:hover:text-zinc-300 transition-colors rounded-xl hover:bg-zinc-100 dark:hover:bg-zinc-800"
+            >
+              <X className="w-6 h-6" />
+            </button>
+          )}
+        </div>
       </div>
 
       {/* Chat Area */}
       <div className="flex-1 overflow-y-auto p-4 sm:p-8 space-y-8">
-        <div className="space-y-8 pb-40">
+        <div className="space-y-8 pb-16">
           {messages.map(msg => (
           <div key={msg.id} className={`flex gap-3 sm:gap-5 max-w-[95%] sm:max-w-[85%] ${msg.sender === 'user' ? 'ml-auto flex-row-reverse' : 'mr-auto'}`}>
             <div className="flex-shrink-0 w-10 h-10 rounded-2xl flex items-center justify-center mt-1 hidden sm:flex shadow-sm">
@@ -327,6 +396,28 @@ export default function Assistant() {
           </p>
         </div>
       </div>
+
+      <Modal 
+        isOpen={isConfirmClearOpen} 
+        onClose={() => setIsConfirmClearOpen(false)} 
+        title="Clear Chat History"
+        subtitle="This action cannot be undone."
+      >
+        <div className="flex gap-3 justify-end mt-4">
+          <button
+            onClick={() => setIsConfirmClearOpen(false)}
+            className="px-4 py-2 text-sm font-medium text-zinc-700 bg-white border border-zinc-300 rounded-lg hover:bg-zinc-50 dark:bg-zinc-800 dark:text-zinc-300 dark:border-zinc-700 dark:hover:bg-zinc-700"
+          >
+            Cancel
+          </button>
+          <button
+            onClick={executeClear}
+            className="px-4 py-2 text-sm font-medium text-white bg-red-600 border border-transparent rounded-lg hover:bg-red-700"
+          >
+            Clear History
+          </button>
+        </div>
+      </Modal>
     </div>
   );
 }

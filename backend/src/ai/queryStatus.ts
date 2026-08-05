@@ -1,4 +1,4 @@
-import { APIGatewayProxyHandlerV2 } from "aws-lambda";
+
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import { DynamoDBDocumentClient, GetCommand } from "@aws-sdk/lib-dynamodb";
 import { withAuth } from "../shared/withAuth";
@@ -8,7 +8,7 @@ const db = DynamoDBDocumentClient.from(dbClient);
 
 const TABLE_NAME = process.env.TABLE_NAME;
 
-const queryStatusHandler: APIGatewayProxyHandlerV2 = async (event, mobileNumber) => {
+const queryStatusHandler = async (event: any, mobileNumber: string) => {
   if (!TABLE_NAME) {
     return { statusCode: 500, body: JSON.stringify({ error: "Missing configuration" }) };
   }

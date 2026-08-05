@@ -1,4 +1,4 @@
-import { APIGatewayProxyHandlerV2 } from "aws-lambda";
+
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import { DynamoDBDocumentClient, PutCommand } from "@aws-sdk/lib-dynamodb";
 import { SQSClient, SendMessageCommand } from "@aws-sdk/client-sqs";
@@ -12,7 +12,7 @@ const sqs = new SQSClient({});
 const TABLE_NAME = process.env.TABLE_NAME;
 const QUEUE_URL = process.env.QUEUE_URL;
 
-const queryInitHandler: APIGatewayProxyHandlerV2 = async (event, mobileNumber) => {
+const queryInitHandler = async (event: any, mobileNumber: string) => {
   console.log("AI Query Init triggered for user:", mobileNumber);
   
   if (!TABLE_NAME || !QUEUE_URL) {

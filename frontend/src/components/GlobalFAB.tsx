@@ -62,15 +62,8 @@ export default function GlobalFAB() {
           }}
         >
           <div className="relative w-full sm:max-w-6xl h-[92vh] sm:h-[90vh] mt-auto sm:mt-0 bg-white dark:bg-zinc-900 rounded-t-3xl sm:rounded-3xl shadow-2xl flex flex-col overflow-hidden border-t sm:border border-zinc-200 dark:border-zinc-800">
-            {/* Custom Close Button absolute positioned over Assistant header */}
-            <button 
-              onClick={() => setIsAssistantOpen(false)}
-              className="absolute top-4 right-4 z-50 p-2 bg-zinc-100/80 hover:bg-zinc-200 dark:bg-zinc-800/80 dark:hover:bg-zinc-700 text-zinc-600 dark:text-zinc-300 rounded-full transition-colors backdrop-blur-md"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
-            </button>
             <div className="flex-1 h-full w-full [&>div]:h-full [&>div]:border-0 [&>div]:rounded-none [&>div]:shadow-none">
-              <Assistant />
+              <Assistant onClose={() => setIsAssistantOpen(false)} />
             </div>
           </div>
         </div>

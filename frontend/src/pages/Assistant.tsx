@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Send, Bot, User, Sparkles, Loader2 } from 'lucide-react';
+import { Send, Bot, User, Sparkles, Loader2, Copy, Check } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, Cell } from 'recharts';
 import { useTheme } from '../contexts/ThemeContext';
@@ -18,6 +18,13 @@ export default function Assistant() {
   const [input, setInput] = useState('');
   const [model, setModel] = useState<'gemini-3.6-flash' | 'gemini-3.1-pro-preview'>('gemini-3.6-flash');
   const [isModelMenuOpen, setIsModelMenuOpen] = useState(false);
+  const [copiedId, setCopiedId] = useState<string | null>(null);
+
+  const handleCopy = (id: string, text: string) => {
+    navigator.clipboard.writeText(text);
+    setCopiedId(id);
+    setTimeout(() => setCopiedId(null), 2000);
+  };
   const [messages, setMessages] = useState<Message[]>([
     {
       id: '1',
@@ -187,6 +194,24 @@ export default function Assistant() {
                 }`}
               >
                 {renderMessageContent(msg)}
+              </div>
+              <div className={`mt-1 flex ${msg.sender === 'user' ? 'justify-end' : 'justify-start'} w-full px-2`}>
+                <button
+                  onClick={() => handleCopy(msg.id, msg.text)}
+                  className="flex items-center gap-1 text-[11px] font-medium text-zinc-400 hover:text-zinc-600 dark:text-zinc-500 dark:hover:text-zinc-300 transition-colors py-1"
+                >
+                  {copiedId === msg.id ? (
+                    <>
+                      <Check className="w-3 h-3 text-green-500" />
+                      <span className="text-green-500">Copied</span>
+                    </>
+                  ) : (
+                    <>
+                      <Copy className="w-3 h-3" />
+                      <span>Copy</span>
+                    </>
+                  )}
+                </button>
               </div>
             </div>
           </div>

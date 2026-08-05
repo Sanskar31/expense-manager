@@ -15,7 +15,7 @@ type Message = {
 export default function Assistant() {
   const { theme } = useTheme();
   const [input, setInput] = useState('');
-  const [model, setModel] = useState<'gemini-2.5-flash' | 'gemini-2.5-pro'>('gemini-2.5-flash');
+  const [model, setModel] = useState<'gemini-3.6-flash' | 'gemini-3.1-pro-preview'>('gemini-3.6-flash');
   const [isModelMenuOpen, setIsModelMenuOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
     {
@@ -202,7 +202,7 @@ export default function Assistant() {
                 onClick={() => setIsModelMenuOpen(!isModelMenuOpen)}
                 className="flex items-center gap-1.5 bg-zinc-100/50 hover:bg-zinc-200/80 dark:bg-zinc-800/50 dark:hover:bg-zinc-700/80 text-[11px] font-bold rounded-full py-1.5 pl-3 pr-2 focus:outline-none transition-all backdrop-blur-md border border-zinc-200/50 dark:border-zinc-700/50 shadow-sm"
               >
-                {model === 'gemini-2.5-flash' ? (
+                {model === 'gemini-3.6-flash' ? (
                   <span className="text-blue-600 dark:text-blue-400">⚡ Flash</span>
                 ) : (
                   <span className="text-purple-600 dark:text-purple-400">🧠 Pro</span>
@@ -216,15 +216,15 @@ export default function Assistant() {
                   <div className="absolute bottom-full left-0 mb-3 w-[140px] bg-white/95 dark:bg-zinc-900/95 backdrop-blur-2xl border border-zinc-200/60 dark:border-zinc-700/60 rounded-2xl shadow-xl shadow-black/5 dark:shadow-black/40 overflow-hidden flex flex-col p-1.5 z-20 animate-in fade-in slide-in-from-bottom-2">
                     <button
                       type="button"
-                      onClick={() => { setModel('gemini-2.5-flash'); setIsModelMenuOpen(false); }}
-                      className={`text-left px-3 py-2.5 text-[13px] font-semibold rounded-xl transition-all flex items-center gap-2 ${model === 'gemini-2.5-flash' ? 'bg-blue-50 dark:bg-blue-500/20 text-blue-700 dark:text-blue-300' : 'text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800'}`}
+                      onClick={() => { setModel('gemini-3.6-flash'); setIsModelMenuOpen(false); }}
+                      className={`text-left px-3 py-2.5 text-[13px] font-semibold rounded-xl transition-all flex items-center gap-2 ${model === 'gemini-3.6-flash' ? 'bg-blue-50 dark:bg-blue-500/20 text-blue-700 dark:text-blue-300' : 'text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800'}`}
                     >
                       ⚡ Flash <span className="text-[10px] font-medium opacity-60">(Fast)</span>
                     </button>
                     <button
                       type="button"
-                      onClick={() => { setModel('gemini-2.5-pro'); setIsModelMenuOpen(false); }}
-                      className={`text-left px-3 py-2.5 text-[13px] font-semibold rounded-xl transition-all flex items-center gap-2 mt-0.5 ${model === 'gemini-2.5-pro' ? 'bg-purple-50 dark:bg-purple-500/20 text-purple-700 dark:text-purple-300' : 'text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800'}`}
+                      onClick={() => { setModel('gemini-3.1-pro-preview'); setIsModelMenuOpen(false); }}
+                      className={`text-left px-3 py-2.5 text-[13px] font-semibold rounded-xl transition-all flex items-center gap-2 mt-0.5 ${model === 'gemini-3.1-pro-preview' ? 'bg-purple-50 dark:bg-purple-500/20 text-purple-700 dark:text-purple-300' : 'text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800'}`}
                     >
                       🧠 Pro <span className="text-[10px] font-medium opacity-60">(Smart)</span>
                     </button>

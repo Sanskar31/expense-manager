@@ -30,7 +30,7 @@ export const handler: APIGatewayProxyHandlerV2 = withAuth(async (event, mobileNu
 
     const body = JSON.parse(event.body || "{}");
     const userMessage = body.message;
-    const modelPreference = body.model || "gemini-1.5-flash";
+    const modelPreference = body.model || "gemini-2.5-flash";
 
     if (!userMessage) {
       return { statusCode: 400, body: JSON.stringify({ error: "Message is required" }) };

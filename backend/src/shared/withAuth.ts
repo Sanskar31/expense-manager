@@ -9,9 +9,7 @@ type AuthenticatedHandler = (
 export const withAuth = (handler: AuthenticatedHandler) => {
   return async (event: APIGatewayProxyEventV2): Promise<APIGatewayProxyResultV2> => {
     try {
-      const authHeader = event.headers.authorization || event.headers.Authorization;
-      const bearerToken = authHeader?.startsWith('Bearer ') ? authHeader.substring(7) : null;
-      const mobileNumber = verifyToken(bearerToken || event.cookies);
+      const mobileNumber = verifyToken(event.cookies);
       if (!mobileNumber) {
         console.warn("Unauthorized request: Invalid or missing token");
         return {

@@ -34,12 +34,6 @@ describe('Backend Stack', () => {
     });
   });
 
-  it('Creates a Lambda Function URL for AI Assistant', () => {
-    template.hasResourceProperties('AWS::Lambda::Url', {
-      AuthType: 'NONE'
-    });
-  });
-
   it('Creates a CloudFront Distribution', () => {
     template.hasResourceProperties('AWS::CloudFront::Distribution', {
       DistributionConfig: {

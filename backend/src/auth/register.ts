@@ -82,7 +82,7 @@ export const handler: APIGatewayProxyHandlerV2 = async (event) => {
       headers: {
         "Set-Cookie": `token=${token}; HttpOnly; SameSite=Lax; Path=/; Max-Age=604800`,
       },
-      body: JSON.stringify({ message: "User registered", token })
+      body: JSON.stringify({ message: "User registered" })
     };
   } catch (error) {
     console.error("Error during registration:", error);

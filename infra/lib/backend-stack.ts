@@ -135,29 +135,7 @@ export class BackendStack extends cdk.Stack {
 
     createApiRoute('AdminUsersLambda', 'admin/users.ts', '/api/admin/users', apigwv2.HttpMethod.GET, 'read');
 
-    // Function URL for AI Assistant (Option 1) to bypass 29s APIGW timeout
-    const queryAssistantLambda = new nodejs.NodejsFunction(this, 'QueryAssistantLambda', {
-      entry: path.join(__dirname, '../../backend/src/ai/query.ts'),
-      ...lambdaProps,
-      timeout: cdk.Duration.minutes(5),
-    });
-    table.grantReadData(queryAssistantLambda);
-    
-    // Add to allApiFunctions for kill switch
-    allApiFunctions.push(queryAssistantLambda);
-
-    const aiFunctionUrl = queryAssistantLambda.addFunctionUrl({
-      authType: lambda.FunctionUrlAuthType.NONE,
-      cors: {
-        allowedOrigins: ['*'],
-        allowedHeaders: ['*'],
-        allowedMethods: [lambda.HttpMethod.ALL],
-      },
-    });
-
-    new cdk.CfnOutput(this, 'AiFunctionUrl', {
-      value: aiFunctionUrl.url,
-    });
+    createApiRoute('QueryAssistantLambda', 'ai/query.ts', '/api/ai/query', apigwv2.HttpMethod.POST, 'read');
 
     const killSwitchLambda = new nodejs.NodejsFunction(this, 'KillSwitchLambda', {
       entry: path.join(__dirname, '../../backend/src/shared/kill-switch.ts'),

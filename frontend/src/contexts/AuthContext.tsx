@@ -4,7 +4,7 @@ type User = { mobileNumber: string; name?: string };
 
 interface AuthContextType {
   user: User | null;
-  login: (user: User, token?: string) => void;
+  login: (user: User) => void;
   logout: () => void;
 }
 
@@ -16,15 +16,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     return saved ? JSON.parse(saved) : null;
   });
 
-  const login = (newUser: User, token?: string) => {
+  const login = (newUser: User) => {
     localStorage.setItem("user", JSON.stringify(newUser));
-    if (token) localStorage.setItem("token", token);
     setUser(newUser);
   };
 
   const logout = () => {
     localStorage.removeItem("user");
-    localStorage.removeItem("token");
     setUser(null);
   };
 

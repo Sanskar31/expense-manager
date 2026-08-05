@@ -43,14 +43,14 @@ export default function Login() {
           method: "POST",
           body: JSON.stringify({ mobileNumber: mobile, password }),
         });
-        login(res.user, res.token);
+        login(res.user);
         navigate("/");
       } else {
         await request("/auth/register", {
           method: "POST",
           body: JSON.stringify({ mobileNumber: mobile, password, name }),
         });
-        login({ mobileNumber: mobile, name }, res.token);
+        login({ mobileNumber: mobile, name });
         navigate("/");
       }
     } catch (err: unknown) {

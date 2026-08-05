@@ -3,15 +3,21 @@ import toast from "react-hot-toast";
 export const request = async (endpoint: string, options: any = {}) => {
 
 
-  const headers = {
+  const headers: any = {
     "Content-Type": "application/json",
     ...options.headers,
   };
 
+  const isAiQuery = endpoint === '/ai/query';
+  if (isAiQuery) {
+    const token = localStorage.getItem('token');
+    if (token) {
+      headers['Authorization'] = `Bearer ${token}`;
+    }
+  }
+
   const controller = new AbortController();
   const timeoutId = setTimeout(() => controller.abort(), options.timeout || 30000); // 30 second default timeout for AI
-
-  const isAiQuery = endpoint === '/ai/query';
   const baseUrl = isAiQuery && import.meta.env.VITE_AI_URL 
     ? import.meta.env.VITE_AI_URL 
     : `/api${endpoint}`;
@@ -21,7 +27,7 @@ export const request = async (endpoint: string, options: any = {}) => {
     response = await fetch(baseUrl, { 
       ...options, 
       headers,
-      credentials: "include",
+      credentials: isAiQuery ? "omit" : "include",
       signal: controller.signal
     });
   } catch (error: any) {

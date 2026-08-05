@@ -23,7 +23,11 @@ describe('Backend Stack', () => {
         { AttributeName: 'PK', AttributeType: 'S' },
         { AttributeName: 'SK', AttributeType: 'S' }
       ],
-      BillingMode: 'PAY_PER_REQUEST'
+      BillingMode: 'PAY_PER_REQUEST',
+      TimeToLiveSpecification: {
+        AttributeName: 'ttl',
+        Enabled: true
+      }
     });
   });
 
@@ -69,6 +73,12 @@ describe('Backend Stack', () => {
         BudgetType: 'COST',
         TimeUnit: 'MONTHLY'
       }
+    });
+  });
+
+  it('Creates an SQS Queue for AI Queries', () => {
+    template.hasResourceProperties('AWS::SQS::Queue', {
+      VisibilityTimeout: 300
     });
   });
 });

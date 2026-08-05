@@ -15,6 +15,8 @@ import * as subscriptions from 'aws-cdk-lib/aws-sns-subscriptions';
 import * as budgets from 'aws-cdk-lib/aws-budgets';
 import * as iam from 'aws-cdk-lib/aws-iam';
 import * as cw_actions from 'aws-cdk-lib/aws-cloudwatch-actions';
+import * as sqs from 'aws-cdk-lib/aws-sqs';
+import * as lambdaEventSources from 'aws-cdk-lib/aws-lambda-event-sources';
 import * as path from 'path';
 
 const CONFIG = {
@@ -53,6 +55,7 @@ export class BackendStack extends cdk.Stack {
       sortKey: { name: 'SK', type: dynamodb.AttributeType.STRING },
       billingMode: dynamodb.BillingMode.PAY_PER_REQUEST,
       removalPolicy: cdk.RemovalPolicy.DESTROY,
+      timeToLiveAttribute: 'ttl',
     });
 
     const lambdaProps = {
@@ -135,7 +138,34 @@ export class BackendStack extends cdk.Stack {
 
     createApiRoute('AdminUsersLambda', 'admin/users.ts', '/api/admin/users', apigwv2.HttpMethod.GET, 'read');
 
-    createApiRoute('QueryAssistantLambda', 'ai/query.ts', '/api/ai/query', apigwv2.HttpMethod.POST, 'read');
+    const aiQueryQueueDlq = new sqs.Queue(this, 'AiQueryQueueDlq', {
+      retentionPeriod: cdk.Duration.days(14),
+    });
+
+    const aiQueryQueue = new sqs.Queue(this, 'AiQueryQueue', {
+      visibilityTimeout: cdk.Duration.minutes(5),
+      deadLetterQueue: {
+        queue: aiQueryQueueDlq,
+        maxReceiveCount: 3,
+      }
+    });
+
+    const queryInitLambda = createApiRoute('QueryInitLambda', 'ai/queryInit.ts', '/api/ai/query', apigwv2.HttpMethod.POST, 'write');
+    queryInitLambda.addEnvironment('QUEUE_URL', aiQueryQueue.queueUrl);
+    aiQueryQueue.grantSendMessages(queryInitLambda);
+
+    createApiRoute('QueryStatusLambda', 'ai/queryStatus.ts', '/api/ai/status', apigwv2.HttpMethod.GET, 'read');
+
+    const queryWorkerLambda = new nodejs.NodejsFunction(this, 'QueryWorkerLambda', {
+      entry: path.join(__dirname, '../../backend/src/ai/queryWorker.ts'),
+      ...lambdaProps,
+      timeout: cdk.Duration.minutes(5),
+    });
+    table.grantReadWriteData(queryWorkerLambda);
+    queryWorkerLambda.addEventSource(new lambdaEventSources.SqsEventSource(aiQueryQueue, {
+      batchSize: 1,
+    }));
+    allApiFunctions.push(queryWorkerLambda);
 
     const killSwitchLambda = new nodejs.NodejsFunction(this, 'KillSwitchLambda', {
       entry: path.join(__dirname, '../../backend/src/shared/kill-switch.ts'),

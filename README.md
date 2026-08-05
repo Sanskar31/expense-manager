@@ -41,9 +41,29 @@ flowchart TD
     dynamodb -.->|Metrics| cloudwatch
     
     cloudwatch -->|Triggers| sns
+
+    subgraph ai [AI Subsystem]
+        sqs[SQS Queue]
+        lambdaAiWorker[AI Worker Lambda]
+        gemini[Gemini API]
+    end
+
+    apigw -->|/ai/query| lambdaAuth
+    lambdaAuth --> sqs
+    sqs --> lambdaAiWorker
+    lambdaAiWorker --> gemini
+    lambdaAiWorker --> dynamodb
 ```
 
-## 🌐 1. Edge & Routing Infrastructure (CloudFront)
+## 🤖 1. AI Assistant Architecture (Async Polling)
+
+To circumvent the strict 29-second API Gateway timeout while retaining the security of `HttpOnly` cookies and avoiding costly Load Balancers, the AI assistant utilizes an **Asynchronous Polling pattern** powered by AWS SQS and DynamoDB TTL.
+
+1. **Initialization (`/api/ai/query`)**: The frontend sends a POST request. The API Gateway triggers a fast Lambda that validates the user's secure cookie, generates a UUID `jobId`, writes a `PENDING` state to DynamoDB (with a 1-hour TTL), pushes the job to an SQS Queue, and instantly returns `202 Accepted` to the client.
+2. **Background Processing**: An SQS Event triggers the `QueryWorkerLambda` in the background. It securely fetches the user's financial context from DynamoDB, calls the Gemini API (which can take minutes), and updates the DynamoDB job record to `COMPLETED` with the markdown response.
+3. **Polling (`/api/ai/status`)**: The frontend silently pings the status endpoint every 3 seconds until it receives the `COMPLETED` response, at which point it renders the final markdown in the UI.
+
+## 🌐 2. Edge & Routing Infrastructure (CloudFront)
 
 The entry point for all traffic is a unified **Amazon CloudFront Distribution**. This offers CDN caching for static assets while seamlessly routing API calls to the backend under a single domain.
 

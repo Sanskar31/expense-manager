@@ -62,16 +62,35 @@ export default function Assistant() {
     }
 
     try {
-      const response = await request('/ai/query', {
+      const initResponse = await request('/ai/query', {
         method: 'POST',
-        body: JSON.stringify({ message: userMessage.text, model })
+        body: JSON.stringify({ query: userMessage.text, modelPreference: model })
       });
+
+      const { jobId } = initResponse;
+      if (!jobId) throw new Error("Failed to initialize job");
+
+      // Poll for status
+      let isDone = false;
+      let finalResult = null;
+
+      while (!isDone) {
+        await new Promise(resolve => setTimeout(resolve, 3000));
+        
+        const statusResponse = await request(`/ai/status?jobId=${jobId}`);
+        if (statusResponse.status === "COMPLETED") {
+          isDone = true;
+          finalResult = statusResponse.result;
+        } else if (statusResponse.status === "FAILED") {
+          throw new Error(statusResponse.error || "AI query failed");
+        }
+      }
 
       const aiResponse: Message = {
         id: (Date.now() + 1).toString(),
         sender: 'ai',
-        text: response.text || 'I could not process your request.',
-        chartData: response.chartData,
+        text: finalResult?.text || 'I could not process your request.',
+        chartData: finalResult?.chartData,
       };
       
       setMessages(prev => [...prev, aiResponse]);

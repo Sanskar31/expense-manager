@@ -69,6 +69,10 @@
     {
       "type": "aws:cdk:analytics:method",
       "data": "*"
+    },
+    {
+      "type": "aws:cdk:analytics:method",
+      "data": "*"
     }
   ],
   "/BackendStack/RegisterLambda": [
@@ -89,6 +93,10 @@
         "code": "*",
         "handler": "*"
       }
+    },
+    {
+      "type": "aws:cdk:analytics:method",
+      "data": {}
     },
     {
       "type": "aws:cdk:analytics:method",
@@ -143,6 +151,10 @@
       "data": {}
     },
     {
+      "type": "aws:cdk:analytics:method",
+      "data": {}
+    },
+    {
       "type": "aws:cdk:analytics:construct",
       "data": {
         "entry": "*",
@@ -177,6 +189,10 @@
         "code": "*",
         "handler": "*"
       }
+    },
+    {
+      "type": "aws:cdk:analytics:method",
+      "data": {}
     },
     {
       "type": "aws:cdk:analytics:method",
@@ -231,6 +247,10 @@
       "data": {}
     },
     {
+      "type": "aws:cdk:analytics:method",
+      "data": {}
+    },
+    {
       "type": "aws:cdk:analytics:construct",
       "data": {
         "entry": "*",
@@ -265,6 +285,10 @@
         "code": "*",
         "handler": "*"
       }
+    },
+    {
+      "type": "aws:cdk:analytics:method",
+      "data": {}
     },
     {
       "type": "aws:cdk:analytics:method",
@@ -319,6 +343,10 @@
       "data": {}
     },
     {
+      "type": "aws:cdk:analytics:method",
+      "data": {}
+    },
+    {
       "type": "aws:cdk:analytics:construct",
       "data": {
         "entry": "*",
@@ -353,6 +381,10 @@
         "code": "*",
         "handler": "*"
       }
+    },
+    {
+      "type": "aws:cdk:analytics:method",
+      "data": {}
     },
     {
       "type": "aws:cdk:analytics:method",
@@ -407,6 +439,10 @@
       "data": {}
     },
     {
+      "type": "aws:cdk:analytics:method",
+      "data": {}
+    },
+    {
       "type": "aws:cdk:analytics:construct",
       "data": {
         "entry": "*",
@@ -451,6 +487,10 @@
       "data": {}
     },
     {
+      "type": "aws:cdk:analytics:method",
+      "data": {}
+    },
+    {
       "type": "aws:cdk:analytics:construct",
       "data": {
         "entry": "*",
@@ -485,6 +525,58 @@
         "code": "*",
         "handler": "*"
       }
+    },
+    {
+      "type": "aws:cdk:analytics:method",
+      "data": {}
+    },
+    {
+      "type": "aws:cdk:analytics:method",
+      "data": {}
+    },
+    {
+      "type": "aws:cdk:analytics:method",
+      "data": {}
+    },
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": {
+        "entry": "*",
+        "runtime": "*",
+        "projectRoot": "*",
+        "depsLockFilePath": "*",
+        "environment": "*",
+        "bundling": {
+          "minify": true,
+          "nodeModules": "*"
+        },
+        "timeout": "*",
+        "memorySize": "*"
+      }
+    }
+  ],
+  "/BackendStack/QueryAssistantLambda": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": {
+        "entry": "*",
+        "runtime": "*",
+        "projectRoot": "*",
+        "depsLockFilePath": "*",
+        "environment": "*",
+        "bundling": {
+          "minify": true,
+          "nodeModules": "*"
+        },
+        "timeout": "*",
+        "memorySize": "*",
+        "code": "*",
+        "handler": "*"
+      }
+    },
+    {
+      "type": "aws:cdk:analytics:method",
+      "data": {}
     },
     {
       "type": "aws:cdk:analytics:method",
@@ -543,6 +635,10 @@
       "data": {}
     },
     {
+      "type": "aws:cdk:analytics:method",
+      "data": {}
+    },
+    {
       "type": "aws:cdk:analytics:construct",
       "data": {
         "entry": "*",
@@ -567,7 +663,7 @@
     {
       "type": "aws:cdk:creationStack",
       "data": [
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:151:5)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:154:5)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals, ts-node, ts-node..."
       ]
@@ -684,7 +780,7 @@
     {
       "type": "aws:cdk:creationStack",
       "data": [
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:204:5)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:207:5)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals, ts-node, ts-node..."
       ]
@@ -714,7 +810,7 @@
     {
       "type": "aws:cdk:creationStack",
       "data": [
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:228:20)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:231:20)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals, ts-node, ts-node..."
       ]
@@ -792,7 +888,7 @@
     {
       "type": "aws:cdk:creationStack",
       "data": [
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:281:5)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:284:5)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals, ts-node, ts-node..."
       ]
@@ -1038,7 +1134,7 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new HttpApi2 in aws-cdk-lib...",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:74:21)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:75:21)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals, ts-node, ts-node..."
       ]
@@ -1110,6 +1206,12 @@
       "data": "*"
     }
   ],
+  "/BackendStack/ExpenseApi/POST--api--ai--query": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": "*"
+    }
+  ],
   "/BackendStack/RegisterLambda/ServiceRole": [
     {
       "type": "aws:cdk:analytics:construct",
@@ -1167,8 +1269,8 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new NodejsFunction in aws-cdk-lib...",
-        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:105:18)",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:123:5)",
+        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:106:18)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:124:5)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals, ts-node, ts-node..."
       ]
@@ -1239,8 +1341,8 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new NodejsFunction in aws-cdk-lib...",
-        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:105:18)",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:124:5)",
+        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:106:18)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:125:5)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals, ts-node, ts-node..."
       ]
@@ -1279,8 +1381,8 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new NodejsFunction in aws-cdk-lib...",
-        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:105:18)",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:125:5)",
+        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:106:18)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:126:5)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals, ts-node, ts-node..."
       ]
@@ -1351,8 +1453,8 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new NodejsFunction in aws-cdk-lib...",
-        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:105:18)",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:127:5)",
+        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:106:18)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:128:5)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals, ts-node, ts-node..."
       ]
@@ -1423,8 +1525,8 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new NodejsFunction in aws-cdk-lib...",
-        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:105:18)",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:128:5)",
+        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:106:18)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:129:5)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals, ts-node, ts-node..."
       ]
@@ -1495,8 +1597,8 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new NodejsFunction in aws-cdk-lib...",
-        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:105:18)",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:129:5)",
+        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:106:18)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:130:5)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals, ts-node, ts-node..."
       ]
@@ -1567,8 +1669,8 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new NodejsFunction in aws-cdk-lib...",
-        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:105:18)",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:131:5)",
+        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:106:18)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:132:5)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals, ts-node, ts-node..."
       ]
@@ -1639,8 +1741,8 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new NodejsFunction in aws-cdk-lib...",
-        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:105:18)",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:132:36)",
+        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:106:18)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:133:36)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals, ts-node, ts-node..."
       ]
@@ -1711,8 +1813,8 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new NodejsFunction in aws-cdk-lib...",
-        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:105:18)",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:133:5)",
+        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:106:18)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:134:5)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals, ts-node, ts-node..."
       ]
@@ -1783,14 +1885,86 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new NodejsFunction in aws-cdk-lib...",
-        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:105:18)",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:135:5)",
+        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:106:18)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:136:5)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals, ts-node, ts-node..."
       ]
     }
   ],
   "/BackendStack/AdminUsersLambda/LogGroup": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": {
+        "logGroupName": "*"
+      }
+    }
+  ],
+  "/BackendStack/QueryAssistantLambda/ServiceRole": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": {
+        "assumedBy": {
+          "principalAccount": "*",
+          "assumeRoleAction": "*"
+        },
+        "managedPolicies": [
+          {
+            "managedPolicyArn": "*"
+          }
+        ]
+      }
+    },
+    {
+      "type": "aws:cdk:analytics:method",
+      "data": {
+        "addToPrincipalPolicy": [
+          {}
+        ]
+      }
+    },
+    {
+      "type": "aws:cdk:analytics:method",
+      "data": {
+        "attachInlinePolicy": [
+          "*"
+        ]
+      }
+    },
+    {
+      "type": "aws:cdk:analytics:method",
+      "data": {
+        "attachInlinePolicy": [
+          "*"
+        ]
+      }
+    },
+    {
+      "type": "aws:cdk:analytics:method",
+      "data": {
+        "addToPrincipalPolicy": [
+          {}
+        ]
+      }
+    }
+  ],
+  "/BackendStack/QueryAssistantLambda/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "QueryAssistantLambda699CBC59"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new NodejsFunction in aws-cdk-lib...",
+        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:106:18)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:138:5)",
+        "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
+        "...node internals, ts-node, ts-node..."
+      ]
+    }
+  ],
+  "/BackendStack/QueryAssistantLambda/LogGroup": [
     {
       "type": "aws:cdk:analytics:construct",
       "data": {
@@ -1847,7 +2021,7 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new NodejsFunction in aws-cdk-lib...",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:137:30)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:140:30)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals, ts-node, ts-node..."
       ]
@@ -1870,7 +2044,7 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...WrappedClass.addSubscription in aws-cdk-lib...",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:220:21)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:223:21)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals, ts-node, ts-node..."
       ]
@@ -1899,7 +2073,7 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new Bucket2 in aws-cdk-lib...",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:156:27)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:159:27)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals, ts-node, ts-node..."
       ]
@@ -1960,7 +2134,7 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new Distribution2 in aws-cdk-lib...",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:167:26)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:170:26)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals, ts-node, ts-node..."
       ]
@@ -2086,7 +2260,7 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new BucketDeployment2 in aws-cdk-lib...",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:197:5)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:200:5)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)"
       ]
     }
@@ -2108,7 +2282,7 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new Topic2 in aws-cdk-lib...",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:211:24)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:214:24)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals, ts-node, ts-node..."
       ]
@@ -2136,7 +2310,7 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new Topic2 in aws-cdk-lib...",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:217:29)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:220:29)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals, ts-node, ts-node..."
       ]
@@ -2161,7 +2335,7 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new Role2 in aws-cdk-lib...",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:259:30)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:262:30)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals, ts-node, ts-node..."
       ]
@@ -2206,7 +2380,7 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new ManagedPolicy2 in aws-cdk-lib...",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:266:24)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:269:24)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals, ts-node, ts-node..."
       ]
@@ -2221,7 +2395,7 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new Alarm2 in aws-cdk-lib...",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:308:25)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:311:25)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals, ts-node, ts-node..."
       ]
@@ -2236,7 +2410,7 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new Alarm2 in aws-cdk-lib...",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:323:29)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:326:29)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals, ts-node, ts-node..."
       ]
@@ -2251,7 +2425,7 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new Alarm2 in aws-cdk-lib...",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:339:31)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:342:31)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals, ts-node, ts-node..."
       ]
@@ -2266,7 +2440,7 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new Alarm2 in aws-cdk-lib...",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:351:34)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:354:34)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals, ts-node, ts-node..."
       ]
@@ -2281,7 +2455,7 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new Alarm2 in aws-cdk-lib...",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:363:33)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:366:33)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals, ts-node, ts-node..."
       ]
@@ -2296,7 +2470,7 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new Alarm2 in aws-cdk-lib...",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:376:34)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:379:34)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals, ts-node, ts-node..."
       ]
@@ -2311,7 +2485,7 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new Alarm2 in aws-cdk-lib...",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:388:35)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:391:35)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals, ts-node, ts-node..."
       ]
@@ -2326,7 +2500,7 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new Alarm2 in aws-cdk-lib...",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:401:24)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:404:24)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals, ts-node, ts-node..."
       ]
@@ -2367,7 +2541,7 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new HttpApi2 in aws-cdk-lib...",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:74:21)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:75:21)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals, ts-node, ts-node..."
       ]
@@ -2390,7 +2564,7 @@
         ".../Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/node_modules/aws-cdk-lib/aws-apigatewayv2/lib/http/api.js:1:96 in aws-cdk-lib...",
         "Array.map (:)",
         "...WrappedClass.<anonymous> in aws-cdk-lib...",
-        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:114:15)"
+        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:115:15)"
       ]
     }
   ],
@@ -2405,8 +2579,8 @@
         ".../Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/node_modules/aws-cdk-lib/aws-apigatewayv2/lib/http/api.js:1:96 in aws-cdk-lib...",
         "Array.map (:)",
         "...WrappedClass.<anonymous> in aws-cdk-lib...",
-        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:114:15)",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:123:5)",
+        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:115:15)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:124:5)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals..."
       ]
@@ -2429,7 +2603,7 @@
         ".../Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/node_modules/aws-cdk-lib/aws-apigatewayv2/lib/http/api.js:1:96 in aws-cdk-lib...",
         "Array.map (:)",
         "...WrappedClass.<anonymous> in aws-cdk-lib...",
-        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:114:15)"
+        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:115:15)"
       ]
     }
   ],
@@ -2444,8 +2618,8 @@
         ".../Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/node_modules/aws-cdk-lib/aws-apigatewayv2/lib/http/api.js:1:96 in aws-cdk-lib...",
         "Array.map (:)",
         "...WrappedClass.<anonymous> in aws-cdk-lib...",
-        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:114:15)",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:124:5)",
+        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:115:15)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:125:5)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals..."
       ]
@@ -2468,7 +2642,7 @@
         ".../Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/node_modules/aws-cdk-lib/aws-apigatewayv2/lib/http/api.js:1:96 in aws-cdk-lib...",
         "Array.map (:)",
         "...WrappedClass.<anonymous> in aws-cdk-lib...",
-        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:114:15)"
+        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:115:15)"
       ]
     }
   ],
@@ -2483,8 +2657,8 @@
         ".../Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/node_modules/aws-cdk-lib/aws-apigatewayv2/lib/http/api.js:1:96 in aws-cdk-lib...",
         "Array.map (:)",
         "...WrappedClass.<anonymous> in aws-cdk-lib...",
-        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:114:15)",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:125:5)",
+        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:115:15)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:126:5)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals..."
       ]
@@ -2507,7 +2681,7 @@
         ".../Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/node_modules/aws-cdk-lib/aws-apigatewayv2/lib/http/api.js:1:96 in aws-cdk-lib...",
         "Array.map (:)",
         "...WrappedClass.<anonymous> in aws-cdk-lib...",
-        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:114:15)"
+        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:115:15)"
       ]
     }
   ],
@@ -2522,8 +2696,8 @@
         ".../Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/node_modules/aws-cdk-lib/aws-apigatewayv2/lib/http/api.js:1:96 in aws-cdk-lib...",
         "Array.map (:)",
         "...WrappedClass.<anonymous> in aws-cdk-lib...",
-        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:114:15)",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:127:5)",
+        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:115:15)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:128:5)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals..."
       ]
@@ -2546,7 +2720,7 @@
         ".../Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/node_modules/aws-cdk-lib/aws-apigatewayv2/lib/http/api.js:1:96 in aws-cdk-lib...",
         "Array.map (:)",
         "...WrappedClass.<anonymous> in aws-cdk-lib...",
-        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:114:15)"
+        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:115:15)"
       ]
     }
   ],
@@ -2561,8 +2735,8 @@
         ".../Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/node_modules/aws-cdk-lib/aws-apigatewayv2/lib/http/api.js:1:96 in aws-cdk-lib...",
         "Array.map (:)",
         "...WrappedClass.<anonymous> in aws-cdk-lib...",
-        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:114:15)",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:128:5)",
+        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:115:15)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:129:5)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals..."
       ]
@@ -2585,7 +2759,7 @@
         ".../Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/node_modules/aws-cdk-lib/aws-apigatewayv2/lib/http/api.js:1:96 in aws-cdk-lib...",
         "Array.map (:)",
         "...WrappedClass.<anonymous> in aws-cdk-lib...",
-        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:114:15)"
+        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:115:15)"
       ]
     }
   ],
@@ -2600,8 +2774,8 @@
         ".../Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/node_modules/aws-cdk-lib/aws-apigatewayv2/lib/http/api.js:1:96 in aws-cdk-lib...",
         "Array.map (:)",
         "...WrappedClass.<anonymous> in aws-cdk-lib...",
-        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:114:15)",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:129:5)",
+        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:115:15)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:130:5)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals..."
       ]
@@ -2624,7 +2798,7 @@
         ".../Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/node_modules/aws-cdk-lib/aws-apigatewayv2/lib/http/api.js:1:96 in aws-cdk-lib...",
         "Array.map (:)",
         "...WrappedClass.<anonymous> in aws-cdk-lib...",
-        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:114:15)"
+        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:115:15)"
       ]
     }
   ],
@@ -2639,8 +2813,8 @@
         ".../Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/node_modules/aws-cdk-lib/aws-apigatewayv2/lib/http/api.js:1:96 in aws-cdk-lib...",
         "Array.map (:)",
         "...WrappedClass.<anonymous> in aws-cdk-lib...",
-        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:114:15)",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:131:5)",
+        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:115:15)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:132:5)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals..."
       ]
@@ -2663,7 +2837,7 @@
         ".../Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/node_modules/aws-cdk-lib/aws-apigatewayv2/lib/http/api.js:1:96 in aws-cdk-lib...",
         "Array.map (:)",
         "...WrappedClass.<anonymous> in aws-cdk-lib...",
-        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:114:15)"
+        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:115:15)"
       ]
     }
   ],
@@ -2678,8 +2852,8 @@
         ".../Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/node_modules/aws-cdk-lib/aws-apigatewayv2/lib/http/api.js:1:96 in aws-cdk-lib...",
         "Array.map (:)",
         "...WrappedClass.<anonymous> in aws-cdk-lib...",
-        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:114:15)",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:132:36)",
+        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:115:15)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:133:36)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals..."
       ]
@@ -2702,7 +2876,7 @@
         ".../Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/node_modules/aws-cdk-lib/aws-apigatewayv2/lib/http/api.js:1:96 in aws-cdk-lib...",
         "Array.map (:)",
         "...WrappedClass.<anonymous> in aws-cdk-lib...",
-        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:114:15)"
+        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:115:15)"
       ]
     }
   ],
@@ -2717,8 +2891,8 @@
         ".../Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/node_modules/aws-cdk-lib/aws-apigatewayv2/lib/http/api.js:1:96 in aws-cdk-lib...",
         "Array.map (:)",
         "...WrappedClass.<anonymous> in aws-cdk-lib...",
-        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:114:15)",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:133:5)",
+        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:115:15)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:134:5)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals..."
       ]
@@ -2741,7 +2915,7 @@
         ".../Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/node_modules/aws-cdk-lib/aws-apigatewayv2/lib/http/api.js:1:96 in aws-cdk-lib...",
         "Array.map (:)",
         "...WrappedClass.<anonymous> in aws-cdk-lib...",
-        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:114:15)"
+        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:115:15)"
       ]
     }
   ],
@@ -2756,8 +2930,47 @@
         ".../Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/node_modules/aws-cdk-lib/aws-apigatewayv2/lib/http/api.js:1:96 in aws-cdk-lib...",
         "Array.map (:)",
         "...WrappedClass.<anonymous> in aws-cdk-lib...",
-        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:114:15)",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:135:5)",
+        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:115:15)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:136:5)",
+        "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
+        "...node internals..."
+      ]
+    }
+  ],
+  "/BackendStack/ExpenseApi/POST--api--ai--query/QueryAssistantLambdaIntegration": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": "*"
+    }
+  ],
+  "/BackendStack/ExpenseApi/POST--api--ai--query/QueryAssistantLambdaIntegration-Permission": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ExpenseApiPOSTapiaiqueryQueryAssistantLambdaIntegrationPermission40907EDD"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        ".../Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/node_modules/aws-cdk-lib/aws-apigatewayv2/lib/http/api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...WrappedClass.<anonymous> in aws-cdk-lib...",
+        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:115:15)"
+      ]
+    }
+  ],
+  "/BackendStack/ExpenseApi/POST--api--ai--query/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ExpenseApiPOSTapiaiqueryBCA085BE"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        ".../Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/node_modules/aws-cdk-lib/aws-apigatewayv2/lib/http/api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...WrappedClass.<anonymous> in aws-cdk-lib...",
+        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:115:15)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:138:5)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals..."
       ]
@@ -2772,8 +2985,8 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new NodejsFunction in aws-cdk-lib...",
-        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:105:18)",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:123:5)",
+        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:106:18)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:124:5)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals, ts-node..."
       ]
@@ -2832,8 +3045,8 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new NodejsFunction in aws-cdk-lib...",
-        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:105:18)",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:123:5)",
+        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:106:18)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:124:5)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals, ts-node..."
       ]
@@ -2848,8 +3061,8 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new NodejsFunction in aws-cdk-lib...",
-        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:105:18)",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:124:5)",
+        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:106:18)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:125:5)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals, ts-node..."
       ]
@@ -2908,8 +3121,8 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new NodejsFunction in aws-cdk-lib...",
-        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:105:18)",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:124:5)",
+        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:106:18)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:125:5)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals, ts-node..."
       ]
@@ -2924,8 +3137,8 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new NodejsFunction in aws-cdk-lib...",
-        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:105:18)",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:125:5)",
+        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:106:18)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:126:5)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals, ts-node..."
       ]
@@ -2946,8 +3159,8 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new NodejsFunction in aws-cdk-lib...",
-        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:105:18)",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:125:5)",
+        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:106:18)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:126:5)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals, ts-node..."
       ]
@@ -2962,8 +3175,8 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new NodejsFunction in aws-cdk-lib...",
-        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:105:18)",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:127:5)",
+        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:106:18)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:128:5)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals, ts-node..."
       ]
@@ -3022,8 +3235,8 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new NodejsFunction in aws-cdk-lib...",
-        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:105:18)",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:127:5)",
+        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:106:18)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:128:5)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals, ts-node..."
       ]
@@ -3038,8 +3251,8 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new NodejsFunction in aws-cdk-lib...",
-        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:105:18)",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:128:5)",
+        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:106:18)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:129:5)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals, ts-node..."
       ]
@@ -3098,8 +3311,8 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new NodejsFunction in aws-cdk-lib...",
-        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:105:18)",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:128:5)",
+        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:106:18)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:129:5)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals, ts-node..."
       ]
@@ -3114,8 +3327,8 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new NodejsFunction in aws-cdk-lib...",
-        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:105:18)",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:129:5)",
+        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:106:18)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:130:5)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals, ts-node..."
       ]
@@ -3174,8 +3387,8 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new NodejsFunction in aws-cdk-lib...",
-        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:105:18)",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:129:5)",
+        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:106:18)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:130:5)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals, ts-node..."
       ]
@@ -3190,8 +3403,8 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new NodejsFunction in aws-cdk-lib...",
-        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:105:18)",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:131:5)",
+        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:106:18)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:132:5)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals, ts-node..."
       ]
@@ -3250,8 +3463,8 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new NodejsFunction in aws-cdk-lib...",
-        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:105:18)",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:131:5)",
+        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:106:18)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:132:5)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals, ts-node..."
       ]
@@ -3266,8 +3479,8 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new NodejsFunction in aws-cdk-lib...",
-        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:105:18)",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:132:36)",
+        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:106:18)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:133:36)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals, ts-node..."
       ]
@@ -3326,8 +3539,8 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new NodejsFunction in aws-cdk-lib...",
-        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:105:18)",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:132:36)",
+        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:106:18)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:133:36)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals, ts-node..."
       ]
@@ -3342,8 +3555,8 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new NodejsFunction in aws-cdk-lib...",
-        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:105:18)",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:133:5)",
+        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:106:18)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:134:5)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals, ts-node..."
       ]
@@ -3402,8 +3615,8 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new NodejsFunction in aws-cdk-lib...",
-        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:105:18)",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:133:5)",
+        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:106:18)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:134:5)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals, ts-node..."
       ]
@@ -3418,8 +3631,8 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new NodejsFunction in aws-cdk-lib...",
-        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:105:18)",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:135:5)",
+        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:106:18)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:136:5)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals, ts-node..."
       ]
@@ -3478,8 +3691,84 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new NodejsFunction in aws-cdk-lib...",
-        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:105:18)",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:135:5)",
+        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:106:18)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:136:5)",
+        "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
+        "...node internals, ts-node..."
+      ]
+    }
+  ],
+  "/BackendStack/QueryAssistantLambda/ServiceRole/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "QueryAssistantLambdaServiceRoleD866C138"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new NodejsFunction in aws-cdk-lib...",
+        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:106:18)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:138:5)",
+        "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
+        "...node internals, ts-node..."
+      ]
+    }
+  ],
+  "/BackendStack/QueryAssistantLambda/ServiceRole/DefaultPolicy": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": "*"
+    },
+    {
+      "type": "aws:cdk:analytics:method",
+      "data": {
+        "attachToRole": [
+          "*"
+        ]
+      }
+    },
+    {
+      "type": "aws:cdk:analytics:method",
+      "data": {
+        "attachToRole": [
+          "*"
+        ]
+      }
+    },
+    {
+      "type": "aws:cdk:analytics:method",
+      "data": {
+        "addStatements": [
+          {}
+        ]
+      }
+    },
+    {
+      "type": "aws:cdk:analytics:method",
+      "data": {
+        "addStatements": [
+          {}
+        ]
+      }
+    }
+  ],
+  "/BackendStack/QueryAssistantLambda/Code/AssetBucket": [
+    {
+      "type": "aws:cdk:analytics:construct",
+      "data": "*"
+    }
+  ],
+  "/BackendStack/QueryAssistantLambda/LogGroup/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "QueryAssistantLambdaLogGroup00D0241C"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new NodejsFunction in aws-cdk-lib...",
+        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:106:18)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:138:5)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals, ts-node..."
       ]
@@ -3494,7 +3783,7 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new NodejsFunction in aws-cdk-lib...",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:137:30)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:140:30)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals, ts-node..."
       ]
@@ -3545,7 +3834,7 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new NodejsFunction in aws-cdk-lib...",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:137:30)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:140:30)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals, ts-node..."
       ]
@@ -3560,7 +3849,7 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...WrappedClass.addSubscription in aws-cdk-lib...",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:220:21)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:223:21)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals, ts-node, ts-node..."
       ]
@@ -3575,7 +3864,7 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new Bucket2 in aws-cdk-lib...",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:156:27)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:159:27)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals..."
       ]
@@ -3615,7 +3904,7 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new BucketDeployment2 in aws-cdk-lib...",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:197:5)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:200:5)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals, ts-node..."
       ]
@@ -3636,7 +3925,7 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new BucketDeployment2 in aws-cdk-lib...",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:197:5)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:200:5)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals, ts-node..."
       ]
@@ -3729,7 +4018,7 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...WrappedClass.addSubscription in aws-cdk-lib...",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:214:16)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:217:16)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals, ts-node, ts-node..."
       ]
@@ -3744,7 +4033,7 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...WrappedClass.addToResourcePolicy in aws-cdk-lib...",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:222:21)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:225:21)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals, ts-node, ts-node..."
       ]
@@ -3759,7 +4048,7 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...WrappedClass.<anonymous> in aws-cdk-lib...",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:276:22)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:279:22)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals..."
       ]
@@ -3776,7 +4065,7 @@
         ".../Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/node_modules/aws-cdk-lib/aws-apigatewayv2/lib/http/api.js:1:96 in aws-cdk-lib...",
         "Array.map (:)",
         "...WrappedClass.<anonymous> in aws-cdk-lib...",
-        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:114:15)"
+        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:115:15)"
       ]
     }
   ],
@@ -3791,7 +4080,7 @@
         ".../Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/node_modules/aws-cdk-lib/aws-apigatewayv2/lib/http/api.js:1:96 in aws-cdk-lib...",
         "Array.map (:)",
         "...WrappedClass.<anonymous> in aws-cdk-lib...",
-        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:114:15)"
+        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:115:15)"
       ]
     }
   ],
@@ -3806,7 +4095,7 @@
         ".../Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/node_modules/aws-cdk-lib/aws-apigatewayv2/lib/http/api.js:1:96 in aws-cdk-lib...",
         "Array.map (:)",
         "...WrappedClass.<anonymous> in aws-cdk-lib...",
-        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:114:15)"
+        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:115:15)"
       ]
     }
   ],
@@ -3821,7 +4110,7 @@
         ".../Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/node_modules/aws-cdk-lib/aws-apigatewayv2/lib/http/api.js:1:96 in aws-cdk-lib...",
         "Array.map (:)",
         "...WrappedClass.<anonymous> in aws-cdk-lib...",
-        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:114:15)"
+        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:115:15)"
       ]
     }
   ],
@@ -3836,7 +4125,7 @@
         ".../Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/node_modules/aws-cdk-lib/aws-apigatewayv2/lib/http/api.js:1:96 in aws-cdk-lib...",
         "Array.map (:)",
         "...WrappedClass.<anonymous> in aws-cdk-lib...",
-        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:114:15)"
+        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:115:15)"
       ]
     }
   ],
@@ -3851,7 +4140,7 @@
         ".../Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/node_modules/aws-cdk-lib/aws-apigatewayv2/lib/http/api.js:1:96 in aws-cdk-lib...",
         "Array.map (:)",
         "...WrappedClass.<anonymous> in aws-cdk-lib...",
-        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:114:15)"
+        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:115:15)"
       ]
     }
   ],
@@ -3866,7 +4155,7 @@
         ".../Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/node_modules/aws-cdk-lib/aws-apigatewayv2/lib/http/api.js:1:96 in aws-cdk-lib...",
         "Array.map (:)",
         "...WrappedClass.<anonymous> in aws-cdk-lib...",
-        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:114:15)"
+        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:115:15)"
       ]
     }
   ],
@@ -3881,7 +4170,7 @@
         ".../Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/node_modules/aws-cdk-lib/aws-apigatewayv2/lib/http/api.js:1:96 in aws-cdk-lib...",
         "Array.map (:)",
         "...WrappedClass.<anonymous> in aws-cdk-lib...",
-        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:114:15)"
+        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:115:15)"
       ]
     }
   ],
@@ -3896,7 +4185,7 @@
         ".../Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/node_modules/aws-cdk-lib/aws-apigatewayv2/lib/http/api.js:1:96 in aws-cdk-lib...",
         "Array.map (:)",
         "...WrappedClass.<anonymous> in aws-cdk-lib...",
-        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:114:15)"
+        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:115:15)"
       ]
     }
   ],
@@ -3911,7 +4200,22 @@
         ".../Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/node_modules/aws-cdk-lib/aws-apigatewayv2/lib/http/api.js:1:96 in aws-cdk-lib...",
         "Array.map (:)",
         "...WrappedClass.<anonymous> in aws-cdk-lib...",
-        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:114:15)"
+        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:115:15)"
+      ]
+    }
+  ],
+  "/BackendStack/ExpenseApi/POST--api--ai--query/QueryAssistantLambdaIntegration/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ExpenseApiPOSTapiaiqueryQueryAssistantLambdaIntegrationAC1C8640"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        ".../Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/node_modules/aws-cdk-lib/aws-apigatewayv2/lib/http/api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...WrappedClass.<anonymous> in aws-cdk-lib...",
+        "createApiRoute (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:115:15)"
       ]
     }
   ],
@@ -4032,6 +4336,19 @@
       ]
     }
   ],
+  "/BackendStack/QueryAssistantLambda/ServiceRole/DefaultPolicy/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "QueryAssistantLambdaServiceRoleDefaultPolicyB65081E4"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib...",
+        "(no user code in 10 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
   "/BackendStack/KillSwitchLambda/ServiceRole/DefaultPolicy/Resource": [
     {
       "type": "aws:cdk:logicalId",
@@ -4041,7 +4358,7 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...NodejsFunction.addToRolePolicy in aws-cdk-lib...",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:146:22)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:149:22)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals, ts-node..."
       ]
@@ -4056,7 +4373,7 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new Distribution2 in aws-cdk-lib...",
-        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:167:26)",
+        "new BackendStack (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/lib/backend-stack.ts:170:26)",
         "<anonymous> (/Users/sanskaragarwal/.gemini/antigravity/scratch/expense-manager/infra/bin/backend.ts:6:1)",
         "...node internals..."
       ]

@@ -904,6 +904,89 @@
     "aws:cdk:path": "BackendStack/ExpenseApi/GET--api--admin--users/Resource"
    }
   },
+  "ExpenseApiPOSTapiaiqueryQueryAssistantLambdaIntegrationAC1C8640": {
+   "Type": "AWS::ApiGatewayV2::Integration",
+   "Properties": {
+    "ApiId": {
+     "Ref": "ExpenseApi5959A4F7"
+    },
+    "IntegrationType": "AWS_PROXY",
+    "IntegrationUri": {
+     "Fn::GetAtt": [
+      "QueryAssistantLambda699CBC59",
+      "Arn"
+     ]
+    },
+    "PayloadFormatVersion": "2.0"
+   },
+   "Metadata": {
+    "aws:cdk:path": "BackendStack/ExpenseApi/POST--api--ai--query/QueryAssistantLambdaIntegration/Resource"
+   }
+  },
+  "ExpenseApiPOSTapiaiqueryQueryAssistantLambdaIntegrationPermission40907EDD": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "QueryAssistantLambda699CBC59",
+      "Arn"
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":execute-api:",
+       {
+        "Ref": "AWS::Region"
+       },
+       ":",
+       {
+        "Ref": "AWS::AccountId"
+       },
+       ":",
+       {
+        "Ref": "ExpenseApi5959A4F7"
+       },
+       "/*/*/api/ai/query"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "BackendStack/ExpenseApi/POST--api--ai--query/QueryAssistantLambdaIntegration-Permission"
+   }
+  },
+  "ExpenseApiPOSTapiaiqueryBCA085BE": {
+   "Type": "AWS::ApiGatewayV2::Route",
+   "Properties": {
+    "ApiId": {
+     "Ref": "ExpenseApi5959A4F7"
+    },
+    "AuthorizationType": "NONE",
+    "RouteKey": "POST /api/ai/query",
+    "Target": {
+     "Fn::Join": [
+      "",
+      [
+       "integrations/",
+       {
+        "Ref": "ExpenseApiPOSTapiaiqueryQueryAssistantLambdaIntegrationAC1C8640"
+       }
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "BackendStack/ExpenseApi/POST--api--ai--query/Resource"
+   }
+  },
   "RegisterLambdaServiceRole8E677BA9": {
    "Type": "AWS::IAM::Role",
    "Properties": {
@@ -987,14 +1070,15 @@
      "S3Bucket": {
       "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
      },
-     "S3Key": "e2a35d25b0772351264503075e25ed7f852372ebf48e54c748d39c25a55fc8ff.zip"
+     "S3Key": "5dbcb488631ee1900f91bb663faaac282d44b4dbb977685985a36bf2e34a0e9f.zip"
     },
     "Environment": {
      "Variables": {
       "TABLE_NAME": {
        "Ref": "ExpenseTable77644237"
       },
-      "JWT_SECRET": "development_secret"
+      "JWT_SECRET": "development_secret",
+      "GEMINI_API_KEY": ""
      }
     },
     "Handler": "index.handler",
@@ -1014,7 +1098,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "BackendStack/RegisterLambda/Resource",
-    "aws:asset:path": "asset.e2a35d25b0772351264503075e25ed7f852372ebf48e54c748d39c25a55fc8ff",
+    "aws:asset:path": "asset.5dbcb488631ee1900f91bb663faaac282d44b4dbb977685985a36bf2e34a0e9f",
     "aws:asset:is-bundled": true,
     "aws:asset:property": "Code"
    }
@@ -1124,14 +1208,15 @@
      "S3Bucket": {
       "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
      },
-     "S3Key": "b8fbcbcc38fb06b08e2c944f798b93febd7b4a2050affeeb86c68d8dd03d88b0.zip"
+     "S3Key": "c6487a9ec9604ca3d4317418f06235064838f0509ef7a034317f771cbdd4447e.zip"
     },
     "Environment": {
      "Variables": {
       "TABLE_NAME": {
        "Ref": "ExpenseTable77644237"
       },
-      "JWT_SECRET": "development_secret"
+      "JWT_SECRET": "development_secret",
+      "GEMINI_API_KEY": ""
      }
     },
     "Handler": "index.handler",
@@ -1151,7 +1236,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "BackendStack/LoginLambda/Resource",
-    "aws:asset:path": "asset.b8fbcbcc38fb06b08e2c944f798b93febd7b4a2050affeeb86c68d8dd03d88b0",
+    "aws:asset:path": "asset.c6487a9ec9604ca3d4317418f06235064838f0509ef7a034317f771cbdd4447e",
     "aws:asset:is-bundled": true,
     "aws:asset:property": "Code"
    }
@@ -1219,14 +1304,15 @@
      "S3Bucket": {
       "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
      },
-     "S3Key": "5dfa6e9d5433cca162e73ca9f3981401c54b5c90004de4b0c13e9d09b9638db3.zip"
+     "S3Key": "3202a0ca9743f1c6e23c21b87596bd72bc7280d9ce66524cb075d0bff77e7332.zip"
     },
     "Environment": {
      "Variables": {
       "TABLE_NAME": {
        "Ref": "ExpenseTable77644237"
       },
-      "JWT_SECRET": "development_secret"
+      "JWT_SECRET": "development_secret",
+      "GEMINI_API_KEY": ""
      }
     },
     "Handler": "index.handler",
@@ -1245,7 +1331,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "BackendStack/LogoutLambda/Resource",
-    "aws:asset:path": "asset.5dfa6e9d5433cca162e73ca9f3981401c54b5c90004de4b0c13e9d09b9638db3",
+    "aws:asset:path": "asset.3202a0ca9743f1c6e23c21b87596bd72bc7280d9ce66524cb075d0bff77e7332",
     "aws:asset:is-bundled": true,
     "aws:asset:property": "Code"
    }
@@ -1351,14 +1437,15 @@
      "S3Bucket": {
       "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
      },
-     "S3Key": "6d23b55a1e9943a712ae717f57ee05eed4b979bd07b91a02f74f985966852864.zip"
+     "S3Key": "2de8c2d85edae449c488ebe05e48641788aec1368c6c52f0eda87ef9cc399cf0.zip"
     },
     "Environment": {
      "Variables": {
       "TABLE_NAME": {
        "Ref": "ExpenseTable77644237"
       },
-      "JWT_SECRET": "development_secret"
+      "JWT_SECRET": "development_secret",
+      "GEMINI_API_KEY": ""
      }
     },
     "Handler": "index.handler",
@@ -1378,7 +1465,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "BackendStack/GetCategoriesLambda/Resource",
-    "aws:asset:path": "asset.6d23b55a1e9943a712ae717f57ee05eed4b979bd07b91a02f74f985966852864",
+    "aws:asset:path": "asset.2de8c2d85edae449c488ebe05e48641788aec1368c6c52f0eda87ef9cc399cf0",
     "aws:asset:is-bundled": true,
     "aws:asset:property": "Code"
    }
@@ -1488,14 +1575,15 @@
      "S3Bucket": {
       "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
      },
-     "S3Key": "2e75d5063cc78e277c6cbc5f7a43c8d6d5fdd05a960badebc8dd34d78add2b60.zip"
+     "S3Key": "497a5747de192494e8e14430672ed60b049611fbc965a8fc9db6b6cf49599014.zip"
     },
     "Environment": {
      "Variables": {
       "TABLE_NAME": {
        "Ref": "ExpenseTable77644237"
       },
-      "JWT_SECRET": "development_secret"
+      "JWT_SECRET": "development_secret",
+      "GEMINI_API_KEY": ""
      }
     },
     "Handler": "index.handler",
@@ -1515,7 +1603,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "BackendStack/UpdateCategoryLambda/Resource",
-    "aws:asset:path": "asset.2e75d5063cc78e277c6cbc5f7a43c8d6d5fdd05a960badebc8dd34d78add2b60",
+    "aws:asset:path": "asset.497a5747de192494e8e14430672ed60b049611fbc965a8fc9db6b6cf49599014",
     "aws:asset:is-bundled": true,
     "aws:asset:property": "Code"
    }
@@ -1625,14 +1713,15 @@
      "S3Bucket": {
       "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
      },
-     "S3Key": "b84008d77812ae118a7701083ece53294a202e89b7d75b4df15ec30d47af3769.zip"
+     "S3Key": "c66742360a27d7c7d4a039880fff482949d310c85cb8975ed8fc2eba2c156314.zip"
     },
     "Environment": {
      "Variables": {
       "TABLE_NAME": {
        "Ref": "ExpenseTable77644237"
       },
-      "JWT_SECRET": "development_secret"
+      "JWT_SECRET": "development_secret",
+      "GEMINI_API_KEY": ""
      }
     },
     "Handler": "index.handler",
@@ -1652,7 +1741,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "BackendStack/DeleteCategoryLambda/Resource",
-    "aws:asset:path": "asset.b84008d77812ae118a7701083ece53294a202e89b7d75b4df15ec30d47af3769",
+    "aws:asset:path": "asset.c66742360a27d7c7d4a039880fff482949d310c85cb8975ed8fc2eba2c156314",
     "aws:asset:is-bundled": true,
     "aws:asset:property": "Code"
    }
@@ -1762,14 +1851,15 @@
      "S3Bucket": {
       "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
      },
-     "S3Key": "7c54d8234cf28fe382c4632138e8680b106b511c98043ea1befcc050b121e78e.zip"
+     "S3Key": "cbd6acc3298e9b12fcec8f0811ef004b4778d004b0bd6dd1ae22ab2a63b7c7c8.zip"
     },
     "Environment": {
      "Variables": {
       "TABLE_NAME": {
        "Ref": "ExpenseTable77644237"
       },
-      "JWT_SECRET": "development_secret"
+      "JWT_SECRET": "development_secret",
+      "GEMINI_API_KEY": ""
      }
     },
     "Handler": "index.handler",
@@ -1789,7 +1879,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "BackendStack/CreateTransactionLambda/Resource",
-    "aws:asset:path": "asset.7c54d8234cf28fe382c4632138e8680b106b511c98043ea1befcc050b121e78e",
+    "aws:asset:path": "asset.cbd6acc3298e9b12fcec8f0811ef004b4778d004b0bd6dd1ae22ab2a63b7c7c8",
     "aws:asset:is-bundled": true,
     "aws:asset:property": "Code"
    }
@@ -1895,14 +1985,15 @@
      "S3Bucket": {
       "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
      },
-     "S3Key": "572a70b3bb18437e2313b66452ef2ebc387c05d3c3a1c59e69d714f651fa63f6.zip"
+     "S3Key": "f570327253091696289f95f6d194daaeb9a123cff6605a1cc1d6c69354e5add2.zip"
     },
     "Environment": {
      "Variables": {
       "TABLE_NAME": {
        "Ref": "ExpenseTable77644237"
       },
-      "JWT_SECRET": "development_secret"
+      "JWT_SECRET": "development_secret",
+      "GEMINI_API_KEY": ""
      }
     },
     "Handler": "index.handler",
@@ -1922,7 +2013,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "BackendStack/ListTransactionsLambda/Resource",
-    "aws:asset:path": "asset.572a70b3bb18437e2313b66452ef2ebc387c05d3c3a1c59e69d714f651fa63f6",
+    "aws:asset:path": "asset.f570327253091696289f95f6d194daaeb9a123cff6605a1cc1d6c69354e5add2",
     "aws:asset:is-bundled": true,
     "aws:asset:property": "Code"
    }
@@ -2032,14 +2123,15 @@
      "S3Bucket": {
       "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
      },
-     "S3Key": "6a972ce8a75b777bf9ad1b9e45a3df02e8dc2a84224ec51499dc672f753dfb7b.zip"
+     "S3Key": "f9b66e5e2eca32f05e0f0f9a5b11c5106fceb0cd108e05cd8eaa7fecd52e170d.zip"
     },
     "Environment": {
      "Variables": {
       "TABLE_NAME": {
        "Ref": "ExpenseTable77644237"
       },
-      "JWT_SECRET": "development_secret"
+      "JWT_SECRET": "development_secret",
+      "GEMINI_API_KEY": ""
      }
     },
     "Handler": "index.handler",
@@ -2059,7 +2151,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "BackendStack/DeleteTransactionLambda/Resource",
-    "aws:asset:path": "asset.6a972ce8a75b777bf9ad1b9e45a3df02e8dc2a84224ec51499dc672f753dfb7b",
+    "aws:asset:path": "asset.f9b66e5e2eca32f05e0f0f9a5b11c5106fceb0cd108e05cd8eaa7fecd52e170d",
     "aws:asset:is-bundled": true,
     "aws:asset:property": "Code"
    }
@@ -2165,14 +2257,15 @@
      "S3Bucket": {
       "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
      },
-     "S3Key": "c5c7f52a524a4dff84c5d396a64441768a0eb409d0e88762fdf1d6d454119a44.zip"
+     "S3Key": "68ffe8618660bd0cbf72ac86aebbdebd08709a1dde532e7a1f73c66d08fd83d9.zip"
     },
     "Environment": {
      "Variables": {
       "TABLE_NAME": {
        "Ref": "ExpenseTable77644237"
       },
-      "JWT_SECRET": "development_secret"
+      "JWT_SECRET": "development_secret",
+      "GEMINI_API_KEY": ""
      }
     },
     "Handler": "index.handler",
@@ -2192,7 +2285,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "BackendStack/AdminUsersLambda/Resource",
-    "aws:asset:path": "asset.c5c7f52a524a4dff84c5d396a64441768a0eb409d0e88762fdf1d6d454119a44",
+    "aws:asset:path": "asset.68ffe8618660bd0cbf72ac86aebbdebd08709a1dde532e7a1f73c66d08fd83d9",
     "aws:asset:is-bundled": true,
     "aws:asset:property": "Code"
    }
@@ -2217,6 +2310,140 @@
    "DeletionPolicy": "Retain",
    "Metadata": {
     "aws:cdk:path": "BackendStack/AdminUsersLambda/LogGroup/Resource"
+   }
+  },
+  "QueryAssistantLambdaServiceRoleD866C138": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "BackendStack/QueryAssistantLambda/ServiceRole/Resource"
+   }
+  },
+  "QueryAssistantLambdaServiceRoleDefaultPolicyB65081E4": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "dynamodb:BatchGetItem",
+        "dynamodb:ConditionCheckItem",
+        "dynamodb:DescribeTable",
+        "dynamodb:GetItem",
+        "dynamodb:GetRecords",
+        "dynamodb:GetShardIterator",
+        "dynamodb:Query",
+        "dynamodb:Scan"
+       ],
+       "Effect": "Allow",
+       "Resource": {
+        "Fn::GetAtt": [
+         "ExpenseTable77644237",
+         "Arn"
+        ]
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "QueryAssistantLambdaServiceRoleDefaultPolicyB65081E4",
+    "Roles": [
+     {
+      "Ref": "QueryAssistantLambdaServiceRoleD866C138"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "BackendStack/QueryAssistantLambda/ServiceRole/DefaultPolicy/Resource"
+   }
+  },
+  "QueryAssistantLambda699CBC59": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": {
+      "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
+     },
+     "S3Key": "5dbe54613634d09a5ec7e151a9a47349c1ac0c2e154c80315c4831ed5c9472eb.zip"
+    },
+    "Environment": {
+     "Variables": {
+      "TABLE_NAME": {
+       "Ref": "ExpenseTable77644237"
+      },
+      "JWT_SECRET": "development_secret",
+      "GEMINI_API_KEY": ""
+     }
+    },
+    "Handler": "index.handler",
+    "MemorySize": 1024,
+    "Role": {
+     "Fn::GetAtt": [
+      "QueryAssistantLambdaServiceRoleD866C138",
+      "Arn"
+     ]
+    },
+    "Runtime": "nodejs22.x",
+    "Timeout": 15
+   },
+   "DependsOn": [
+    "QueryAssistantLambdaServiceRoleDefaultPolicyB65081E4",
+    "QueryAssistantLambdaServiceRoleD866C138"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "BackendStack/QueryAssistantLambda/Resource",
+    "aws:asset:path": "asset.5dbe54613634d09a5ec7e151a9a47349c1ac0c2e154c80315c4831ed5c9472eb",
+    "aws:asset:is-bundled": true,
+    "aws:asset:property": "Code"
+   }
+  },
+  "QueryAssistantLambdaLogGroup00D0241C": {
+   "Type": "AWS::Logs::LogGroup",
+   "Properties": {
+    "LogGroupName": {
+     "Fn::Join": [
+      "",
+      [
+       "/aws/lambda/",
+       {
+        "Ref": "QueryAssistantLambda699CBC59"
+       }
+      ]
+     ]
+    },
+    "RetentionInDays": 731
+   },
+   "UpdateReplacePolicy": "Retain",
+   "DeletionPolicy": "Retain",
+   "Metadata": {
+    "aws:cdk:path": "BackendStack/QueryAssistantLambda/LogGroup/Resource"
    }
   },
   "KillSwitchLambdaServiceRole4AAC0D01": {
@@ -2284,7 +2511,7 @@
      "S3Bucket": {
       "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
      },
-     "S3Key": "d6f5af884bd217ac445a66a7357dc678cd8f5498d03ffea768525f9a8505e420.zip"
+     "S3Key": "86f2b8cb4f7411bc07aa21d4a7eb921c626d603a7da1372660740eacc5f253b6.zip"
     },
     "Environment": {
      "Variables": {
@@ -2292,6 +2519,7 @@
        "Ref": "ExpenseTable77644237"
       },
       "JWT_SECRET": "development_secret",
+      "GEMINI_API_KEY": "",
       "FUNCTION_NAMES": {
        "Fn::Join": [
         "",
@@ -2334,6 +2562,10 @@
          ",",
          {
           "Ref": "AdminUsersLambda591F2BE7"
+         },
+         ",",
+         {
+          "Ref": "QueryAssistantLambda699CBC59"
          }
         ]
        ]
@@ -2357,7 +2589,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "BackendStack/KillSwitchLambda/Resource",
-    "aws:asset:path": "asset.d6f5af884bd217ac445a66a7357dc678cd8f5498d03ffea768525f9a8505e420",
+    "aws:asset:path": "asset.86f2b8cb4f7411bc07aa21d4a7eb921c626d603a7da1372660740eacc5f253b6",
     "aws:asset:is-bundled": true,
     "aws:asset:property": "Code"
    }
@@ -2777,7 +3009,7 @@
      }
     ],
     "SourceObjectKeys": [
-     "e62c47ec3c6a3860e6703b0dbb89b672082df51d766e84f2e9e040fe47ec9229.zip"
+     "c72561c3cc6dbf0de84c70af46cbb85feccbb42a3eaad4d217c6cdff592f8581.zip"
     ],
     "DestinationBucketName": {
      "Ref": "PocketLogWebsiteBucket305BB495"
@@ -3225,6 +3457,9 @@
        },
        {
         "Ref": "AdminUsersLambdaServiceRole4F30EB6D"
+       },
+       {
+        "Ref": "QueryAssistantLambdaServiceRoleD866C138"
        }
       ]
      }
@@ -3486,7 +3721,7 @@
   "CDKMetadata": {
    "Type": "AWS::CDK::Metadata",
    "Properties": {
-    "Analytics": "v2:deflate64:H4sIAAAAAAAA/+1abW/bNhD+LdXHQtHadBiGfHNeuhZLWtfOOgyGEdDkWWZC8TS+2NME/feBpCjLeWv6BiSdgASW7o7Hu4f0iT49+9n+Ly+zF8/IRu9RdrUn+CKrp4bQq5Rs9EXNKkkKZIusPicLAbM6KYky3HCUv0OVHNSJJAUkB8nzJE1MVbrLadKkiUZl7rdYcCG4zM+QOdF49NfF+GRyMTn58MfJ9DxJEwUFrokYo+C0Sg4SBtoorJJmnh4tpQ+nSUnJc2JgQ6r1fla/MaYclXzm53rYv3c2Knnqxk4NyWEWpf7OyydoDTzU69wPeSsN5Io4oB4+8Ggpe+PcrZ+5SQUpFoxk9dFSjkEVXOtW/9pKGm1PSQXqIyivm3KZCzDYWczqxFrO2oUQzlYnByHZBOSaK5QFSNMZuBnHVpWou9XjBaCNFgpFVBRQoKqm/N8ogHIFBSgipgYVyaGnWpd0ezW1CwlGtwIN1Cpuqt8U2jIKl1yArrSBIkaGuTdob2nYP+5yRSQToGJ8VrqA/V2T1glh7AwMYcSQkHdqlIX57SoHSzNPe+B9ErEnj85JP6UtCkF52k+/mccteSGRwaXO3vmPHlwgjapumStNSoWXQM0EMWLFoNSnSK9ecwFjYlYRphsQL6xkrma4qlJwyZdVcuAWMU1cGGfIrADdpnRtPW4swh3INGkd/h57Bk8gxAHkAeQB5MeRwRMIcQB5AHkA+XFk8ARCHEAeQB5AfhwZPIEQPw3yE0iimaecFFk9Qd+LI1rbAtihb7OVikvKSyJGlKLtJg82bsDI/zaP8xREkhyYb69xN/2s3pFVI9XaxhbAOY7jFLEpN6tbrTGErt5KwSV0uq57cK/yfr9Dgt8uwQHLIcEhwSHBIcEhwR87wR8ghfv9Pq4V/LzovgyTeXgbKiANcv9+Kg44x4l/3XbNz00xY1NDDLizud4J+KZ48D/4H/x/A//fO9DvPK0vPKHmpGf9SjirE90z3r5Hv93Fztgm1a8uaqI1GJ2N3EfKoBRYuWHZoaVXYI47gbPO6iA9JBo+h9+ySzAJPmZ1shBIr8Z2ITgdUQo68gnuIt2kCbEGj0GAgfcL1wjRoYcRkuv8Fvwf7h4QfT6RIxLpV5lX6Ta50Q1vTYyuQ3fhb2Pfo5ul0z90rjCgtyqevoC5zurTli3h+B3t5TvSY0X8H4Qe2ghEk2qps3pqF5oqXrZkDoMlj7wUkKxE3h0kSoUGKYrkoKUMBVKKAdXtoefXRH9yszoDrUkOh8i6bhvk8RziWmuEnYIxoD5YsNvoHxYIFISLL43j1qkDH6wHSnruIonQ7CB8TRLYak4WxnTb19vpnfNNz6BJqUDLlgqlyepjro3iC9uuB4MlscIcwoqsOSp3zkPFcx7hW3PYgBq3iHQAKGBcATV7BvdWxpTanfhaX66vGb6KEV6lUE1Alyh1exBcBYqcsdtqEdRv7lKMSb5tjTpwvtZFLNPb1MNB0IuFwA04JtcKmb4fCp/+HkrhShsldAU72ySgOYG/LWjT0/hiPn313qtD4TxCaRSKjjV4i86J+yvYpAvLclf6a1/V3HXaXelwIm83wIYYusrqkSCqcDUPjHLfgDrZECW5zGOe8fbjftdIXinQKxSR8gdrIqwnFo5B8S1CFIuSKK5Rvi9BEYORIkbcnMfQ7fn+M87HE386xOfwENwQ3BDcENzXBhc42U7cNOkENFpFIRRYf1Z2xGwuc19trSmtSY+sNlj0TTtCdRResxkrXHMGyp2nI5fVU3wvyEZTwbPRRh8J7mmvATH3ri671D+t93/OXv6avXh2qTnfa18SZpPw+R/iEXMFUC8AAA=="
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/+1bbW/bNhD+LdXHQtHadBiGfHNeuhZLWtfOOgyGEdDkWWZC8TS+2NUE/feBpCjLSZo17QrEm4AElu6Ox7uH8ok6PT7MDn96mb14Rjb6gLKbA8EXWT01hN6kZKOvalZJUiBbZPUlWQiY1UlJlOGGo/wVquSoTiQpIDlKnidpYqrSHU6TJk00KvOwxYILwWV+gcyJxqM/rsZnk6vJ2YffzqaXSZooKHBNxBgFp1VylDDQRmGVNPP0ZCl9OE1KSp4TAxtSrQ+z+o0x5ajkMz/Xl/97h6OSp2781JAcZlHqz7x8gtbAYzzP/bC30kCuiAPscYNPlrI31p36CJpUkGLBSFafLOUYVMG1bvWvraTR9pxUoD6C8ropl7kAg53FrE6s5axdFOFsdXIUkk5ArrlCWYA0nYGbcWxVibpbSV4A2mihUERFAQWqasr/igIoV1CAImJqUJEceqp1SbdHU7uQYHQr0ECt4qb6RaEto3DJBehKGyhiZJh7g/aUhmvJHa6IZAJUjM9KF7A/a9I6IYxdgCGMGBLyTo2yML9f5WBp5mkPvH9EbO/ROeuntEUhKM/76TfzeEleSWRwrbN3/qMHF0ijqnvmSpNS4TVQM0GMWDEo9TnSm9dcwJiYVYTpDsQLK5mrH67CFFzyZZUcuUVMExfGBTIrQLcp3VqPO4vwGWSatO7+nnoSexDigPOA84DzE0tiD0IccB5wHnB+YknsQYgDzgPOA85PLIk9CHHA+QnhvAd5NPOUkyKrJ+gbpERrWwA79r3PUnFJeUnEiFK03eTBxg0Y+SZJnKcgkuTAfM+Tu+ln9Y6sGqnWNvZiLnEcp4id0lndao0hdPVWCi6h03VtnAeVD/sdEvz3EhywHBIcEhwSHBIcEhwS3OsE/wMpPOz3aa3g46L7Okzm4b27gDTI/ZvQOOASJ/7F7i0/d8WMTQ0x4B4+9E7Ad8WD/8H/4H8P/H/vQL/ztL6whZqWXvQr7axOdM94ywi538XO2CbVr65qojUYnY3cR8qgFFi5YdmxpTdgTjuBs87qID0mGh7L2tqlSwU/szpZCKQ3Y7sQnI4oBR3ZMZ+jk6UJsQZPQYCB9wvXTdKhERQS7PwW/BN3N6E+U85R5PSrzKt0m+DojrcmRtchvPCnsXnUzdLpv3SuMKC3Mp6Mg7nO6vOW++PYSu3hO9Lj+PxvhR7viE6TaqmzemoXmipetnwlgyWP1CuQrETe7WBKhQYpiuSoZcUF3pUB1V1Yz2+JfudmdQFakxyOkXV9TMjjBsg1LQk7B2NAfbBgt9F/WSBQEC6+No57pw7Uxx4o6aWLJEKzg/AtSSBnOlkY013T3k7vbKx6Bk1KBVq2VChNVp9ybRRf2HY9GCyJFeYYVmTNUbkNJiqe8wjfmsMG1LhFpANAAeMKqDkweLAyptRuq9n6ch3j8P2M8CqFagK6RKnbHegqsEGN3ZaQoH7zOcWY5NumswPnW13E+r1NPexAvVgI3IAjK66Q6Yeh8OkfoBSu3lFCV7BzmQQ0J/CnBW16Gl/lp6/ee3WopicojULREWTv0TlxfwWbdGFZ7u4JtS917jjtjnR4FGgvgA0xdJXVI0FU4QohGOW+AXWyIUpymcc84+nHw65Fv1KgVygiqxXWRFjPnR2D4luEKBYlUVyjfF+CIgYjC5K4OU+hu+b7Nz8fT3xmiTfoIbghuCG4IbhvDS78/MCJmyadgEarKIQC6zfR7jcIXOa+2lpTWpOeWG2w6Jt2vxmIwls2Y4VrzkC5jXaka3sW+xXZaCp4NtroE8E9szsg5t6CZtf6h/Xhj9nLn7MXz6415wft69dsEj7/BqmVYHY/MgAA"
    },
    "Metadata": {
     "aws:cdk:path": "BackendStack/CDKMetadata/Default"

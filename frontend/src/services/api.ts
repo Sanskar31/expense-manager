@@ -1,6 +1,6 @@
 import toast from "react-hot-toast";
 
-export const request = async (endpoint: string, options: RequestInit = {}) => {
+export const request = async (endpoint: string, options: any = {}) => {
 
 
   const headers = {
@@ -9,7 +9,7 @@ export const request = async (endpoint: string, options: RequestInit = {}) => {
   };
 
   const controller = new AbortController();
-  const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 second timeout
+  const timeoutId = setTimeout(() => controller.abort(), options.timeout || 30000); // 30 second default timeout for AI
 
   let response;
   try {
@@ -37,7 +37,8 @@ export const request = async (endpoint: string, options: RequestInit = {}) => {
     }
     if (response.status === 401) {
       if (window.location.pathname !== '/login') {
-        window.location.href = '/login';
+        localStorage.removeItem("user");
+        window.location.href = '/login?expired=true';
         throw new Error("Session expired");
       } else {
         const err = await response.json().catch(() => ({}));

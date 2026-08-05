@@ -62,6 +62,7 @@ export class BackendStack extends cdk.Stack {
       environment: {
         TABLE_NAME: table.tableName,
         JWT_SECRET: CONFIG.jwtSecret,
+        GEMINI_API_KEY: process.env.GEMINI_API_KEY || '',
       },
       bundling: {
         minify: true,
@@ -133,6 +134,8 @@ export class BackendStack extends cdk.Stack {
     createApiRoute('DeleteTransactionLambda', 'transactions/delete.ts', '/api/transactions', apigwv2.HttpMethod.DELETE, 'write');
 
     createApiRoute('AdminUsersLambda', 'admin/users.ts', '/api/admin/users', apigwv2.HttpMethod.GET, 'read');
+
+    createApiRoute('QueryAssistantLambda', 'ai/query.ts', '/api/ai/query', apigwv2.HttpMethod.POST, 'read');
 
     const killSwitchLambda = new nodejs.NodejsFunction(this, 'KillSwitchLambda', {
       entry: path.join(__dirname, '../../backend/src/shared/kill-switch.ts'),

@@ -2391,7 +2391,7 @@
      "S3Bucket": {
       "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
      },
-     "S3Key": "5dbe54613634d09a5ec7e151a9a47349c1ac0c2e154c80315c4831ed5c9472eb.zip"
+     "S3Key": "17750eb6689bfcce08ebc0521291fff2f4c23835277881d9a0aa55cd07e77669.zip"
     },
     "Environment": {
      "Variables": {
@@ -2419,7 +2419,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "BackendStack/QueryAssistantLambda/Resource",
-    "aws:asset:path": "asset.5dbe54613634d09a5ec7e151a9a47349c1ac0c2e154c80315c4831ed5c9472eb",
+    "aws:asset:path": "asset.17750eb6689bfcce08ebc0521291fff2f4c23835277881d9a0aa55cd07e77669",
     "aws:asset:is-bundled": true,
     "aws:asset:property": "Code"
    }
@@ -3009,7 +3009,7 @@
      }
     ],
     "SourceObjectKeys": [
-     "c72561c3cc6dbf0de84c70af46cbb85feccbb42a3eaad4d217c6cdff592f8581.zip"
+     "d79b2dba110c3e2328878d4395fa12386bedce6c41946f37627778f89cc0cbd8.zip"
     ],
     "DestinationBucketName": {
      "Ref": "PocketLogWebsiteBucket305BB495"

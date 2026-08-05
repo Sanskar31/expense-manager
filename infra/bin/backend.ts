@@ -1,4 +1,10 @@
 #!/usr/bin/env node
+import * as dotenv from 'dotenv';
+import * as path from 'path';
+
+// Load .env from backend directory
+dotenv.config({ path: path.join(__dirname, '../../backend/.env') });
+
 import * as cdk from 'aws-cdk-lib/core';
 import { BackendStack } from '../lib/backend-stack';
 

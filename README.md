@@ -62,7 +62,7 @@ To circumvent the strict 29-second API Gateway timeout while retaining the secur
 1. **Initialization (`/api/ai/query`)**: The frontend sends a POST request. The API Gateway triggers a fast Lambda that validates the user's secure cookie, generates a UUID `jobId`, writes a `PENDING` state to DynamoDB (with a 1-hour TTL), pushes the job to an SQS Queue, and instantly returns `202 Accepted` to the client.
 2. **Background Processing**: An SQS Event triggers the `QueryWorkerLambda` in the background. It securely fetches the user's financial context from DynamoDB, calls the Gemini API (which can take minutes), and updates the DynamoDB job record to `COMPLETED` with the markdown response.
 3. **Polling (`/api/ai/status`)**: The frontend silently pings the status endpoint every 3 seconds until it receives the `COMPLETED` response, at which point it renders the final markdown in the UI.
-4. **Persistent History (`/api/ai/history`)**: After every successful interaction, the chat history is saved securely to a single `AI_HISTORY` row in DynamoDB for that user, ensuring chats persist across sessions. Users can clear their history permanently via a `DELETE` request.
+4. **Persistent History (`/api/ai/history`)**: After every successful interaction, the chat history is saved securely to a single `AI_HISTORY` row in DynamoDB for that user, ensuring chats persist across sessions. Users can clear their history permanently via a `DELETE` request, which uses a native React modal to prevent accidental deletion and keep the UI clean.
 
 ## 🌐 2. Edge & Routing Infrastructure (CloudFront)
 

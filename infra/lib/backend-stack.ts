@@ -68,7 +68,7 @@ export class BackendStack extends cdk.Stack {
         minify: true,
         nodeModules: ['bcryptjs'],
       },
-      timeout: cdk.Duration.seconds(29),
+      timeout: cdk.Duration.minutes(5),
       memorySize: 1024,
     };
 

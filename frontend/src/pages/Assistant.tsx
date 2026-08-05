@@ -261,7 +261,7 @@ export default function Assistant() {
                 }
               }}
               rows={1}
-              placeholder="Ask anything about your finances..."
+              placeholder="Ask anything..."
               className="w-full bg-white/80 dark:bg-zinc-900/80 backdrop-blur-xl border border-zinc-200/60 dark:border-zinc-700/60 rounded-[28px] pl-[115px] pr-16 py-4 text-zinc-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500/30 shadow-[0_8px_30px_rgb(0,0,0,0.08)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.4)] transition-all placeholder:text-zinc-400 font-medium resize-none max-h-32 overflow-y-auto scrollbar-hide"
               style={{ minHeight: '56px' }}
             />

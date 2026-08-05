@@ -31,7 +31,7 @@ export default function GlobalFAB() {
     <>
       <button
         onClick={() => setIsAssistantOpen(true)}
-        className="fixed bottom-[5.5rem] right-6 sm:bottom-[6.5rem] sm:right-8 w-14 h-14 bg-blue-600 hover:bg-blue-700 text-white rounded-full flex items-center justify-center shadow-2xl shadow-blue-600/50 ring-4 ring-blue-500/20 hover:shadow-[0_20px_40px_-10px_rgba(37,99,235,0.7)] hover:scale-110 active:scale-95 transition-all z-40 group"
+        className="fixed bottom-[6.5rem] right-6 sm:bottom-[7.5rem] sm:right-8 w-14 h-14 bg-blue-600 hover:bg-blue-700 text-white rounded-full flex items-center justify-center shadow-2xl shadow-blue-600/50 ring-4 ring-blue-500/20 hover:shadow-[0_20px_40px_-10px_rgba(37,99,235,0.7)] hover:scale-110 active:scale-95 transition-all z-40 group"
         aria-label="Ask AI Assistant"
       >
         <Sparkles size={26} className="text-white" />
@@ -61,7 +61,7 @@ export default function GlobalFAB() {
             if (e.target === e.currentTarget) setIsAssistantOpen(false);
           }}
         >
-          <div className="relative w-full max-w-6xl h-[90vh] bg-white dark:bg-zinc-900 rounded-3xl shadow-2xl flex flex-col overflow-hidden border border-zinc-200 dark:border-zinc-800">
+          <div className="relative w-full max-w-6xl h-[100dvh] sm:h-[90vh] bg-white dark:bg-zinc-900 rounded-none sm:rounded-3xl shadow-2xl flex flex-col overflow-hidden border-0 sm:border border-zinc-200 dark:border-zinc-800">
             {/* Custom Close Button absolute positioned over Assistant header */}
             <button 
               onClick={() => setIsAssistantOpen(false)}

@@ -27,6 +27,7 @@ export default function Assistant() {
   ]);
   const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -49,6 +50,9 @@ export default function Assistant() {
     setMessages(prev => [...prev, userMessage]);
     setInput('');
     setIsTyping(true);
+    if (textareaRef.current) {
+      textareaRef.current.style.height = 'auto';
+    }
 
     try {
       const response = await request('/ai/query', {
@@ -248,6 +252,7 @@ export default function Assistant() {
             </div>
 
             <textarea
+              ref={textareaRef}
               value={input}
               onChange={(e) => {
                 setInput(e.target.value);

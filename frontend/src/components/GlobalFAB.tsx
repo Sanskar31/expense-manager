@@ -56,12 +56,12 @@ export default function GlobalFAB() {
       {/* Near-Fullscreen Assistant Modal */}
       {isAssistantOpen && (
         <div 
-          className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 bg-zinc-900/60 backdrop-blur-sm animate-fade-in"
+          className="fixed inset-0 z-[100] flex items-end sm:items-center justify-center p-0 sm:p-6 bg-zinc-900/60 backdrop-blur-sm animate-fade-in"
           onClick={(e) => {
             if (e.target === e.currentTarget) setIsAssistantOpen(false);
           }}
         >
-          <div className="relative w-full max-w-6xl h-[100dvh] sm:h-[90vh] bg-white dark:bg-zinc-900 rounded-none sm:rounded-3xl shadow-2xl flex flex-col overflow-hidden border-0 sm:border border-zinc-200 dark:border-zinc-800">
+          <div className="relative w-full sm:max-w-6xl h-[92vh] sm:h-[90vh] mt-auto sm:mt-0 bg-white dark:bg-zinc-900 rounded-t-3xl sm:rounded-3xl shadow-2xl flex flex-col overflow-hidden border-t sm:border border-zinc-200 dark:border-zinc-800">
             {/* Custom Close Button absolute positioned over Assistant header */}
             <button 
               onClick={() => setIsAssistantOpen(false)}
